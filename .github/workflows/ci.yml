@@ -1,8 +1,8 @@
 name: Build CI
 
-on:
-  push:
-    branches: [ master ]
+#on:
+#  push:
+#    branches: [ master ]
 
 env:
   WARN_ON_PR: "artifact upload is disabled due to the workflow is trigged by pull request."
@@ -56,7 +56,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.PAT }}
         with:
           tag_name: ${{steps.apk.outputs.versionCode}}
-          release_name: ${{steps.apk.outputs.versionName}}
+          release_name: ${{steps.apk.outputs.versionNum}}
           draft: false
           prerelease: false
       - name: Upload Release Asset
@@ -67,5 +67,5 @@ jobs:
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
           asset_path: ${{steps.sign_app.outputs.signedReleaseFile}}
-          asset_name: fuckcoolapk_${{steps.apk.outputs.versionName}}_${{steps.apk.outputs.versionCode}}.apk
+          asset_name: fuckcoolapk_${{steps.apk.outputs.versionNum}}_${{steps.apk.outputs.versionCode}}.apk
           asset_content_type: application/zip
