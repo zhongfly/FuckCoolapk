@@ -39,10 +39,12 @@ class RemoveFeedAds {
                         val json = JSONObject(result)
                         val dataArray = json.getJSONArray("data")
                         val adObject = dataArray.getJSONObject(0)
+                        //去除信息流广告
                         if (adObject.getString("entityId")=="8639"){
                             dataArray.remove(0)
                             json.put("data",dataArray)
                         }
+                        //屏蔽自营信息流广告
                         for(i in 0 until dataArray.length()){
                             val extraData = dataArray.getJSONObject(i).optJSONObject("extraDataArr")
                             extraData?.let {
