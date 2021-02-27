@@ -38,7 +38,7 @@ class InitHook : IXposedHookLoadPackage {
                             CoolapkContext.classLoader = CoolapkContext.context.classLoader
                             init(lpparam, it)
                         }
-            }catch (e:Throwable){
+            } catch (e: Throwable) {
                 try {
                     XposedHelpers.findAndHookMethod(Application::class.java, "attach", Context::class.java, object : XC_MethodHook() {
                         override fun afterHookedMethod(param: MethodHookParam) {
@@ -95,6 +95,8 @@ class InitHook : IXposedHookLoadPackage {
             XposedShelling.runShelling(lpparam)
             //去除开屏广告
             RemoveStartupAds().init()
+            //去除信息流广告
+            RemoveFeedAds().init()
             //关闭友盟
             DisableUmeng().init()
             //关闭 bugly
