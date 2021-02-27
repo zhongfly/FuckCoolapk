@@ -32,7 +32,7 @@ class RemoveFeedAds {
                     }
             XposedHelpers.findClass("com.coolapk.market.remote.EntityListResponseBodyConverter", CoolapkContext.classLoader)
                     .hookBeforeMethod("convert", "okhttp3.ResponseBody") {
-                        var responseBody = it.args[0]
+                        var responseBody: Any = it.args[0]
                         val cMediaType = XposedHelpers.findClass("okhttp3.MediaType", responseBody.javaClass.classLoader)
                         val cResponseBody = XposedHelpers.findClass("okhttp3.ResponseBody", responseBody.javaClass.classLoader)
                         var result = XposedHelpers.callMethod(responseBody, "string") as String
@@ -43,6 +43,15 @@ class RemoveFeedAds {
                             dataArr.remove(0)
                             json.put("data", dataArr)
                         }
+                        for (i in 0 until dataArr.length()) {
+                            val adJson = dataArr.getJSONObject(i)
+                            val extraDataArr = adJson.optJSONObject("extraDataArr")
+                            if (extraDataArr != null) {
+                                val cardPageName = extraDataArr.optString("cardPageName")
+                                if ("V8_APP_HEADLINE_AD" == cardPageName) dataArr.remove(i)
+                            }
+                        }
+                        json.put("data", dataArr)
                         result = json.toString()
                         val mediaType = XposedHelpers.callStaticMethod(cMediaType, "parse", "application/json")
                         responseBody = XposedHelpers.callStaticMethod(cResponseBody, "create", mediaType, result)
