@@ -87,7 +87,7 @@ public class HookSettings {
                                     showSettingsDialog();
                                 } else {
                                     boolean useFastgit = true;
-                                    new GetUtil().sendGet(useFastgit ? "https://hub.fastgit.org/FuckCoolapk/FuckCoolapk/raw/master/EULA.md" : "https://cdn.jsdelivr.net/gh/FuckCoolapk/FuckCoolapk/EULA.md", result -> InitHookKt.showEulaDialog(CoolapkContext.activity, result));
+                                    new GetUtil().sendGet(useFastgit ? "https://hub.fastgit.org/ejiaogl/FuckCoolapk/raw/master/EULA.md" : "https://cdn.jsdelivr.net/gh/FuckCoolapk/FuckCoolapk/EULA.md", result -> InitHookKt.showEulaDialog(CoolapkContext.activity, result));
                                 }
                                 isOpen = true;
                             }
@@ -169,7 +169,7 @@ public class HookSettings {
         refreshImageView(imageView);
         linearLayout.addView(imageView);
         normalDialog.setView(scrollView);
-        normalDialog.setPositiveButton("刷新预览",null);
+        normalDialog.setPositiveButton("刷新预览", null);
         AlertDialog alertDialog = normalDialog.show();
         alertDialog.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(Color.parseColor(CoolapkContextKt.getColorFixWithHashtag(CoolapkContextKt::getColorAccent)));
         alertDialog.getButton(DialogInterface.BUTTON_POSITIVE).setOnClickListener(v -> refreshImageView(imageView));
@@ -181,11 +181,11 @@ public class HookSettings {
                 .into(new SimpleTarget<Drawable>() {
                     @Override
                     public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
-                        try{
+                        try {
                             imageView.setImageDrawable(resource);
                             ModifyPictureWatermarkKt.doWaterMark(imageView).setToImageView(imageView);
-                        }catch (Throwable e){
-                            LogUtil.INSTANCE.toast("生成水印时出现错误",true);
+                        } catch (Throwable e) {
+                            LogUtil.INSTANCE.toast("生成水印时出现错误", true);
                             LogUtil.e(e);
                         }
                     }
