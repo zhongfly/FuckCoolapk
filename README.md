@@ -41,6 +41,10 @@
 [AppCenter](https://github.com/microsoft/appcenter-sdk-android)
 [AndroidWM](https://github.com/huangyz0918/AndroidWM)
 
+# Donate
+
+宣传这个模块就是最好的「捐赠」。
+
 # EULA & License
 
 [EULA](EULA.md)
