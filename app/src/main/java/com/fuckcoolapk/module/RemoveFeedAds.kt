@@ -34,27 +34,29 @@ class RemoveFeedAds {
                     .hookBeforeMethod("convert", "okhttp3.ResponseBody") {
                         val responseBody = it.args[0]
                         val mediaTypeClass = XposedHelpers.findClass("okhttp3.MediaType", CoolapkContext.classLoader)
-                        val responseBodyClass = XposedHelpers.findClass("okhttp3.ResponseBody",CoolapkContext.classLoader)
+                        val responseBodyClass = XposedHelpers.findClass("okhttp3.ResponseBody", CoolapkContext.classLoader)
                         val result = XposedHelpers.callMethod(responseBody, "string") as String
                         val json = JSONObject(result)
-                        val dataArray = json.getJSONArray("data")
-                        val adObject = dataArray.getJSONObject(0)
-                        //去除信息流广告
-                        if (adObject.getString("entityId")=="8639"){
-                            dataArray.remove(0)
-                            json.put("data",dataArray)
-                        }
-                        //屏蔽自营信息流广告
-                        for(i in 0 until dataArray.length()){
-                            val extraData = dataArray.getJSONObject(i).optJSONObject("extraDataArr")
-                            extraData?.let {
-                                val cardPageName = extraData.optString("cardPageName")
-                                if (cardPageName=="V8_APP_HEADLINE_AD") dataArray.remove(i)
+                        val dataArray = json.optJSONArray("data")
+                        if (dataArray.length() > 0) {
+                            val adObject = dataArray.getJSONObject(0)
+                            //去除信息流广告
+                            if (adObject.optString("entityId") == "8639") {
+                                dataArray.remove(0)
+                                json.put("data", dataArray)
                             }
+                            //屏蔽自营信息流广告
+                            for (i in 0 until dataArray.length()) {
+                                val extraData = dataArray.getJSONObject(i).optJSONObject("extraDataArr")
+                                extraData?.let {
+                                    val cardPageName = extraData.optString("cardPageName")
+                                    if (cardPageName.endsWith("_AD")) dataArray.remove(i)
+                                }
+                            }
+                            json.put("data", dataArray)
+                            val mediaType = XposedHelpers.callStaticMethod(mediaTypeClass, "parse", "application/json")
+                            it.args[0] = XposedHelpers.callStaticMethod(responseBodyClass, "create", mediaType, json.toString())
                         }
-                        json.put("data", dataArray)
-                        val mediaType = XposedHelpers.callStaticMethod(mediaTypeClass, "parse", "application/json")
-                        it.args[0] = XposedHelpers.callStaticMethod(responseBodyClass, "create", mediaType, json.toString())
                     }
         }
     }
