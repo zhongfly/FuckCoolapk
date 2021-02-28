@@ -43,7 +43,6 @@ class RemoveFeedAds {
                             //去除信息流广告
                             if (adObject.optString("entityId") == "8639") {
                                 dataArray.remove(0)
-                                json.put("data", dataArray)
                             }
                             //屏蔽自营信息流广告
                             for (i in 0 until dataArray.length()) {
