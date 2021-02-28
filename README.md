@@ -4,6 +4,7 @@
 
 # ~~Want~~ To Do
 
+- [ ] 随机报名
 - [ ] 允许在酷安的应用列表内卸载酷安
 - [ ] 防检测 SharedPreferences
 
