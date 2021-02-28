@@ -37,7 +37,7 @@ class RemoveFeedAds {
                         val responseBodyClass = XposedHelpers.findClass("okhttp3.ResponseBody", CoolapkContext.classLoader)
                         val result = XposedHelpers.callMethod(responseBody, "string") as String
                         val json = JSONObject(result)
-                        val dataArray = json.optJSONArray("data")
+                        val dataArray = json.getJSONArray("data")
                         if (dataArray.length() > 0) {
                             val adObject = dataArray.getJSONObject(0)
                             //去除信息流广告
