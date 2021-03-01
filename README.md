@@ -4,6 +4,7 @@
 
 # ~~Want~~ To Do
 
+- [ ] Github Action 编译时附带生成 Xpatch 处理的酷安
 - [ ] 随机包名
 - [ ] 一键生成随机 Token
 - [ ] 更换 AppCenter ID
