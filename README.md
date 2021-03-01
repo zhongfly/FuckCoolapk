@@ -4,7 +4,8 @@
 
 # ~~Want~~ To Do
 
-- [ ] 随机报名
+- [ ] 随机包名
+- [ ] 更换 AppCenter ID
 - [ ] 允许在酷安的应用列表内卸载酷安
 - [ ] 防检测 SharedPreferences
 
