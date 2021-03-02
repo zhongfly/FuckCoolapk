@@ -13,12 +13,13 @@ class HideBottomBtn {
             XposedHelpers.findClass("com.aurelhubert.ahbottomnavigation.AHBottomNavigation", CoolapkContext.classLoader)
                     .hookBeforeMethod("addItems", List::class.java) {
                         val bottomBtnList = it.args[0] as MutableList<Any>
+                        val bottomBtnList2 = mutableListOf<Any>()
                         for (i in bottomBtnList.indices) {
                             val btn = bottomBtnList[i]
                             val title = XposedHelpers.getObjectField(btn, "title") as String
-                            if ("首页" != title && "我" != title) bottomBtnList.removeAt(i)
+                            if ("首页" == title || "我" == title) bottomBtnList2.add(btn)
                         }
-                        XposedHelpers.setObjectField(it.thisObject, "items", bottomBtnList)
+                        it.args[0] = bottomBtnList2
                     }
 
             XposedHelpers.findClass("com.aurelhubert.ahbottomnavigation.AHBottomNavigation", CoolapkContext.classLoader)
