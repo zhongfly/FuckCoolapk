@@ -8,6 +8,7 @@ import android.content.DialogInterface
 import android.graphics.Color
 import android.os.Binder
 import android.os.Bundle
+import android.util.Log
 import android.widget.LinearLayout
 import android.widget.ScrollView
 import com.fuckcoolapk.module.*
@@ -97,6 +98,8 @@ class InitHook : IXposedHookLoadPackage {
             RemoveStartupAds().init()
             //去除信息流广告
             RemoveFeedAds().init()
+            //隐藏底部多余按钮
+            HideBottomBtn().init();
             //关闭友盟
             DisableUmeng().init()
             //关闭 bugly
