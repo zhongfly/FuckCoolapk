@@ -11,8 +11,8 @@ class HideBottomBtn {
     fun init() {
         if (OwnSP.ownSP.getBoolean("hideBottomBtn", false)) {
             XposedHelpers.findClass("com.aurelhubert.ahbottomnavigation.AHBottomNavigation", CoolapkContext.classLoader)
-                    .hookBeforeMethod("createClassicItems", LinearLayout::class.java) {
-                        val bottomBtnList = XposedHelpers.getObjectField(it.thisObject, "items") as MutableList<Any>
+                    .hookBeforeMethod("addItems", List::class.java) {
+                        val bottomBtnList = it.args[0] as MutableList<Any>
                         for (i in bottomBtnList.indices) {
                             val btn = bottomBtnList[i]
                             val title = XposedHelpers.getObjectField(btn, "title") as String
