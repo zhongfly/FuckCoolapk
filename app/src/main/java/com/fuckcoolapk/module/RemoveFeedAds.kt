@@ -30,6 +30,7 @@ class RemoveFeedAds {
                     .hookBeforeMethod("load", onAdLoadListener) {
                         XposedHelpers.setIntField(it.thisObject, "state", 1)
                     }
+
             XposedHelpers.findClass("com.coolapk.market.remote.EntityListResponseBodyConverter", CoolapkContext.classLoader)
                     .hookBeforeMethod("convert", "okhttp3.ResponseBody") {
                         val responseBody = it.args[0]
@@ -55,6 +56,9 @@ class RemoveFeedAds {
                             json.put("data", dataArray)
                             val mediaType = XposedHelpers.callStaticMethod(mediaTypeClass, "parse", "application/json")
                             it.args[0] = XposedHelpers.callStaticMethod(responseBodyClass, "create", mediaType, json.toString())
+                        } else {
+                            val mediaType = XposedHelpers.callStaticMethod(mediaTypeClass, "parse", "application/json")
+                            it.args[0] = XposedHelpers.callStaticMethod(responseBodyClass, "create", mediaType, result)
                         }
                     }
         }
