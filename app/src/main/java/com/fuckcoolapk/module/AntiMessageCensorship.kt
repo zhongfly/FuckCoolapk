@@ -25,6 +25,7 @@ class AntiMessageCensorship {
                 //alexkillers 酷安小编 阿酷 梨子 八百标兵 快乐球 好兆头 匿名游客 产品菜鸟吴日天 芮星晨 小黄Alpha Song_ 淡淡の伏特加 崇拜并不是爱 Bug小王子 实在没名可起了 宝源 小狗吃不了鱼
                 //isEnable = userID !in listOf("917649", "12202", "10002", "97100", "408649", "662435", "1353127", "1603081", "413952", "499228", "514025", "427832", "1123602", "897371", "611629", "899823", "346976", "185831")
                 //if (!isEnable) LogUtil.toast("私信反和谐已关闭", true)
+                LogUtil.toast("隐私权警告：酷安官方能够明文看到私信内容，请谨慎操作。")
             }
             XposedHelpers.findClass("com.coolapk.market.view.message.ChattingActivity", CoolapkContext.classLoader).hookBeforeMethod("sendMessage", String::class.java, String::class.java, String::class.java) {
                 if (isEnable) {
