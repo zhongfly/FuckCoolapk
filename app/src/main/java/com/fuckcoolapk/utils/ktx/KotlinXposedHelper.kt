@@ -87,8 +87,8 @@ inline fun Class<*>.hookAfterMethod(method: String?, vararg args: Any?, crossinl
     }
 })
 
-fun Class<*>.setReturnConstant(methodName: String?, result: Any?): XC_MethodHook.Unhook? = try {
-    hookMethod(methodName, XC_MethodReplacement.returnConstant(result))
+fun Class<*>.setReturnConstant(methodName: String?, vararg args: Any?, result: Any?): XC_MethodHook.Unhook? = try {
+    hookMethod(methodName, *args, XC_MethodReplacement.returnConstant(result))
 } catch (e: Throwable) {
     LogUtil.e(e)
     null
@@ -261,8 +261,8 @@ inline fun String.hookAfterMethod(method: String?, vararg args: Any?, classLoade
     null
 }
 
-fun String.setReturnConstant(method: String?, result: Any?, classLoader: ClassLoader = CoolapkContext.classLoader) = try {
-    findClass(classLoader).setReturnConstant(method, result)
+fun String.setReturnConstant(method: String?, vararg args: Any?, result: Any?, classLoader: ClassLoader = CoolapkContext.classLoader) = try {
+    findClass(classLoader).setReturnConstant(method, *args, result = result)
 } catch (e: ClassNotFoundError) {
     LogUtil.e(e)
     null

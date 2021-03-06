@@ -81,10 +81,13 @@ class d : IXposedHookLoadPackage {
                                 put("isAdmin", (CoolapkContext.loginSession.callMethod("isAdmin") as Boolean).toString())
                             })
                         }
-                        val normalDialog = AlertDialog.Builder(CoolapkContext.activity)
-                        normalDialog.setTitle("欢迎")
-                        normalDialog.setMessage("你来了？\n这是一份送给316和423的礼物。其功能是默认关闭的，如需使用，请转到设置页打开。")
-                        normalDialog.show()
+                        if (OwnSP.ownSP.getBoolean("isFirstUse", true)) {
+                            val normalDialog = AlertDialog.Builder(CoolapkContext.activity)
+                            normalDialog.setTitle("欢迎")
+                            normalDialog.setMessage("你来了？\n这是一份送给316和423的礼物。其功能是默认关闭的，如需使用，请转到设置页打开。")
+                            normalDialog.setOnDismissListener { OwnSP.set("isFirstUse", false) }
+                            normalDialog.show()
+                        }
                     }
         } catch (e: Throwable) {
             LogUtil.e(e)
@@ -103,7 +106,9 @@ class d : IXposedHookLoadPackage {
             //去除信息流广告
             RemoveFeedAds().init()
             //去除底部多余按钮
-            HideBottomButton().init();
+            HideBottomButton().init()
+            //允许在应用列表内卸载酷安
+            AllowUninstallCoolapk().init()
             //关闭友盟
             DisableUmeng().init()
             //关闭 Bugly

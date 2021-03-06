@@ -10,10 +10,10 @@ import de.robv.android.xposed.XposedHelpers
 class EnableAdminMode {
     fun init() {
         if (OwnSP.ownSP.getBoolean("adminMode", false)) {
-            "com.coolapk.market.manager.UserPermissionChecker".setReturnConstant("getCanCreateNewVote", true)
-            "com.coolapk.market.manager.UserPermissionChecker".setReturnConstant("getCanUseAdvancedVoteOptions", true)
-            "com.coolapk.market.manager.UserPermissionChecker".setReturnConstant("isLoginAdmin", true)
-            "com.coolapk.market.local.LoginSession".setReturnConstant("isAdmin", true)
+            "com.coolapk.market.manager.UserPermissionChecker".setReturnConstant("getCanCreateNewVote", result = true)
+            "com.coolapk.market.manager.UserPermissionChecker".setReturnConstant("getCanUseAdvancedVoteOptions", result = true)
+            "com.coolapk.market.manager.UserPermissionChecker".setReturnConstant("isLoginAdmin", result = true)
+            "com.coolapk.market.local.LoginSession".setReturnConstant("isAdmin", result = true)
         }
     }
 }

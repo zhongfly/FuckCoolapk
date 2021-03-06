@@ -11,6 +11,6 @@ import de.robv.android.xposed.XposedHelpers
 class RemoveStartupAds {
     fun init() {
         if (OwnSP.ownSP.getBoolean("removeStartupAds", false)) {
-            "com.coolapk.market.view.splash.FullScreenAdUtils".setReturnConstant("shouldShowAd", false)
+            "com.coolapk.market.view.splash.FullScreenAdUtils".setReturnConstant("shouldShowAd", Context::class.java,result = false)
         }
     }}

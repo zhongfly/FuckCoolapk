@@ -36,6 +36,7 @@ public class HideModule {
                 protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
                     if (param.args[2].equals(BuildConfig.APPLICATION_ID)) {
                         param.setResult(null);
+                        return;
                     }
                     super.beforeHookedMethod(param);
                 }

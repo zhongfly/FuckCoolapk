@@ -9,6 +9,7 @@ import android.annotation.SuppressLint;
 import android.os.Build;
 import android.util.Log;
 
+import com.fuckcoolapk.AppConfigKt;
 import com.fuckcoolapk.utils.LogUtil;
 import com.fuckcoolapk.utils.OwnSP;
 
@@ -52,7 +53,7 @@ public class XposedShelling {
      * 拟脱壳的App包名，对应AndroidManifests.xml里的<manifest package的值
      */
     private static final String[] targetPackages =
-            new String[]{"com.coolapk.market"};
+            new String[]{AppConfigKt.PACKAGE_NAME};
 
     public static void runShelling(XC_LoadPackage.LoadPackageParam lpparam) {
         if (OwnSP.INSTANCE.getOwnSP().getBoolean("shouldShelling", false)) {

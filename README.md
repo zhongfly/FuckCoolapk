@@ -6,8 +6,6 @@
 
 - [ ] Github Action 编译时附带生成 Xpatch 处理的酷安
 - [ ] 随机包名
-- [ ] 更换 AppCenter ID
-- [ ] 允许在酷安的应用列表内卸载酷安
 - [ ] 防检测 SharedPreferences
 
 # Features
@@ -15,6 +13,7 @@
 - [x] 去除开屏广告
 - [x] 去除信息流广告
 - [x] 去除动态审核水印
+- [x] 允许在酷安的应用列表内卸载酷安
 - [x] 对动态开启 Markdown
 - [x] 真正的开发者中心
 - [x] 管理员模式

@@ -119,8 +119,9 @@ public class HookSettings {
         linearLayout.addView(new TextViewForHook(CoolapkContext.activity, "功能", TextViewForHook.title2Size, CoolapkContextKt.getColorFixWithHashtag(CoolapkContextKt::getColorAccent)));
         linearLayout.addView(new SwitchForHook(CoolapkContext.activity, "去除启动广告", OwnSP.INSTANCE.getOwnSP(), "removeStartupAds", false));
         linearLayout.addView(new SwitchForHook(CoolapkContext.activity, "去除信息流广告（Alpha）", OwnSP.INSTANCE.getOwnSP(), "removeFeedAds", false));
-        linearLayout.addView(new SwitchForHook(CoolapkContext.activity, "隐藏底部按钮（Alpha）", OwnSP.INSTANCE.getOwnSP(), "hideBottomBtn", false));
+        linearLayout.addView(new SwitchForHook(CoolapkContext.activity, "去除底部按钮（Alpha）", OwnSP.INSTANCE.getOwnSP(), "hideBottomBtn", false));
         linearLayout.addView(new SwitchForHook(CoolapkContext.activity, "去除动态审核水印", OwnSP.INSTANCE.getOwnSP(), "removeAuditWatermark", false));
+        linearLayout.addView(new SwitchForHook(CoolapkContext.activity, "允许在应用列表内卸载酷安", OwnSP.INSTANCE.getOwnSP(), "allowUninstallCoolapk", false));
         //linearLayout.addView(new SwitchForHook(CoolapkContext.activity, "开启频道自由编辑", OwnSP.INSTANCE.getOwnSP(), "enableChannelEdit", false));
         linearLayout.addView(new SwitchForHook(CoolapkContext.activity, "对动态开启 Markdown（Alpha）", OwnSP.INSTANCE.getOwnSP(), "enableMarkdown", false));
         linearLayout.addView(new SwitchForHook(CoolapkContext.activity, "对私信开启反和谐", OwnSP.INSTANCE.getOwnSP(), "antiMessageCensorship", false, "通过自动替换相似字来达到反和谐的效果，不能保证一定有效。\n请勿滥用，请勿用于除私信外的其他地方，否则后果自负。"));
