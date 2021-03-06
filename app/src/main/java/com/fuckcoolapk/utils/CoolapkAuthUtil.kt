@@ -6,7 +6,8 @@ import java.nio.charset.StandardCharsets
 import java.text.SimpleDateFormat
 import java.util.*
 
-fun getAS(UUID: String): String {
+@JvmOverloads
+fun getAS(UUID: String = java.util.UUID.randomUUID().toString()): String {
     //String UUID = "140457a3-af3f-407c-9e70-18b6548757b7";
     val calendar = Calendar.getInstance()
     val time = dateToStamp(calendar[Calendar.YEAR].toString() + "-" + (calendar[Calendar.MONTH] + 1) + "-" + calendar[Calendar.DATE] + " " + calendar[Calendar.HOUR_OF_DAY] + ":" + calendar[Calendar.MINUTE] + ":" + calendar[Calendar.SECOND]).substring(0, 10).toInt()

@@ -6,7 +6,6 @@
 
 - [ ] Github Action 编译时附带生成 Xpatch 处理的酷安
 - [ ] 随机包名
-- [ ] 一键生成随机 Token
 - [ ] 更换 AppCenter ID
 - [ ] 允许在酷安的应用列表内卸载酷安
 - [ ] 防检测 SharedPreferences
@@ -24,6 +23,7 @@
 - [x] 自定义图片水印
 - [x] 关闭 Bugly 和 Umeng
 - [x] 对 酷安 进行脱壳
+- [x] 一键生成随机 Token
 - [x] 隐藏模块
 - [x] 集成 Microsoft Appcenter，上传使用者 UID
 - [x] ~~临时显示统计 Toast~~
@@ -45,7 +45,7 @@
 
 # Donate
 
-宣传这个模块就是最好的「捐赠」。
+宣传这个模块就是最好方式的「捐赠」。
 
 # EULA & License
 
