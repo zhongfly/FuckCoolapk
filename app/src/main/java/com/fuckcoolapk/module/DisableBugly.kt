@@ -8,7 +8,7 @@ import de.robv.android.xposed.XposedHelpers
 class DisableBugly {
     fun init() {
         if (OwnSP.ownSP.getBoolean("disableBugly", false)) {
-            XposedHelpers.findClass("com.tencent.bugly.crashreport.CrashReport", CoolapkContext.classLoader)
+            "com.tencent.bugly.crashreport.CrashReport"
                     .replaceAfterAllMethods("initCrashReport") {
                         null
                     }

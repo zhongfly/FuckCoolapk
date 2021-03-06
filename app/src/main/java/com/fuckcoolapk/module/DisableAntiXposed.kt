@@ -5,8 +5,5 @@ import com.fuckcoolapk.utils.ktx.replaceMethod
 import de.robv.android.xposed.XposedHelpers
 
 class DisableAntiXposed {
-    fun init() = XposedHelpers.findClass("com.coolapk.market.util.XposedUtils", CoolapkContext.classLoader)
-            .replaceMethod("disableXposed") {
-                null
-            }
+    fun init() = "com.coolapk.market.util.XposedUtils".replaceMethod("disableXposed") { null }
 }

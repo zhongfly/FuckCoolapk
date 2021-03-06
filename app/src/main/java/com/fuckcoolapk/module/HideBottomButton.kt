@@ -7,10 +7,10 @@ import com.fuckcoolapk.utils.ktx.hookBeforeMethod
 import de.robv.android.xposed.XC_MethodHook
 import de.robv.android.xposed.XposedHelpers
 
-class HideBottomBtn {
+class HideBottomButton {
     fun init() {
         if (OwnSP.ownSP.getBoolean("hideBottomBtn", false)) {
-            XposedHelpers.findClass("com.aurelhubert.ahbottomnavigation.AHBottomNavigation", CoolapkContext.classLoader)
+            "com.aurelhubert.ahbottomnavigation.AHBottomNavigation"
                     .hookBeforeMethod("addItems", List::class.java) {
                         val bottomBtnList = it.args[0] as MutableList<Any>
                         val bottomBtnList2 = mutableListOf<Any>()
@@ -22,7 +22,7 @@ class HideBottomBtn {
                         it.args[0] = bottomBtnList2
                     }
 
-            XposedHelpers.findClass("com.aurelhubert.ahbottomnavigation.AHBottomNavigation", CoolapkContext.classLoader)
+            "com.aurelhubert.ahbottomnavigation.AHBottomNavigation"
                     .hookBeforeMethod("updateItems", Int::class.javaPrimitiveType, Boolean::class.javaPrimitiveType) {
                         var i = it.args[0] as Int
                         if (i == 1) i = 4

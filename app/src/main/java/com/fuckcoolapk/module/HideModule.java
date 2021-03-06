@@ -23,7 +23,7 @@ public class HideModule {
                     ArrayList<Object> newAppList = new ArrayList<>();
                     for (int i = 0; i < appList.size(); i++) {
                         Object object = appList.get(i);
-                        if (!(XposedHelpers.callMethod(object, "getPackageName")).equals("com.fuckcoolapk")) {
+                        if (!(XposedHelpers.callMethod(object, "getPackageName")).equals(BuildConfig.APPLICATION_ID)) {
                             newAppList.add(object);
                         }
                     }

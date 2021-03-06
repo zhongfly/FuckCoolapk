@@ -3,6 +3,7 @@ package com.fuckcoolapk.module
 import com.fuckcoolapk.utils.CoolapkContext
 import com.fuckcoolapk.utils.OwnSP
 import com.fuckcoolapk.utils.ktx.hookBeforeMethod
+import com.fuckcoolapk.utils.ktx.setIntField
 import de.robv.android.xposed.XposedHelpers
 import org.json.JSONObject
 
@@ -10,28 +11,28 @@ class RemoveFeedAds {
     private val onAdLoadListener = "com.coolapk.market.view.ad.OnAdLoadListener"
     fun init() {
         if (OwnSP.ownSP.getBoolean("removeFeedAds", false)) {
-            XposedHelpers.findClass("com.coolapk.market.view.ad.toutiao.TTFeedSelfDrawAd", CoolapkContext.classLoader)
+            "com.coolapk.market.view.ad.toutiao.TTFeedSelfDrawAd"
                     .hookBeforeMethod("load", onAdLoadListener) {
                         XposedHelpers.setIntField(it.thisObject, "state", 1)
                     }
-            XposedHelpers.findClass("com.coolapk.market.view.ad.tencent.GDTFeedSelfDrawAD", CoolapkContext.classLoader)
+            "com.coolapk.market.view.ad.tencent.GDTFeedSelfDrawAD"
                     .hookBeforeMethod("load", onAdLoadListener) {
                         XposedHelpers.setIntField(it.thisObject, "state", 1)
                     }
-            XposedHelpers.findClass("com.coolapk.market.view.ad.toutiao.TTFeedAd", CoolapkContext.classLoader)
+            "com.coolapk.market.view.ad.toutiao.TTFeedAd"
                     .hookBeforeMethod("load", onAdLoadListener) {
                         XposedHelpers.setIntField(it.thisObject, "state", 1)
                     }
-            XposedHelpers.findClass("com.coolapk.market.view.ad.tencent.GDTFeedAd", CoolapkContext.classLoader)
+            "com.coolapk.market.view.ad.tencent.GDTFeedAd"
                     .hookBeforeMethod("load", onAdLoadListener) {
                         XposedHelpers.setIntField(it.thisObject, "state", 1)
                     }
-            XposedHelpers.findClass("com.coolapk.market.view.ad.tencent.GDTFeedAd2", CoolapkContext.classLoader)
+            "com.coolapk.market.view.ad.tencent.GDTFeedAd2"
                     .hookBeforeMethod("load", onAdLoadListener) {
                         XposedHelpers.setIntField(it.thisObject, "state", 1)
                     }
 
-            XposedHelpers.findClass("com.coolapk.market.remote.EntityListResponseBodyConverter", CoolapkContext.classLoader)
+            "com.coolapk.market.remote.EntityListResponseBodyConverter"
                     .hookBeforeMethod("convert", "okhttp3.ResponseBody") {
                         val responseBody = it.args[0]
                         val mediaTypeClass = XposedHelpers.findClass("okhttp3.MediaType", CoolapkContext.classLoader)

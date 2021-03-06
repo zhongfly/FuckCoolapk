@@ -11,12 +11,12 @@ import de.robv.android.xposed.XposedHelpers
 class DisableUmeng {
     fun init() {
         if (OwnSP.ownSP.getBoolean("disableUmeng", false)) {
-            XposedHelpers.findClass("com.umeng.commonsdk.UMConfigure", CoolapkContext.classLoader)
+            "com.umeng.commonsdk.UMConfigure"
                     .replaceAfterAllMethods("init") {
                         null
                     }
-            XposedHelpers.findClass("com.umeng.commonsdk.UMConfigure",CoolapkContext.classLoader)
-                    .replaceAfterAllMethods("preInit"){
+            "com.umeng.commonsdk.UMConfigure"
+                    .replaceAfterAllMethods("preInit") {
                         null
                     }
         }

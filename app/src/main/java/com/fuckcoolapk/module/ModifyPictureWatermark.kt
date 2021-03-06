@@ -29,7 +29,7 @@ class ModifyPictureWatermark {
     fun init() {
         val instance = getHookField(CoolapkContext.classLoader.loadClass("com.coolapk.market.view.settings.settingsynch.SettingSynchronized"), "INSTANCE")
         //动态临时关闭图片水印
-        XposedHelpers.findClass("com.coolapk.market.view.feedv8.SubmitExtraViewPart", CoolapkContext.classLoader)
+        "com.coolapk.market.view.feedv8.SubmitExtraViewPart"
                 .hookAfterMethod("initWith", "com.coolapk.market.view.feedv8.SubmitFeedV8Activity") {
                     (it.thisObject.callMethod("getView") as LinearLayout).addView(LinearLayout(CoolapkContext.activity).apply {
                         layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, dp2px(CoolapkContext.context, 48f)).apply {
@@ -59,7 +59,7 @@ class ModifyPictureWatermark {
                         })
                     })
                 }
-        XposedHelpers.findClass("com.coolapk.market.view.feedv8.BaseFeedContentHolder\$startSubmitFeed$2", CoolapkContext.classLoader)
+        "com.coolapk.market.view.feedv8.BaseFeedContentHolder\$startSubmitFeed$2"
                 .hookBeforeMethod("onNext", "com.coolapk.market.network.Result") {
                     val pictureWatermarkPosition = OwnSP.ownSP.getString("pictureWatermarkPosition", "-1")
                     if (pictureWatermarkPosition != "-1") {
@@ -68,7 +68,7 @@ class ModifyPictureWatermark {
                     }
                 }
         //回复临时关闭图片水印
-        XposedHelpers.findClass("com.coolapk.market.view.feed.ReplyActivity", CoolapkContext.classLoader)
+        "com.coolapk.market.view.feed.ReplyActivity"
                 .hookAfterMethod("initView") {
                     val viewBuilding = it.thisObject.getObjectField("binding")!!
                     val contentView = (viewBuilding.getObjectField("contentView") as LinearLayout).getChildAt(4) as LinearLayout
@@ -90,7 +90,7 @@ class ModifyPictureWatermark {
                         }
                     })
                 }
-        XposedHelpers.findClass("com.coolapk.market.view.feed.ReplyActivity\$doPost$1", CoolapkContext.classLoader)
+        "com.coolapk.market.view.feed.ReplyActivity\$doPost$1"
                 .hookBeforeMethod("onNext", "com.coolapk.market.network.Result") {
                     val pictureWatermarkPosition = OwnSP.ownSP.getString("pictureWatermarkPosition", "-1")
                     if (pictureWatermarkPosition != "-1") {
@@ -100,7 +100,7 @@ class ModifyPictureWatermark {
                 }
         //自定义水印
         if (OwnSP.ownSP.getBoolean("enableCustomWatermark", false)) {
-            XposedHelpers.findClass("com.coolapk.market.model.ImageUploadOption", CoolapkContext.classLoader)
+            "com.coolapk.market.model.ImageUploadOption"
                     .hookBeforeMethod("create", String::class.java, String::class.java, String::class.java, Bundle::class.java) {
                         if (OwnSP.ownSP.getString("pictureWatermarkPosition", "-1") == "-1") {
                             val url = it.args[0] as String //file:///storage/emulated/0/Android/data/com.coolapk.market/cache/image_cache/xxxxxxxxxxxxxxxxxxxxxx
@@ -126,16 +126,16 @@ class ModifyPictureWatermark {
 }
 
 fun <T> doWaterMark(objects: T): Watermark {
-    val watermarkBuilder: WatermarkBuilder = if (objects is File){
-        WatermarkBuilder.create(CoolapkContext.context,BitmapFactory.decodeFile(objects.absolutePath) as Bitmap)
-    }else{
-        WatermarkBuilder.create(CoolapkContext.context,objects as ImageView)
+    val watermarkBuilder: WatermarkBuilder = if (objects is File) {
+        WatermarkBuilder.create(CoolapkContext.context, BitmapFactory.decodeFile(objects.absolutePath) as Bitmap)
+    } else {
+        WatermarkBuilder.create(CoolapkContext.context, objects as ImageView)
     }
     return if (OwnSP.ownSP.getBoolean("enablePictureWatermark", false)) {
-        if (OwnSP.ownSP.getString("waterMarkPicturePath", "")==""){
+        if (OwnSP.ownSP.getString("waterMarkPicturePath", "") == "") {
             LogUtil.toast("水印图片不可为空")
             watermarkBuilder.watermark
-        }else{
+        } else {
             watermarkBuilder.loadWatermarkImage(WatermarkImage(BitmapFactory.decodeFile(OwnSP.ownSP.getString("waterMarkPicturePath", ""))).apply {
                 setPositionX(OwnSP.ownSP.getString("waterMarkPositionX", "0")!!.toDouble())
                 setPositionY(OwnSP.ownSP.getString("waterMarkPositionY", "0")!!.toDouble())
@@ -148,13 +148,13 @@ fun <T> doWaterMark(objects: T): Watermark {
         }
     } else {
         watermarkBuilder.loadWatermarkText(WatermarkText(OwnSP.ownSP.getString("waterMarkText", if (CoolapkContext.loginSession.callMethod("isLogin") as Boolean) (CoolapkContext.loginSession.callMethod("getUserName") as String) else "水印文字")).apply {
-                    setPositionX(OwnSP.ownSP.getString("waterMarkPositionX", "0")!!.toDouble())
-                    setPositionY(OwnSP.ownSP.getString("waterMarkPositionY", "0")!!.toDouble())
-                    setRotation(OwnSP.ownSP.getString("waterMarkRotation", "-30")!!.toDouble())
-                    textAlpha = OwnSP.ownSP.getString("waterMarkAlpha", "50")!!.toInt()
-                    textSize = OwnSP.ownSP.getString("waterMarkTextSize", "20")!!.toDouble()
-                    textColor = Color.parseColor(OwnSP.ownSP.getString("waterMarkTextColor", "#000000"))
-                })
+            setPositionX(OwnSP.ownSP.getString("waterMarkPositionX", "0")!!.toDouble())
+            setPositionY(OwnSP.ownSP.getString("waterMarkPositionY", "0")!!.toDouble())
+            setRotation(OwnSP.ownSP.getString("waterMarkRotation", "-30")!!.toDouble())
+            textAlpha = OwnSP.ownSP.getString("waterMarkAlpha", "50")!!.toInt()
+            textSize = OwnSP.ownSP.getString("waterMarkTextSize", "20")!!.toDouble()
+            textColor = Color.parseColor(OwnSP.ownSP.getString("waterMarkTextColor", "#000000"))
+        })
                 .setTileMode(OwnSP.ownSP.getBoolean("enableTileWatermark", true))
                 .watermark
     }

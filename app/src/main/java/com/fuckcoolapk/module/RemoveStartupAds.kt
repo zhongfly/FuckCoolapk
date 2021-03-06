@@ -4,17 +4,13 @@ import android.content.Context
 import com.fuckcoolapk.utils.CoolapkContext
 import com.fuckcoolapk.utils.LogUtil
 import com.fuckcoolapk.utils.OwnSP
+import com.fuckcoolapk.utils.ktx.setReturnConstant
 import de.robv.android.xposed.XC_MethodReplacement
 import de.robv.android.xposed.XposedHelpers
 
 class RemoveStartupAds {
     fun init() {
         if (OwnSP.ownSP.getBoolean("removeStartupAds", false)) {
-            try {
-                XposedHelpers.findAndHookMethod("com.coolapk.market.view.splash.FullScreenAdUtils", CoolapkContext.classLoader, "shouldShowAd", Context::class.java, XC_MethodReplacement.returnConstant(false))
-            } catch (e: Throwable) {
-                LogUtil.e(e)
-            }
+            "com.coolapk.market.view.splash.FullScreenAdUtils".setReturnConstant("shouldShowAd", false)
         }
-    }
-}
+    }}

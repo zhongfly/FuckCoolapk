@@ -18,42 +18,45 @@ class AntiMessageCensorship {
     private var isEnable = true
     fun init() {
         if (OwnSP.ownSP.getBoolean("antiMessageCensorship", false)) {
-            XposedHelpers.findClass("com.coolapk.market.view.message.ChattingActivity", CoolapkContext.classLoader).hookAfterMethod("initData") {
-                //activity = it.thisObject as Activity
-                //val userID = activity.intent.getStringExtra("USER_ID")
-                //~~请勿删除，否则后果自负！~~
-                //alexkillers 酷安小编 阿酷 梨子 八百标兵 快乐球 好兆头 匿名游客 产品菜鸟吴日天 芮星晨 小黄Alpha Song_ 淡淡の伏特加 崇拜并不是爱 Bug小王子 实在没名可起了 宝源 小狗吃不了鱼
-                //isEnable = userID !in listOf("917649", "12202", "10002", "97100", "408649", "662435", "1353127", "1603081", "413952", "499228", "514025", "427832", "1123602", "897371", "611629", "899823", "346976", "185831")
-                //if (!isEnable) LogUtil.toast("私信反和谐已关闭", true)
-                LogUtil.toast("隐私权警告：酷安官方能够明文看到私信内容，请谨慎操作。")
-            }
-            XposedHelpers.findClass("com.coolapk.market.view.message.ChattingActivity", CoolapkContext.classLoader).hookBeforeMethod("sendMessage", String::class.java, String::class.java, String::class.java) {
-                if (isEnable) {
-                    charBuilder.clear()
-                    val jsonObject = JSONObject(d)
-                    val message = (it.args[0] as String).toCharArray()
-                    val messageBuilder = StringBuilder()
-                    for (i in message.indices) {
-                        val char = jsonObject.optString(message[i].toString())
-                        if (message[i] == '[') isEnable = false
-                        if ((char == "") or (!isEnable)) {
-                            messageBuilder.append(message[i])
-                        } else {
-                            messageBuilder.append(char)
-                            charBuilder.append("「${message[i]}」")
-                        }
-                        if (message[i] == ']') isEnable = true
+            "com.coolapk.market.view.message.ChattingActivity"
+                    .hookAfterMethod("initData") {
+                        //activity = it.thisObject as Activity
+                        //val userID = activity.intent.getStringExtra("USER_ID")
+                        //~~请勿删除，否则后果自负！~~
+                        //alexkillers 酷安小编 阿酷 梨子 八百标兵 快乐球 好兆头 匿名游客 产品菜鸟吴日天 芮星晨 小黄Alpha Song_ 淡淡の伏特加 崇拜并不是爱 Bug小王子 实在没名可起了 宝源 小狗吃不了鱼
+                        //isEnable = userID !in listOf("917649", "12202", "10002", "97100", "408649", "662435", "1353127", "1603081", "413952", "499228", "514025", "427832", "1123602", "897371", "611629", "899823", "346976", "185831")
+                        //if (!isEnable) LogUtil.toast("私信反和谐已关闭", true)
+                        LogUtil.toast("隐私权警告：酷安官方能够明文看到私信内容，请谨慎操作。")
                     }
-                    it.args[0] = messageBuilder.toString()
-                }
-            }
-            XposedHelpers.findClass("com.coolapk.market.view.message.ChattingActivity\$sendMessage$2", CoolapkContext.classLoader).hookAfterMethod("onCompleted") {
-                if (isEnable && (charBuilder.toString() != "")) {
-                    LogUtil.toast("已替换 $charBuilder", true)
-                }
-                val editText = activity.callMethod("getEditText") as EditText
-                editText.setText("")
-            }
+            "com.coolapk.market.view.message.ChattingActivity"
+                    .hookBeforeMethod("sendMessage", String::class.java, String::class.java, String::class.java) {
+                        if (isEnable) {
+                            charBuilder.clear()
+                            val jsonObject = JSONObject(d)
+                            val message = (it.args[0] as String).toCharArray()
+                            val messageBuilder = StringBuilder()
+                            for (i in message.indices) {
+                                val char = jsonObject.optString(message[i].toString())
+                                if (message[i] == '[') isEnable = false
+                                if ((char == "") or (!isEnable)) {
+                                    messageBuilder.append(message[i])
+                                } else {
+                                    messageBuilder.append(char)
+                                    charBuilder.append("「${message[i]}」")
+                                }
+                                if (message[i] == ']') isEnable = true
+                            }
+                            it.args[0] = messageBuilder.toString()
+                        }
+                    }
+            "com.coolapk.market.view.message.ChattingActivity\$sendMessage$2"
+                    .hookAfterMethod("onCompleted") {
+                        if (isEnable && (charBuilder.toString() != "")) {
+                            LogUtil.toast("已替换 $charBuilder", true)
+                        }
+                        val editText = activity.callMethod("getEditText") as EditText
+                        editText.setText("")
+                    }
         }
     }
 }
