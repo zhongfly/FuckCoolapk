@@ -42,6 +42,7 @@
 [Markwon](https://github.com/noties/Markwon)
 [AppCenter](https://github.com/microsoft/appcenter-sdk-android)
 [AndroidWM](https://github.com/huangyz0918/AndroidWM)
+[LSPosed](https://github.com/LSPosed/LSPosed)
 
 # Donate
 

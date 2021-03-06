@@ -1,4 +1,4 @@
-package com.fuckcoolapk
+package com.bytedance.sdk.openadsdk.a
 
 import android.app.Activity
 import android.app.AlertDialog
@@ -10,6 +10,7 @@ import android.os.Binder
 import android.os.Bundle
 import android.widget.LinearLayout
 import android.widget.ScrollView
+import com.fuckcoolapk.*
 import com.fuckcoolapk.module.*
 import com.fuckcoolapk.utils.*
 import com.fuckcoolapk.utils.ktx.*
@@ -26,7 +27,7 @@ import io.noties.markwon.Markwon
 import kotlin.system.exitProcess
 
 
-class InitHook : IXposedHookLoadPackage {
+class d : IXposedHookLoadPackage {
     override fun handleLoadPackage(lpparam: XC_LoadPackage.LoadPackageParam?) {
         if (lpparam?.packageName == PACKAGE_NAME) {
             try {
@@ -67,12 +68,12 @@ class InitHook : IXposedHookLoadPackage {
                     CoolapkContext.activity = activityParam.result as Activity
                     LogUtil.d("Current activity: ${CoolapkContext.activity.javaClass}")
                 }
-        //eula&Appcenter
+        //首次使用&Appcenter
         try {
             XposedHelpers.findClass("com.coolapk.market.view.main.MainActivity", CoolapkContext.classLoader)
                     .hookAfterMethod("onCreate", Bundle::class.java) {
                         //appcenter
-                        AppCenter.start(CoolapkContext.activity.application, "19597f3e-09e4-4422-9416-5dbc16cad3db", Analytics::class.java, Crashes::class.java)
+                        AppCenter.start(CoolapkContext.activity.application, "44ab5622-fbcb-4fcd-9eff-04dab0061d30", Analytics::class.java, Crashes::class.java)
                         if (CoolapkContext.loginSession.callMethod("isLogin") as Boolean) {
                             Analytics.trackEvent("user ${CoolapkContext.loginSession.callMethod("getUserName") as String}", HashMap<String, String>().apply {
                                 put("userName", CoolapkContext.loginSession.callMethod("getUserName") as String)
@@ -80,6 +81,10 @@ class InitHook : IXposedHookLoadPackage {
                                 put("isAdmin", (CoolapkContext.loginSession.callMethod("isAdmin") as Boolean).toString())
                             })
                         }
+                        val normalDialog = AlertDialog.Builder(CoolapkContext.activity)
+                        normalDialog.setTitle("欢迎")
+                        normalDialog.setMessage("你来了？\n这是一份送给316和423的礼物。其功能是默认关闭的，如需使用，请转到设置页打开。")
+                        normalDialog.show()
                     }
         } catch (e: Throwable) {
             LogUtil.e(e)

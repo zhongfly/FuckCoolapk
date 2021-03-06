@@ -28,10 +28,10 @@ import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.target.SizeReadyCallback;
 import com.bumptech.glide.request.target.Target;
 import com.bumptech.glide.request.transition.Transition;
+import com.bytedance.sdk.openadsdk.a.d;
+import com.bytedance.sdk.openadsdk.a.DKt;
 import com.fuckcoolapk.AppConfigKt;
 import com.fuckcoolapk.BuildConfig;
-import com.fuckcoolapk.InitHook;
-import com.fuckcoolapk.InitHookKt;
 import com.fuckcoolapk.utils.AppUtilKt;
 import com.fuckcoolapk.utils.CoolapkAuthUtilKt;
 import com.fuckcoolapk.utils.CoolapkContext;
@@ -91,7 +91,7 @@ public class HookSettings {
                                     showSettingsDialog();
                                 } else {
                                     boolean useFastgit = true;
-                                    new GetUtil().sendGet(useFastgit ? "https://hub.fastgit.org/ejiaogl/FuckCoolapk/raw/master/EULA.md" : "https://cdn.jsdelivr.net/gh/ejiaogl/FuckCoolapk/EULA.md", result -> InitHookKt.showEulaDialog(CoolapkContext.activity, result));
+                                    new GetUtil().sendGet(useFastgit ? "https://hub.fastgit.org/ejiaogl/FuckCoolapk/raw/master/EULA.md" : "https://cdn.jsdelivr.net/gh/ejiaogl/FuckCoolapk/EULA.md", result -> DKt.showEulaDialog(CoolapkContext.activity, result));
                                 }
                                 isOpen = true;
                             }
