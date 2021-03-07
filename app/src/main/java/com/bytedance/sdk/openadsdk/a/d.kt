@@ -103,13 +103,11 @@ class d : IXposedHookLoadPackage {
                         }
                         //首次使用
                         if (OwnSP.ownSP.getBoolean("isFirstUse", true)) {
-                            Looper.prepare()
                             val normalDialog = AlertDialog.Builder(CoolapkContext.activity)
                             normalDialog.setTitle("欢迎")
                             normalDialog.setMessage("你来了？\n这是一份送给316和423的礼物。其功能是默认关闭的，如需使用，请转到设置页打开。")
                             normalDialog.setOnDismissListener { OwnSP.set("isFirstUse", false) }
                             normalDialog.show()
-                            Looper.loop()
                         }
                         //检查更新
                         if (OwnSP.ownSP.getBoolean("checkUpdate",true)){
