@@ -37,7 +37,7 @@
 [ApkShelling](https://github.com/OakChen/ApkShelling)
 [BiliRoaming](https://github.com/yujincheng08/BiliRoaming/blob/master/LICENSE)
 [unvcode](https://github.com/RimoChan/unvcode)
-[QNotified](https://github.com/ferredoxin/QNotified/blob/master/LICENSE)
+[QNotified](https://github.com/ferredoxin/QNotified/tree/master)
 [Markwon](https://github.com/noties/Markwon)
 [AppCenter](https://github.com/microsoft/appcenter-sdk-android)
 [AndroidWM](https://github.com/huangyz0918/AndroidWM)
