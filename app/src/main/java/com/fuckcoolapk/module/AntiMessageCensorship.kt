@@ -20,7 +20,7 @@ class AntiMessageCensorship {
         if (OwnSP.ownSP.getBoolean("antiMessageCensorship", false)) {
             "com.coolapk.market.view.message.ChattingActivity"
                     .hookAfterMethod("initData") {
-                        //activity = it.thisObject as Activity
+                        activity = it.thisObject as Activity
                         //val userID = activity.intent.getStringExtra("USER_ID")
                         //~~请勿删除，否则后果自负！~~
                         //alexkillers 酷安小编 阿酷 梨子 八百标兵 快乐球 好兆头 匿名游客 产品菜鸟吴日天 芮星晨 小黄Alpha Song_ 淡淡の伏特加 崇拜并不是爱 Bug小王子 实在没名可起了 宝源 小狗吃不了鱼
