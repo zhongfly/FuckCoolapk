@@ -77,7 +77,7 @@ jobs:
             export COOLAPK_PATH='/tmp/coolapk.apk'
             curl -Lo "$XPATCH_PATH" $(curl -L 'https://api.github.com/repos/WindySha/Xpatch/releases/latest' | jq -r '.assets[0].browser_download_url')
             curl -Lo "$COOLAPK_PATH" $(curl -L 'https://api.github.com/repos/t0HiiBwn/CoolapkRelease/releases/latest' | jq -r '.assets[0].browser_download_url')
-            java -jar "$XPATCH_PATH" "$COOLAPK_PATH" -xm './dist/app-release-signed.apk' -o 'dist/coolapk.apk'
+            java -jar "$XPATCH_PATH" "$COOLAPK_PATH" -xm ${{steps.sign_app.outputs.signedReleaseFile}} -o 'dist/coolapk.apk'
 
       - name: Upload Patched CoolAPK
           id: upload-release-asset
