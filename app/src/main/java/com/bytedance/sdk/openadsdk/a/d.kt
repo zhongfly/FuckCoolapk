@@ -3,17 +3,25 @@ package com.bytedance.sdk.openadsdk.a
 import android.app.Activity
 import android.app.AlertDialog
 import android.app.Application
+import android.app.Dialog
 import android.content.Context
 import android.content.DialogInterface
+import android.content.Intent
 import android.graphics.Color
+import android.net.Uri
 import android.os.Binder
 import android.os.Bundle
+import android.os.Looper
 import android.widget.LinearLayout
 import android.widget.ScrollView
-import com.fuckcoolapk.*
+import com.fuckcoolapk.BuildConfig
+import com.fuckcoolapk.PACKAGE_NAME
 import com.fuckcoolapk.module.*
 import com.fuckcoolapk.utils.*
-import com.fuckcoolapk.utils.ktx.*
+import com.fuckcoolapk.utils.ktx.MethodHookParam
+import com.fuckcoolapk.utils.ktx.callMethod
+import com.fuckcoolapk.utils.ktx.hookAfterAllMethods
+import com.fuckcoolapk.utils.ktx.hookAfterMethod
 import com.fuckcoolapk.view.TextViewForHook
 import com.microsoft.appcenter.AppCenter
 import com.microsoft.appcenter.analytics.Analytics
@@ -24,6 +32,9 @@ import de.robv.android.xposed.XC_MethodHook
 import de.robv.android.xposed.XposedHelpers
 import de.robv.android.xposed.callbacks.XC_LoadPackage
 import io.noties.markwon.Markwon
+import okhttp3.*
+import org.json.JSONObject
+import java.io.IOException
 import kotlin.system.exitProcess
 
 
@@ -68,7 +79,7 @@ class d : IXposedHookLoadPackage {
                     CoolapkContext.activity = activityParam.result as Activity
                     LogUtil.d("Current activity: ${CoolapkContext.activity.javaClass}")
                 }
-        //首次使用&Appcenter
+        //首次使用&Appcenter&检查更新
         try {
             XposedHelpers.findClass("com.coolapk.market.view.main.MainActivity", CoolapkContext.classLoader)
                     .hookAfterMethod("onCreate", Bundle::class.java) {
@@ -81,13 +92,39 @@ class d : IXposedHookLoadPackage {
                                 put("isAdmin", (CoolapkContext.loginSession.callMethod("isAdmin") as Boolean).toString())
                             })
                         }
+                        //首次使用
                         if (OwnSP.ownSP.getBoolean("isFirstUse", true)) {
+                            Looper.prepare()
                             val normalDialog = AlertDialog.Builder(CoolapkContext.activity)
                             normalDialog.setTitle("欢迎")
                             normalDialog.setMessage("你来了？\n这是一份送给316和423的礼物。其功能是默认关闭的，如需使用，请转到设置页打开。")
                             normalDialog.setOnDismissListener { OwnSP.set("isFirstUse", false) }
                             normalDialog.show()
+                            Looper.loop()
                         }
+                        //检查更新
+                        OkHttpClient.Builder().build().newCall(Request.Builder()
+                                .url("https://api.github.com/repos/ejiaogl/FuckCoolapk/releases/latest")
+                                .get()
+                                .build())
+                                .enqueue(object : Callback {
+                                    override fun onFailure(call: Call, e: IOException) {
+                                        LogUtil.e(e)
+                                    }
+
+                                    override fun onResponse(call: Call, response: Response) {
+                                        val jsonObject = JSONObject(response.body()!!.string())
+                                        if ((jsonObject.getString("tag_name").toInt() > BuildConfig.VERSION_CODE) and (!jsonObject.getBoolean("prerelease"))) {
+                                            Looper.prepare()
+                                            val normalDialog = AlertDialog.Builder(CoolapkContext.activity)
+                                            normalDialog.setTitle("Fuck Coolapk 有新版本可用")
+                                            normalDialog.setMessage("${jsonObject.getString("name")}\n${jsonObject.getString("body")}")
+                                            normalDialog.setPositiveButton("查看") { dialogInterface: DialogInterface, i: Int -> CoolapkContext.activity.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/ejiaogl/FuckCoolapk/releases"))) }
+                                            normalDialog.show().getButton(Dialog.BUTTON_POSITIVE).setTextColor(Color.parseColor(getColorFixWithHashtag(::getColorPrimary)))
+                                            Looper.loop()
+                                        }
+                                    }
+                                })
                     }
         } catch (e: Throwable) {
             LogUtil.e(e)
