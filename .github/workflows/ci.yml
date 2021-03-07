@@ -71,7 +71,6 @@ jobs:
           asset_content_type: application/zip
 
       - name: Generate patched APK for CoolAPK.
-          #curl -Lo "$COOLAPK_PATH" 'https://dl.coolapk.com/down?pn=com.coolapk.market&id=NDU5OQ&h=46bb9d98&from=from-web'
           run: |
             export XPATCH_PATH='/tmp/xpatch.jar'
             export COOLAPK_PATH='/tmp/coolapk.apk'
