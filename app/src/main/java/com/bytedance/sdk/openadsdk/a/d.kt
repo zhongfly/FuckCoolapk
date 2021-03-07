@@ -122,7 +122,7 @@ class d : IXposedHookLoadPackage {
 
                                         override fun onResponse(call: Call, response: Response) {
                                             try {
-                                            val jsonObject = JSONObject(response.body.string())
+                                            val jsonObject = JSONObject(response.body!!.string())
                                             if ((jsonObject.getString("tag_name").toInt() > BuildConfig.VERSION_CODE) and (!jsonObject.getBoolean("prerelease"))) {
                                                 Looper.prepare()
                                                 val normalDialog = AlertDialog.Builder(CoolapkContext.activity)
