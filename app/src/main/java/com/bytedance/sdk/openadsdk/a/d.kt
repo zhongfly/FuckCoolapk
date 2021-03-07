@@ -42,8 +42,17 @@ class d : IXposedHookLoadPackage {
     override fun handleLoadPackage(lpparam: XC_LoadPackage.LoadPackageParam?) {
         if (lpparam?.packageName == PACKAGE_NAME) {
             try {
-                if (XposedHelpers.findClassIfExists("com.coolapk.market.CoolMarketApplication", lpparam.classLoader) == null) {
+                if (XposedHelpers.findClassIfExists("com.wrapper.proxyapplication.WrapperProxyApplication", lpparam.classLoader) != null) {
                     XposedHelpers.findClass("com.wrapper.proxyapplication.WrapperProxyApplication", lpparam.classLoader)
+                            .hookAfterMethod("attachBaseContext", Context::class.java) {
+                                //获取 context
+                                CoolapkContext.context = it.args[0] as Context
+                                //获取 classloader
+                                CoolapkContext.classLoader = CoolapkContext.context.classLoader
+                                init(lpparam, it)
+                            }
+                } else if (XposedHelpers.findClassIfExists("com.wind.xpatch.proxy.XpatchProxyApplication", lpparam.classLoader) != null) {
+                    XposedHelpers.findClass("com.wind.xpatch.proxy.XpatchProxyApplication", lpparam.classLoader)
                             .hookAfterMethod("attachBaseContext", Context::class.java) {
                                 //获取 context
                                 CoolapkContext.context = it.args[0] as Context
