@@ -139,6 +139,8 @@ public class HookSettings {
             clipboardManager.setPrimaryClip(ClipData.newPlainText("token", CoolapkAuthUtilKt.getAS()));
             LogUtil.INSTANCE.toast("已复制到剪贴板", true);
         }));
+        linearLayout.addView(new TextViewForHook(CoolapkContext.activity, "其他", TextViewForHook.title2Size, CoolapkContextKt.getColorFixWithHashtag(CoolapkContextKt::getColorAccent)));
+        linearLayout.addView(new SwitchForHook(CoolapkContext.activity, "检查更新", OwnSP.INSTANCE.getOwnSP(), "checkUpdate", true));
         linearLayout.addView(new TextViewForHook(CoolapkContext.activity, "信息", TextViewForHook.title2Size, CoolapkContextKt.getColorFixWithHashtag(CoolapkContextKt::getColorAccent)));
         //linearLayout.addView(new ClickableTextViewForHook(CoolapkContext.activity, "Xposed Module Repository", null, null, view -> CoolapkContext.activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://repo.xposed.info/module/com.fuckcoolapk")))));
         linearLayout.addView(new ClickableTextViewForHook(CoolapkContext.activity, "背景故事", null, null, view -> CoolapkContext.activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/ejiaogl/FuckCoolapk/wiki/Background-information")))));
