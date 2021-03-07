@@ -103,28 +103,30 @@ class d : IXposedHookLoadPackage {
                             Looper.loop()
                         }
                         //检查更新
-                        OkHttpClient.Builder().build().newCall(Request.Builder()
-                                .url("https://api.github.com/repos/ejiaogl/FuckCoolapk/releases/latest")
-                                .get()
-                                .build())
-                                .enqueue(object : Callback {
-                                    override fun onFailure(call: Call, e: IOException) {
-                                        LogUtil.e(e)
-                                    }
-
-                                    override fun onResponse(call: Call, response: Response) {
-                                        val jsonObject = JSONObject(response.body()!!.string())
-                                        if ((jsonObject.getString("tag_name").toInt() > BuildConfig.VERSION_CODE) and (!jsonObject.getBoolean("prerelease"))) {
-                                            Looper.prepare()
-                                            val normalDialog = AlertDialog.Builder(CoolapkContext.activity)
-                                            normalDialog.setTitle("Fuck Coolapk 有新版本可用")
-                                            normalDialog.setMessage("${jsonObject.getString("name")}\n${jsonObject.getString("body")}")
-                                            normalDialog.setPositiveButton("查看") { dialogInterface: DialogInterface, i: Int -> CoolapkContext.activity.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/ejiaogl/FuckCoolapk/releases"))) }
-                                            normalDialog.show().getButton(Dialog.BUTTON_POSITIVE).setTextColor(Color.parseColor(getColorFixWithHashtag(::getColorPrimary)))
-                                            Looper.loop()
+                        if (OwnSP.ownSP.getBoolean("checkUpdate",true)){
+                            OkHttpClient.Builder().build().newCall(Request.Builder()
+                                    .url("https://api.github.com/repos/ejiaogl/FuckCoolapk/releases/latest")
+                                    .get()
+                                    .build())
+                                    .enqueue(object : Callback {
+                                        override fun onFailure(call: Call, e: IOException) {
+                                            LogUtil.e(e)
                                         }
-                                    }
-                                })
+
+                                        override fun onResponse(call: Call, response: Response) {
+                                            val jsonObject = JSONObject(response.body()!!.string())
+                                            if ((jsonObject.getString("tag_name").toInt() > BuildConfig.VERSION_CODE) and (!jsonObject.getBoolean("prerelease"))) {
+                                                Looper.prepare()
+                                                val normalDialog = AlertDialog.Builder(CoolapkContext.activity)
+                                                normalDialog.setTitle("Fuck Coolapk 有新版本可用")
+                                                normalDialog.setMessage("${jsonObject.getString("name")}\n${jsonObject.getString("body")}")
+                                                normalDialog.setPositiveButton("查看") { dialogInterface: DialogInterface, i: Int -> CoolapkContext.activity.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/ejiaogl/FuckCoolapk/releases"))) }
+                                                normalDialog.show().getButton(Dialog.BUTTON_POSITIVE).setTextColor(Color.parseColor(getColorFixWithHashtag(::getColorAccent)))
+                                                Looper.loop()
+                                            }
+                                        }
+                                    })
+                        }
                     }
         } catch (e: Throwable) {
             LogUtil.e(e)
