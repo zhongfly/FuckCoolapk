@@ -57,13 +57,7 @@ jobs:
           curl -Lo "$XPATCH_PATH" $(curl -L 'https://api.github.com/repos/WindySha/Xpatch/releases/latest' | jq -r '.assets[0].browser_download_url')
           curl -Lo "$COOLAPK_PATH" $(curl -L 'https://api.github.com/repos/t0HiiBwn/CoolapkRelease/releases/latest' | jq -r '.assets[0].browser_download_url')
           java -jar "$XPATCH_PATH" "$COOLAPK_PATH" -f -xm ${{steps.sign_app.outputs.signedReleaseFile}} -o dist/coolapk.apk
-
-      - name: Upload Patched CoolAPK
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/upload-artifact@v2
         with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
-          asset_path: dist/coolapk.apk
-          asset_name: coolapk_with_fuckcoolapk_${{steps.apk.outputs.versionNum}}.apk
-          asset_content_type: application/zip
+          name: my-artifact
+          path: dist/coolapk.apk
