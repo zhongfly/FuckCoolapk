@@ -121,7 +121,8 @@ class d : IXposedHookLoadPackage {
                                         }
 
                                         override fun onResponse(call: Call, response: Response) {
-                                            val jsonObject = JSONObject(response.body()!!.string())
+                                            try {
+                                            val jsonObject = JSONObject(response.body.string())
                                             if ((jsonObject.getString("tag_name").toInt() > BuildConfig.VERSION_CODE) and (!jsonObject.getBoolean("prerelease"))) {
                                                 Looper.prepare()
                                                 val normalDialog = AlertDialog.Builder(CoolapkContext.activity)
@@ -130,6 +131,9 @@ class d : IXposedHookLoadPackage {
                                                 normalDialog.setPositiveButton("查看") { dialogInterface: DialogInterface, i: Int -> CoolapkContext.activity.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/ejiaogl/FuckCoolapk/releases"))) }
                                                 normalDialog.show().getButton(Dialog.BUTTON_POSITIVE).setTextColor(Color.parseColor(getColorFixWithHashtag(::getColorAccent)))
                                                 Looper.loop()
+                                            }
+                                            } catch (e: Throwable) {
+                                                LogUtil.e(e)
                                             }
                                         }
                                     })
