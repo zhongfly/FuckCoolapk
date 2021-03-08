@@ -155,6 +155,8 @@ class d : IXposedHookLoadPackage {
             RemoveStartupAds().init()
             //去除信息流广告
             RemoveFeedAds().init()
+            //去除帖子下方广告
+            RemoveBannerAds().init()
             //去除底部多余按钮
             HideBottomButton().init()
             //允许在应用列表内卸载酷安

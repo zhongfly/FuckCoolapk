@@ -119,6 +119,7 @@ public class HookSettings {
         linearLayout.addView(new TextViewForHook(CoolapkContext.activity, "功能", TextViewForHook.title2Size, CoolapkContextKt.getColorFixWithHashtag(CoolapkContextKt::getColorAccent)));
         linearLayout.addView(new SwitchForHook(CoolapkContext.activity, "去除启动广告", OwnSP.INSTANCE.getOwnSP(), "removeStartupAds", false));
         linearLayout.addView(new SwitchForHook(CoolapkContext.activity, "去除信息流广告（Alpha）", OwnSP.INSTANCE.getOwnSP(), "removeFeedAds", false));
+        linearLayout.addView(new SwitchForHook(CoolapkContext.activity, "去除帖子下方广告（Alpha）", OwnSP.INSTANCE.getOwnSP(), "removeBannerAds", false));
         linearLayout.addView(new SwitchForHook(CoolapkContext.activity, "去除底部按钮（Alpha）", OwnSP.INSTANCE.getOwnSP(), "hideBottomBtn", false));
         linearLayout.addView(new SwitchForHook(CoolapkContext.activity, "去除动态审核水印", OwnSP.INSTANCE.getOwnSP(), "removeAuditWatermark", false));
         linearLayout.addView(new SwitchForHook(CoolapkContext.activity, "允许在应用列表内卸载酷安", OwnSP.INSTANCE.getOwnSP(), "allowUninstallCoolapk", false));
