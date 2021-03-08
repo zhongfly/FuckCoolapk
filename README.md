@@ -4,7 +4,6 @@
 
 # ~~Want~~ To Do
 
-- [ ] Github Action 编译时附带生成 Xpatch 处理的酷安
 - [ ] 随机包名
 - [ ] 防检测 SharedPreferences
 
