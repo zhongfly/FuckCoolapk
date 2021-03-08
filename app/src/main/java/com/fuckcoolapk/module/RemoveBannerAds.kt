@@ -13,6 +13,12 @@ class RemoveBannerAds {
                         val dataList = XposedHelpers.callMethod(it.thisObject, "getDataList") as List<Any>
                         XposedHelpers.callMethod(dataList, "remove", dataList.size - 1)
                     }
+            
+            XposedHelpers.findClass("com.coolapk.market.view.feed.reply.FeedArticleDetailFragment", CoolapkContext.classLoader)
+                    .hookAfterMethod("updateHeaderData") {
+                        val dataList = XposedHelpers.callMethod(it.thisObject, "getDataList") as List<Any>
+                        XposedHelpers.callMethod(dataList, "remove", dataList.size - 1)
+                    }
         }
     }
 }
