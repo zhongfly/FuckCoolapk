@@ -131,6 +131,8 @@ public class HookSettings {
         linearLayout.addView(new SwitchForHook(CoolapkContext.activity, "关闭 Umeng", OwnSP.INSTANCE.getOwnSP(), "disableUmeng", false));
         linearLayout.addView(new SwitchForHook(CoolapkContext.activity, "关闭 Bugly", OwnSP.INSTANCE.getOwnSP(), "disableBugly", false));
         linearLayout.addView(new ClickableTextViewForHook(CoolapkContext.activity, "自定义水印", null, null, view -> showWaterMarkDialog()));
+        linearLayout.addView(new TextViewForHook(CoolapkContext.activity, "其他", TextViewForHook.title2Size, CoolapkContextKt.getColorFixWithHashtag(CoolapkContextKt::getColorAccent)));
+        linearLayout.addView(new SwitchForHook(CoolapkContext.activity, "检查更新", OwnSP.INSTANCE.getOwnSP(), "checkUpdate", true));
         linearLayout.addView(new TextViewForHook(CoolapkContext.activity, "调试", TextViewForHook.title2Size, CoolapkContextKt.getColorFixWithHashtag(CoolapkContextKt::getColorAccent)));
         //linearLayout.addView(new SwitchForHook(CoolapkContext.activity, "临时输出统计内容", OwnSP.INSTANCE.getOwnSP(), "statisticToast", false));
         linearLayout.addView(new SwitchForHook(CoolapkContext.activity, "对 酷安 进行脱壳", OwnSP.INSTANCE.getOwnSP(), "shouldShelling", false, "不适用于较新的 Android 版本。\n重启应用后开始脱壳，文件存放在 /data/data/com.coolapk.market/fuck_coolapk_shell。"));
@@ -140,11 +142,10 @@ public class HookSettings {
             clipboardManager.setPrimaryClip(ClipData.newPlainText("token", CoolapkAuthUtilKt.getAS()));
             LogUtil.INSTANCE.toast("已复制到剪贴板", true);
         }));
-        linearLayout.addView(new TextViewForHook(CoolapkContext.activity, "其他", TextViewForHook.title2Size, CoolapkContextKt.getColorFixWithHashtag(CoolapkContextKt::getColorAccent)));
-        linearLayout.addView(new SwitchForHook(CoolapkContext.activity, "检查更新", OwnSP.INSTANCE.getOwnSP(), "checkUpdate", true));
         linearLayout.addView(new TextViewForHook(CoolapkContext.activity, "信息", TextViewForHook.title2Size, CoolapkContextKt.getColorFixWithHashtag(CoolapkContextKt::getColorAccent)));
         //linearLayout.addView(new ClickableTextViewForHook(CoolapkContext.activity, "Xposed Module Repository", null, null, view -> CoolapkContext.activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://repo.xposed.info/module/com.fuckcoolapk")))));
         linearLayout.addView(new ClickableTextViewForHook(CoolapkContext.activity, "背景故事", null, null, view -> CoolapkContext.activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/ejiaogl/FuckCoolapk/wiki/Background-information")))));
+        linearLayout.addView(new ClickableTextViewForHook(CoolapkContext.activity, "Telegram Channel", null, null, view -> CoolapkContext.activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://t.me/fuck_coolapk")))));
         linearLayout.addView(new ClickableTextViewForHook(CoolapkContext.activity, "GitHub", null, null, view -> CoolapkContext.activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/ejiaogl/FuckCoolapk")))));
         linearLayout.addView(new ClickableTextViewForHook(CoolapkContext.activity, "FAQ", null, null, view -> CoolapkContext.activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/ejiaogl/FuckCoolapk/wiki/FAQ")))));
         normalDialog.setView(scrollView);
