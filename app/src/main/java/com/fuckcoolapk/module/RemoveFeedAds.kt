@@ -1,5 +1,6 @@
 package com.fuckcoolapk.module
 
+import android.util.Log
 import com.fuckcoolapk.utils.CoolapkContext
 import com.fuckcoolapk.utils.OwnSP
 import com.fuckcoolapk.utils.ktx.hookBeforeMethod
@@ -30,7 +31,6 @@ class RemoveFeedAds {
                     .hookBeforeMethod("load", onAdLoadListener) {
                         XposedHelpers.setIntField(it.thisObject, "state", 1)
                     }
-
             XposedHelpers.findClass("com.coolapk.market.remote.EntityListResponseBodyConverter", CoolapkContext.classLoader)
                     .hookBeforeMethod("convert", "okhttp3.ResponseBody") {
                         val responseBody = it.args[0]
@@ -38,6 +38,7 @@ class RemoveFeedAds {
                         val responseBodyClass = XposedHelpers.findClass("okhttp3.ResponseBody", CoolapkContext.classLoader)
                         val result = XposedHelpers.callMethod(responseBody, "string") as String
                         val json = JSONObject(result)
+//                        Log.e("ejiaogl", json.toString())
                         val dataArray = json.optJSONArray("data")
                         dataArray?.let {
                             val adObject = dataArray.getJSONObject(0)
@@ -47,10 +48,14 @@ class RemoveFeedAds {
                             }
                             //屏蔽自营信息流广告
                             for (i in 0 until dataArray.length()) {
-                                val extraData = dataArray.getJSONObject(i).optJSONObject("extraDataArr")
-                                extraData?.let {
-                                    val cardPageName = extraData.optString("cardPageName")
-                                    if (cardPageName.endsWith("_AD")) dataArray.remove(i)
+                                val dataJson = dataArray.optJSONObject(i)
+                                dataJson?.let {
+                                    val extraData = dataJson.optJSONObject("extraDataArr")
+                                    extraData?.let {
+                                        val cardPageName = extraData.optString("cardPageName")
+                                        if (cardPageName.endsWith("_AD")) dataArray.remove(i)
+                                    }
+                                    if (dataJson.toString().contains("goods_buy_url")) dataArray.remove(i)
                                 }
                             }
                             json.put("data", dataArray)
