@@ -3,7 +3,6 @@ package com.fuckcoolapk.module
 import com.fuckcoolapk.utils.CoolapkContext
 import com.fuckcoolapk.utils.OwnSP
 import com.fuckcoolapk.utils.ktx.hookBeforeMethod
-import com.fuckcoolapk.utils.ktx.setIntField
 import de.robv.android.xposed.XposedHelpers
 import org.json.JSONObject
 
@@ -11,28 +10,28 @@ class RemoveFeedAds {
     private val onAdLoadListener = "com.coolapk.market.view.ad.OnAdLoadListener"
     fun init() {
         if (OwnSP.ownSP.getBoolean("removeFeedAds", false)) {
-            "com.coolapk.market.view.ad.toutiao.TTFeedSelfDrawAd"
+            XposedHelpers.findClass("com.coolapk.market.view.ad.toutiao.TTFeedSelfDrawAd", CoolapkContext.classLoader)
                     .hookBeforeMethod("load", onAdLoadListener) {
                         XposedHelpers.setIntField(it.thisObject, "state", 1)
                     }
-            "com.coolapk.market.view.ad.tencent.GDTFeedSelfDrawAD"
+            XposedHelpers.findClass("com.coolapk.market.view.ad.tencent.GDTFeedSelfDrawAD", CoolapkContext.classLoader)
                     .hookBeforeMethod("load", onAdLoadListener) {
                         XposedHelpers.setIntField(it.thisObject, "state", 1)
                     }
-            "com.coolapk.market.view.ad.toutiao.TTFeedAd"
+            XposedHelpers.findClass("com.coolapk.market.view.ad.toutiao.TTFeedAd", CoolapkContext.classLoader)
                     .hookBeforeMethod("load", onAdLoadListener) {
                         XposedHelpers.setIntField(it.thisObject, "state", 1)
                     }
-            "com.coolapk.market.view.ad.tencent.GDTFeedAd"
+            XposedHelpers.findClass("com.coolapk.market.view.ad.tencent.GDTFeedAd", CoolapkContext.classLoader)
                     .hookBeforeMethod("load", onAdLoadListener) {
                         XposedHelpers.setIntField(it.thisObject, "state", 1)
                     }
-            "com.coolapk.market.view.ad.tencent.GDTFeedAd2"
+            XposedHelpers.findClass("com.coolapk.market.view.ad.tencent.GDTFeedAd2", CoolapkContext.classLoader)
                     .hookBeforeMethod("load", onAdLoadListener) {
                         XposedHelpers.setIntField(it.thisObject, "state", 1)
                     }
 
-            "com.coolapk.market.remote.EntityListResponseBodyConverter"
+            XposedHelpers.findClass("com.coolapk.market.remote.EntityListResponseBodyConverter", CoolapkContext.classLoader)
                     .hookBeforeMethod("convert", "okhttp3.ResponseBody") {
                         val responseBody = it.args[0]
                         val mediaTypeClass = XposedHelpers.findClass("okhttp3.MediaType", CoolapkContext.classLoader)
@@ -40,7 +39,7 @@ class RemoveFeedAds {
                         val result = XposedHelpers.callMethod(responseBody, "string") as String
                         val json = JSONObject(result)
                         val dataArray = json.optJSONArray("data")
-                        if (dataArray != null && dataArray.length() > 0) {
+                        dataArray?.let {
                             val adObject = dataArray.getJSONObject(0)
                             //去除信息流广告
                             if (adObject.optString("entityId") == "8639") {
@@ -55,12 +54,9 @@ class RemoveFeedAds {
                                 }
                             }
                             json.put("data", dataArray)
-                            val mediaType = XposedHelpers.callStaticMethod(mediaTypeClass, "parse", "application/json")
-                            it.args[0] = XposedHelpers.callStaticMethod(responseBodyClass, "create", mediaType, json.toString())
-                        } else {
-                            val mediaType = XposedHelpers.callStaticMethod(mediaTypeClass, "parse", "application/json")
-                            it.args[0] = XposedHelpers.callStaticMethod(responseBodyClass, "create", mediaType, result)
                         }
+                        val mediaType = XposedHelpers.callStaticMethod(mediaTypeClass, "parse", "application/json")
+                        it.args[0] = XposedHelpers.callStaticMethod(responseBodyClass, "create", mediaType, json.toString())
                     }
         }
     }
