@@ -64,4 +64,4 @@ jobs:
 
       - name: Send Files To Telegram
         run: |
-          curl https://api.telegram.org/bot${{secrets.BOT_TOKEN}}/sendDocument -X POST -F chat_id="-1001286108446" -F document="@dist/coolapk.apk" -F caption="test"
+          curl https://api.telegram.org/bot${{secrets.BOT_TOKEN}}/sendDocument -X POST -F chat_id="-1001286108446" -F document="@dist/coolapk.apk" -F document="@${{steps.sign_app.outputs.signedReleaseFile}}" -F caption="test"
