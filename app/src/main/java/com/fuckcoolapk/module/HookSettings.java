@@ -90,8 +90,8 @@ public class HookSettings {
                                 if (OwnSP.INSTANCE.getOwnSP().getBoolean("agreeEULA", false)) {
                                     showSettingsDialog();
                                 } else {
-                                    boolean useFastgit = true;
-                                    new GetUtil().sendGet(useFastgit ? "https://hub.fastgit.org/ejiaogl/FuckCoolapk/raw/master/EULA.md" : "https://cdn.jsdelivr.net/gh/ejiaogl/FuckCoolapk/EULA.md", result -> DKt.showEulaDialog(CoolapkContext.activity, result));
+                                    boolean useFastgit = false;
+                                    new GetUtil().sendGet(useFastgit ? "https://hub.fastgit.org/ejiaogl/FuckCoolapk/raw/master/EULA.md" : "https://cdn.jsdelivr.net/gh/ejiaogl/FuckCoolapk@master/EULA.md", result -> DKt.showEulaDialog(CoolapkContext.activity, result));
                                 }
                                 isOpen = true;
                             }
