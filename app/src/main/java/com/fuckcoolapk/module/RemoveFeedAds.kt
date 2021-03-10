@@ -41,13 +41,16 @@ class RemoveFeedAds {
 //                        Log.e("ejiaogl", json.toString())
                         val dataArray = json.optJSONArray("data")
                         dataArray?.let {
-                            val adObject = dataArray.getJSONObject(0)
-                            //去除信息流广告
-                            if (adObject.optString("entityId") == "8639") {
-                                dataArray.remove(0)
-                            }
                             //屏蔽自营信息流广告
                             for (i in 0 until dataArray.length()) {
+                                if (i == 0) {
+                                    val adObject = dataArray.getJSONObject(0)
+                                    //去除信息流广告
+                                    if (adObject.optString("entityId") == "8639") {
+                                        dataArray.remove(0)
+                                        continue
+                                    }
+                                }
                                 val dataJson = dataArray.optJSONObject(i)
                                 dataJson?.let {
                                     val extraData = dataJson.optJSONObject("extraDataArr")
