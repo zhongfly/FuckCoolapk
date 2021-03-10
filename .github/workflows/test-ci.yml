@@ -1,8 +1,6 @@
 name: Test CI
 
 on: workflow_dispatch
-#  push:
-#    branches: [ master ]
 
 env:
   WARN_ON_PR: "artifact upload is disabled due to the workflow is trigged by pull request."
@@ -58,6 +56,7 @@ jobs:
           curl -Lo "$COOLAPK_PATH" $(curl -L 'https://api.github.com/repos/t0HiiBwn/CoolapkRelease/releases/latest' | jq -r '.assets[0].browser_download_url')
           java -jar "$XPATCH_PATH" "$COOLAPK_PATH" -f -xm ${{steps.sign_app.outputs.signedReleaseFile}} -o dist/coolapk.apk
       - uses: actions/upload-artifact@v2
+        name: Upload Artifact
         with:
           name: coolapk.apk
           path: dist/coolapk.apk
