@@ -119,7 +119,7 @@ public class HookSettings {
         AdjustImageViewForHook imageView = new AdjustImageViewForHook(CoolapkContext.activity);
         linearLayout.addView(imageView);
         imageView.setOnClickListener(v -> CoolapkContext.activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/ejiaogl/FuckCoolapk/issues/13"))));
-        Glide.with(imageView).load("https://raw.githubusercontent.com/ejiaogl/FuckCoolapk/316/art/316-cover.png").into(imageView);
+        Glide.with(imageView).load("https://cdn.jsdelivr.net/gh/ejiaogl/FuckCoolapk@316/art/316-cover.png").into(imageView);
         linearLayout.addView(new TextViewForHook(CoolapkContext.activity, "功能", TextViewForHook.title2Size, CoolapkContextKt.getColorFixWithHashtag(CoolapkContextKt::getColorAccent)));
         linearLayout.addView(new SwitchForHook(CoolapkContext.activity, "去除启动广告", OwnSP.INSTANCE.getOwnSP(), "removeStartupAds", false));
         linearLayout.addView(new SwitchForHook(CoolapkContext.activity, "去除信息流广告（Alpha）", OwnSP.INSTANCE.getOwnSP(), "removeFeedAds", false));
