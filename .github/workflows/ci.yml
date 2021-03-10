@@ -70,20 +70,20 @@ jobs:
           asset_name: fuckcoolapk_${{steps.apk.outputs.versionNum}}_${{steps.apk.outputs.versionCode}}.apk
           asset_content_type: application/zip
 
-      - name: Generate patched APK for CoolAPK.
+      - name: Generate Patched APK For Coolapk
         run: |
           export XPATCH_PATH='/tmp/xpatch.jar'
           export COOLAPK_PATH='/tmp/coolapk.apk'
           curl -Lo "$XPATCH_PATH" $(curl -L 'https://api.github.com/repos/WindySha/Xpatch/releases/latest' | jq -r '.assets[0].browser_download_url')
           curl -Lo "$COOLAPK_PATH" $(curl -L 'https://api.github.com/repos/t0HiiBwn/CoolapkRelease/releases/latest' | jq -r '.assets[0].browser_download_url')
-          java -jar "$XPATCH_PATH" "$COOLAPK_PATH" -xm ${{steps.sign_app.outputs.signedReleaseFile}} -o 'dist/coolapk.apk'
+          java -jar "$XPATCH_PATH" "$COOLAPK_PATH" -xm ${{steps.sign_app.outputs.signedReleaseFile}} -o 'dist/coolapk_with_fuckcoolapk_${{steps.apk.outputs.versionNum}}.apk'
 
-      - name: Upload Patched CoolAPK
+      - name: Upload Patched Coolapk
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
-          asset_path: dist/coolapk.apk
+          asset_path: dist/coolapk_with_fuckcoolapk_${{steps.apk.outputs.versionNum}}.apk
           asset_name: coolapk_with_fuckcoolapk_${{steps.apk.outputs.versionNum}}.apk
           asset_content_type: application/zip
