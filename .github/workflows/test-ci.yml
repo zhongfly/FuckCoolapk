@@ -55,8 +55,13 @@ jobs:
           curl -Lo "$XPATCH_PATH" $(curl -L 'https://api.github.com/repos/WindySha/Xpatch/releases/latest' | jq -r '.assets[0].browser_download_url')
           curl -Lo "$COOLAPK_PATH" $(curl -L 'https://api.github.com/repos/t0HiiBwn/CoolapkRelease/releases/latest' | jq -r '.assets[0].browser_download_url')
           java -jar "$XPATCH_PATH" "$COOLAPK_PATH" -f -xm ${{steps.sign_app.outputs.signedReleaseFile}} -o dist/coolapk.apk
+
       - uses: actions/upload-artifact@v2
         name: Upload Artifact
         with:
           name: coolapk.apk
           path: dist/coolapk.apk
+
+      - name: Send Files To Telegram
+        run: |
+          curl https://api.telegram.org/bot${{secrets.BOT_TOKEN}}/sendDocument -X POST -F chat_id="-1001286108446" -F document="${{steps.sign_app.outputs.signedReleaseFile}}"
