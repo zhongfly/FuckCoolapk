@@ -1,6 +1,6 @@
 # FuckCoolapk
 
-**Best present for 316 and 423.**
+[**Best present for 316 and 423.**](https://github.com/ejiaogl/FuckCoolapk/wiki/Background-information)
 
 # ~~Want~~ To Do
 
