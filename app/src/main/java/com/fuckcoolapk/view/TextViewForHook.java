@@ -9,7 +9,6 @@ import androidx.annotation.Nullable;
 
 import com.fuckcoolapk.utils.AppUtilKt;
 import com.fuckcoolapk.utils.CoolapkContext;
-import com.fuckcoolapk.utils.CoolapkContextKt;
 
 public class TextViewForHook extends TextView {
     public static float titleSize = AppUtilKt.sp2px(CoolapkContext.context, 10f);

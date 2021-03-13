@@ -9,9 +9,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -20,22 +18,16 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
-import com.bumptech.glide.request.Request;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.request.target.SizeReadyCallback;
-import com.bumptech.glide.request.target.Target;
 import com.bumptech.glide.request.transition.Transition;
-import com.bytedance.sdk.openadsdk.a.d;
 import com.bytedance.sdk.openadsdk.a.DKt;
 import com.fuckcoolapk.AppConfigKt;
 import com.fuckcoolapk.BuildConfig;
 import com.fuckcoolapk.utils.AppUtilKt;
 import com.fuckcoolapk.utils.CoolapkAuthUtilKt;
 import com.fuckcoolapk.utils.CoolapkContext;
-import com.fuckcoolapk.utils.CoolapkContextKt;
 import com.fuckcoolapk.utils.GetUtil;
 import com.fuckcoolapk.utils.LogUtil;
 import com.fuckcoolapk.utils.OwnSP;
@@ -45,14 +37,14 @@ import com.fuckcoolapk.view.ClickableTextViewForHook;
 import com.fuckcoolapk.view.EditTextForHook;
 import com.fuckcoolapk.view.SwitchForHook;
 import com.fuckcoolapk.view.TextViewForHook;
-import com.watermark.androidwm_light.WatermarkBuilder;
 
-import java.lang.reflect.Field;
 import java.util.List;
+import java.util.function.Function;
 
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XposedHelpers;
-import kotlin.jvm.functions.Function0;
+import kotlin.Unit;
+import kotlin.jvm.functions.Function1;
 
 public class HookSettings {
     private Boolean isOpen = false;
@@ -118,9 +110,10 @@ public class HookSettings {
         linearLayout.addView(new TextViewForHook(CoolapkContext.activity, BuildConfig.VERSION_NAME + " " + BuildConfig.VERSION_CODE + " " + BuildConfig.BUILD_TYPE + "\nTarget Version: " + AppConfigKt.MODULE_TARGET_VERSION, null, null));
         AdjustImageViewForHook imageView = new AdjustImageViewForHook(CoolapkContext.activity);
         linearLayout.addView(imageView);
+        imageView.setUrl("https://cdn.jsdelivr.net/gh/ejiaogl/FuckCoolapk@316/art/316-cover.png",adjustImageView -> null);
         imageView.setOnClickListener(v -> CoolapkContext.activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/ejiaogl/FuckCoolapk/issues/13"))));
-        Glide.with(imageView).load("https://cdn.jsdelivr.net/gh/ejiaogl/FuckCoolapk@316/art/316-cover.png").into(imageView);
-        linearLayout.addView(new TextViewForHook(CoolapkContext.activity, "功能", TextViewForHook.title2Size, CoolapkContextKt.getColorFixWithHashtag(CoolapkContextKt::getColorAccent)));
+        //Glide.with(imageView).load("https://cdn.jsdelivr.net/gh/ejiaogl/FuckCoolapk@316/art/316-cover.png").into(imageView);
+        linearLayout.addView(new TextViewForHook(CoolapkContext.activity, "功能", TextViewForHook.title2Size, AppUtilKt.getColorFixWithHashtag(AppUtilKt::getColorAccent)));
         linearLayout.addView(new SwitchForHook(CoolapkContext.activity, "去除启动广告", OwnSP.INSTANCE.getOwnSP(), "removeStartupAds", false));
         linearLayout.addView(new SwitchForHook(CoolapkContext.activity, "去除信息流广告（Alpha）", OwnSP.INSTANCE.getOwnSP(), "removeFeedAds", false));
         linearLayout.addView(new SwitchForHook(CoolapkContext.activity, "去除帖子下方广告（Alpha）", OwnSP.INSTANCE.getOwnSP(), "removeBannerAds", false));
@@ -135,9 +128,9 @@ public class HookSettings {
         linearLayout.addView(new SwitchForHook(CoolapkContext.activity, "关闭 Umeng", OwnSP.INSTANCE.getOwnSP(), "disableUmeng", false));
         linearLayout.addView(new SwitchForHook(CoolapkContext.activity, "关闭 Bugly", OwnSP.INSTANCE.getOwnSP(), "disableBugly", false));
         linearLayout.addView(new ClickableTextViewForHook(CoolapkContext.activity, "自定义水印", null, null, view -> showWaterMarkDialog()));
-        linearLayout.addView(new TextViewForHook(CoolapkContext.activity, "其他", TextViewForHook.title2Size, CoolapkContextKt.getColorFixWithHashtag(CoolapkContextKt::getColorAccent)));
+        linearLayout.addView(new TextViewForHook(CoolapkContext.activity, "其他", TextViewForHook.title2Size, AppUtilKt.getColorFixWithHashtag(AppUtilKt::getColorAccent)));
         linearLayout.addView(new SwitchForHook(CoolapkContext.activity, "检查更新", OwnSP.INSTANCE.getOwnSP(), "checkUpdate", true));
-        linearLayout.addView(new TextViewForHook(CoolapkContext.activity, "调试", TextViewForHook.title2Size, CoolapkContextKt.getColorFixWithHashtag(CoolapkContextKt::getColorAccent)));
+        linearLayout.addView(new TextViewForHook(CoolapkContext.activity, "调试", TextViewForHook.title2Size, AppUtilKt.getColorFixWithHashtag(AppUtilKt::getColorAccent)));
         //linearLayout.addView(new SwitchForHook(CoolapkContext.activity, "临时输出统计内容", OwnSP.INSTANCE.getOwnSP(), "statisticToast", false));
         linearLayout.addView(new SwitchForHook(CoolapkContext.activity, "对 酷安 进行脱壳", OwnSP.INSTANCE.getOwnSP(), "shouldShelling", false, "不适用于较新的 Android 版本。\n重启应用后开始脱壳，文件存放在 /data/data/com.coolapk.market/fuck_coolapk_shell。"));
         linearLayout.addView(new SwitchForHook(CoolapkContext.activity, "输出调试 Toast", OwnSP.INSTANCE.getOwnSP(), "showLogToast", false));
@@ -146,7 +139,7 @@ public class HookSettings {
             clipboardManager.setPrimaryClip(ClipData.newPlainText("token", CoolapkAuthUtilKt.getAS()));
             LogUtil.INSTANCE.toast("已复制到剪贴板", true);
         }));
-        linearLayout.addView(new TextViewForHook(CoolapkContext.activity, "信息", TextViewForHook.title2Size, CoolapkContextKt.getColorFixWithHashtag(CoolapkContextKt::getColorAccent)));
+        linearLayout.addView(new TextViewForHook(CoolapkContext.activity, "信息", TextViewForHook.title2Size, AppUtilKt.getColorFixWithHashtag(AppUtilKt::getColorAccent)));
         //linearLayout.addView(new ClickableTextViewForHook(CoolapkContext.activity, "Xposed Module Repository", null, null, view -> CoolapkContext.activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://repo.xposed.info/module/com.fuckcoolapk")))));
         linearLayout.addView(new ClickableTextViewForHook(CoolapkContext.activity, "背景故事", null, null, view -> CoolapkContext.activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/ejiaogl/FuckCoolapk/wiki/Background-information")))));
         linearLayout.addView(new ClickableTextViewForHook(CoolapkContext.activity, "Telegram Channel", null, null, view -> CoolapkContext.activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://t.me/fuck_coolapk")))));
@@ -156,9 +149,9 @@ public class HookSettings {
         normalDialog.setPositiveButton("重启应用", (dialog, which) -> System.exit(0));
         AlertDialog alertDialog = normalDialog.show();
         alertDialog.setOnDismissListener(dialogInterface -> isOpen = false);
-        alertDialog.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(Color.parseColor(CoolapkContextKt.getColorFixWithHashtag(CoolapkContextKt::getColorAccent)));
-        alertDialog.getButton(DialogInterface.BUTTON_NEGATIVE).setTextColor(Color.parseColor(CoolapkContextKt.getColorFixWithHashtag(CoolapkContextKt::getColorAccent)));
-        alertDialog.getButton(DialogInterface.BUTTON_NEUTRAL).setTextColor(Color.parseColor(CoolapkContextKt.getColorFixWithHashtag(CoolapkContextKt::getColorAccent)));
+        alertDialog.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(Color.parseColor(AppUtilKt.getColorFixWithHashtag(AppUtilKt::getColorAccent)));
+        alertDialog.getButton(DialogInterface.BUTTON_NEGATIVE).setTextColor(Color.parseColor(AppUtilKt.getColorFixWithHashtag(AppUtilKt::getColorAccent)));
+        alertDialog.getButton(DialogInterface.BUTTON_NEUTRAL).setTextColor(Color.parseColor(AppUtilKt.getColorFixWithHashtag(AppUtilKt::getColorAccent)));
     }
 
     private void showWaterMarkDialog() {
@@ -189,7 +182,7 @@ public class HookSettings {
         normalDialog.setView(scrollView);
         normalDialog.setPositiveButton("刷新预览", null);
         AlertDialog alertDialog = normalDialog.show();
-        alertDialog.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(Color.parseColor(CoolapkContextKt.getColorFixWithHashtag(CoolapkContextKt::getColorAccent)));
+        alertDialog.getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(Color.parseColor(AppUtilKt.getColorFixWithHashtag(AppUtilKt::getColorAccent)));
         alertDialog.getButton(DialogInterface.BUTTON_POSITIVE).setOnClickListener(v -> refreshImageView(imageView));
     }
 
