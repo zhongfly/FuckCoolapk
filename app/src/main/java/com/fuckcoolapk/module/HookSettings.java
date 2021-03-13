@@ -17,11 +17,6 @@ import android.widget.ScrollView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
-import com.bumptech.glide.request.RequestOptions;
-import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.request.transition.Transition;
 import com.bytedance.sdk.openadsdk.a.DKt;
 import com.fuckcoolapk.AppConfigKt;
 import com.fuckcoolapk.BuildConfig;
@@ -186,20 +181,15 @@ public class HookSettings {
         alertDialog.getButton(DialogInterface.BUTTON_POSITIVE).setOnClickListener(v -> refreshImageView(imageView));
     }
 
-    private void refreshImageView(ImageView imageView) {
-        Glide.with(CoolapkContext.context).load("https://cdn.jsdelivr.net/gh/lz233/src.lz233.github.io/image/background.jpg")
-                .apply(RequestOptions.bitmapTransform(new RoundedCorners(10)))
-                .into(new SimpleTarget<Drawable>() {
-                    @Override
-                    public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
-                        try {
-                            imageView.setImageDrawable(resource);
-                            ModifyPictureWatermarkKt.doWaterMark(imageView).setToImageView(imageView);
-                        } catch (Throwable e) {
-                            LogUtil.INSTANCE.toast("生成水印时出现错误", true);
-                            LogUtil.e(e);
-                        }
-                    }
-                });
+    private void refreshImageView(AdjustImageView imageView) {
+        imageView.setUrl("https://cdn.jsdelivr.net/gh/lz233/src.lz233.github.io/image/background.jpg",adjustImageView -> {
+            try {
+                ModifyPictureWatermarkKt.doWaterMark(adjustImageView).setToImageView(adjustImageView);
+            } catch (Throwable e) {
+                LogUtil.INSTANCE.toast("生成水印时出现错误");
+                LogUtil.e(e);
+            }
+            return null;
+        });
     }
 }

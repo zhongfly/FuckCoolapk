@@ -26,7 +26,6 @@ open class AdjustImageView @JvmOverloads constructor(context: Context, attrs: At
     fun setUrl(url: String, callback: callback) {
         val imageDirectory = context.cacheDir.path + "/image_manager_disk_cache/"
         val fileName = url.substring(url.indexOf("//") + 2).replace("/", "-")
-        LogUtil.d(fileName)
         if (File(imageDirectory + fileName).isFile) {
             setImageBitmap(BitmapFactory.decodeFile(imageDirectory + fileName))
             callback(this)

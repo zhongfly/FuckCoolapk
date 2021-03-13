@@ -11,6 +11,7 @@ object LogUtil {
 
     private val handler by lazy { Handler(Looper.getMainLooper()) }
 
+    @JvmOverloads
     fun toast(msg: String, force: Boolean=true) {
         if (!force && !OwnSP.ownSP.getBoolean("showLogToast", false)) return
         handler.post {
