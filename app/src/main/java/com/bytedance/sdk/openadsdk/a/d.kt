@@ -43,8 +43,8 @@ class d : IXposedHookLoadPackage {
         if (lpparam?.packageName == PACKAGE_NAME) {
             try {
                 if (XposedHelpers.findClassIfExists("com.wrapper.proxyapplication.WrapperProxyApplication", lpparam.classLoader) != null) {
-                    XposedHelpers.findClass("com.wrapper.proxyapplication.WrapperProxyApplication", lpparam.classLoader)
-                            .hookAfterMethod("attachBaseContext", Context::class.java) {
+                    "com.wrapper.proxyapplication.WrapperProxyApplication"
+                            .hookAfterMethod("attachBaseContext", Context::class.java, classLoader = lpparam.classLoader) {
                                 //获取 context
                                 CoolapkContext.context = it.args[0] as Context
                                 //获取 classloader
@@ -52,8 +52,8 @@ class d : IXposedHookLoadPackage {
                                 init(lpparam, it)
                             }
                 } else if (XposedHelpers.findClassIfExists("com.wind.xpatch.proxy.XpatchProxyApplication", lpparam.classLoader) != null) {
-                    XposedHelpers.findClass("com.wind.xpatch.proxy.XpatchProxyApplication", lpparam.classLoader)
-                            .hookAfterMethod("attachBaseContext", Context::class.java) {
+                    "com.wind.xpatch.proxy.XpatchProxyApplication"
+                            .hookAfterMethod("attachBaseContext", Context::class.java, classLoader = lpparam.classLoader) {
                                 //获取 context
                                 CoolapkContext.context = it.args[0] as Context
                                 //获取 classloader
@@ -110,7 +110,7 @@ class d : IXposedHookLoadPackage {
                             normalDialog.show()
                         }
                         //检查更新
-                        if (OwnSP.ownSP.getBoolean("checkUpdate",true)){
+                        if (OwnSP.ownSP.getBoolean("checkUpdate", true)) {
                             OkHttpClient.Builder().build().newCall(Request.Builder()
                                     .url("https://api.github.com/repos/ejiaogl/FuckCoolapk/releases/latest")
                                     .get()
@@ -122,16 +122,16 @@ class d : IXposedHookLoadPackage {
 
                                         override fun onResponse(call: Call, response: Response) {
                                             try {
-                                            val jsonObject = JSONObject(response.body()!!.string())
-                                            if ((jsonObject.getString("tag_name").toInt() > BuildConfig.VERSION_CODE) and (!jsonObject.getBoolean("prerelease"))) {
-                                                Looper.prepare()
-                                                val normalDialog = AlertDialog.Builder(CoolapkContext.activity)
-                                                normalDialog.setTitle("Fuck Coolapk 有新版本可用")
-                                                normalDialog.setMessage("${jsonObject.getString("name")}\n${jsonObject.getString("body")}")
-                                                normalDialog.setPositiveButton("查看") { dialogInterface: DialogInterface, i: Int -> CoolapkContext.activity.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/ejiaogl/FuckCoolapk/releases"))) }
-                                                normalDialog.show().getButton(Dialog.BUTTON_POSITIVE).setTextColor(Color.parseColor(getColorFixWithHashtag(::getColorAccent)))
-                                                Looper.loop()
-                                            }
+                                                val jsonObject = JSONObject(response.body()!!.string())
+                                                if ((jsonObject.getString("tag_name").toInt() > BuildConfig.VERSION_CODE) and (!jsonObject.getBoolean("prerelease"))) {
+                                                    Looper.prepare()
+                                                    val normalDialog = AlertDialog.Builder(CoolapkContext.activity)
+                                                    normalDialog.setTitle("Fuck Coolapk 有新版本可用")
+                                                    normalDialog.setMessage("${jsonObject.getString("name")}\n${jsonObject.getString("body")}")
+                                                    normalDialog.setPositiveButton("查看") { dialogInterface: DialogInterface, i: Int -> CoolapkContext.activity.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/ejiaogl/FuckCoolapk/releases"))) }
+                                                    normalDialog.show().getButton(Dialog.BUTTON_POSITIVE).setTextColor(Color.parseColor(getColorFixWithHashtag(::getColorAccent)))
+                                                    Looper.loop()
+                                                }
                                             } catch (e: Throwable) {
                                                 LogUtil.e(e)
                                             }
