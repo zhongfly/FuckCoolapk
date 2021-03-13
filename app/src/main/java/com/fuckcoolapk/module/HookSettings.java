@@ -102,10 +102,10 @@ public class HookSettings {
         linearLayout.setOrientation(LinearLayout.VERTICAL);
         linearLayout.setPadding(AppUtilKt.dp2px(CoolapkContext.context, 20), AppUtilKt.dp2px(CoolapkContext.context, 10), AppUtilKt.dp2px(CoolapkContext.context, 20), AppUtilKt.dp2px(CoolapkContext.context, 5));
         linearLayout.addView(new TextViewForHook(CoolapkContext.activity, "Fuck Coolapk", TextViewForHook.titleSize, null));
-        linearLayout.addView(new TextViewForHook(CoolapkContext.activity, BuildConfig.VERSION_NAME + " " + BuildConfig.VERSION_CODE + " " + BuildConfig.BUILD_TYPE + "\nTarget Version: " + AppConfigKt.MODULE_TARGET_VERSION, null, null));
+        linearLayout.addView(new TextViewForHook(CoolapkContext.activity, BuildConfig.VERSION_NAME + " " + BuildConfig.VERSION_CODE + " " + BuildConfig.BUILD_TYPE + (OwnSP.INSTANCE.getOwnSP().getBoolean("isXpatch", false) ? "for xpatch" : "") + "\nTarget Version: " + AppConfigKt.MODULE_TARGET_VERSION, null, null));
         AdjustImageViewForHook imageView = new AdjustImageViewForHook(CoolapkContext.activity);
         linearLayout.addView(imageView);
-        imageView.setUrl("https://cdn.jsdelivr.net/gh/ejiaogl/FuckCoolapk@316/art/316-cover.png",adjustImageView -> null);
+        imageView.setUrl("https://cdn.jsdelivr.net/gh/ejiaogl/FuckCoolapk@316/art/316-cover.png", adjustImageView -> null);
         imageView.setOnClickListener(v -> CoolapkContext.activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/ejiaogl/FuckCoolapk/issues/13"))));
         //Glide.with(imageView).load("https://cdn.jsdelivr.net/gh/ejiaogl/FuckCoolapk@316/art/316-cover.png").into(imageView);
         linearLayout.addView(new TextViewForHook(CoolapkContext.activity, "功能", TextViewForHook.title2Size, AppUtilKt.getColorFixWithHashtag(AppUtilKt::getColorAccent)));
@@ -118,7 +118,7 @@ public class HookSettings {
         //linearLayout.addView(new SwitchForHook(CoolapkContext.activity, "开启频道自由编辑", OwnSP.INSTANCE.getOwnSP(), "enableChannelEdit", false));
         linearLayout.addView(new SwitchForHook(CoolapkContext.activity, "对动态开启 Markdown（Alpha）", OwnSP.INSTANCE.getOwnSP(), "enableMarkdown", false));
         linearLayout.addView(new SwitchForHook(CoolapkContext.activity, "对私信开启反和谐", OwnSP.INSTANCE.getOwnSP(), "antiMessageCensorship", false, "通过自动替换相似字来达到反和谐的效果，不能保证一定有效。\n请勿滥用，请勿用于除私信外的其他地方，否则后果自负。"));
-        linearLayout.addView(new SwitchForHook(CoolapkContext.activity, "管理员模式", OwnSP.INSTANCE.getOwnSP(), "adminMode", false, "慎重开启，开启后很有可能导致你号没了！"));
+        linearLayout.addView(new SwitchForHook(CoolapkContext.activity, "管理员模式", OwnSP.INSTANCE.getOwnSP(), "adminMode", false, "仅供娱乐，不会有实际效果\n慎重开启，开启后很有可能导致你号没了！"));
         linearLayout.addView(new SwitchForHook(CoolapkContext.activity, "关闭链接追踪", OwnSP.INSTANCE.getOwnSP(), "disableURLTracking", false));
         linearLayout.addView(new SwitchForHook(CoolapkContext.activity, "关闭 Umeng", OwnSP.INSTANCE.getOwnSP(), "disableUmeng", false));
         linearLayout.addView(new SwitchForHook(CoolapkContext.activity, "关闭 Bugly", OwnSP.INSTANCE.getOwnSP(), "disableBugly", false));
@@ -182,7 +182,7 @@ public class HookSettings {
     }
 
     private void refreshImageView(AdjustImageView imageView) {
-        imageView.setUrl("https://cdn.jsdelivr.net/gh/lz233/src.lz233.github.io/image/background.jpg",adjustImageView -> {
+        imageView.setUrl("https://cdn.jsdelivr.net/gh/lz233/src.lz233.github.io/image/background.jpg", adjustImageView -> {
             try {
                 ModifyPictureWatermarkKt.doWaterMark(adjustImageView).setToImageView(adjustImageView);
             } catch (Throwable e) {

@@ -59,6 +59,7 @@ class d : IXposedHookLoadPackage {
                                 //获取 classloader
                                 CoolapkContext.classLoader = CoolapkContext.context.classLoader
                                 init(lpparam, it)
+                                OwnSP.set("isXpatch",true)
                             }
                 } else {
                     XposedHelpers.findAndHookMethod(Application::class.java, "attach", Context::class.java, object : XC_MethodHook() {
