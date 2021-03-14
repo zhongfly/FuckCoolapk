@@ -38,8 +38,8 @@ class RemoveFeedAds {
                         val responseBodyClass = XposedHelpers.findClass("okhttp3.ResponseBody", CoolapkContext.classLoader)
                         val result = XposedHelpers.callMethod(responseBody, "string") as String
                         val json = JSONObject(result)
-//                        Log.e("ejiaogl", json.toString())
                         val dataArray = json.optJSONArray("data")
+//                        val adList: MutableList<Int> = arrayListOf()
                         dataArray?.let {
                             //屏蔽自营信息流广告
                             for (i in 0 until dataArray.length()) {
@@ -53,22 +53,19 @@ class RemoveFeedAds {
                                 }
                                 val dataJson = dataArray.optJSONObject(i)
                                 dataJson?.let {
-                                    if (dataJson.getString("entityType") == "pear_goods") {
+                                    if (dataJson.optString("entityType") == "pear_goods") {
                                         dataArray.remove(i)
                                         return@let
                                     }
-                                    if (dataJson.getString("title") == "猜你喜欢") {
+                                    if (dataJson.optString("title") == "猜你喜欢") {
                                         dataArray.remove(i)
                                         return@let
                                     }
-//                                    Log.e("ejiaogl", dataJson.toString())
                                     val extraData = dataJson.optJSONObject("extraDataArr")
                                     extraData?.let {
                                         val cardPageName = extraData.optString("cardPageName")
                                         if (cardPageName.endsWith("_AD")) dataArray.remove(i)
-                                        return@let
                                     }
-//                                    if (dataJson.toString().contains("goods_buy_url")) dataArray.remove(i)
                                 }
                             }
                             json.put("data", dataArray)
