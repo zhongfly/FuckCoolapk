@@ -53,12 +53,22 @@ class RemoveFeedAds {
                                 }
                                 val dataJson = dataArray.optJSONObject(i)
                                 dataJson?.let {
+                                    if (dataJson.getString("entityType") == "pear_goods") {
+                                        dataArray.remove(i)
+                                        return@let
+                                    }
+                                    if (dataJson.getString("title") == "猜你喜欢") {
+                                        dataArray.remove(i)
+                                        return@let
+                                    }
+//                                    Log.e("ejiaogl", dataJson.toString())
                                     val extraData = dataJson.optJSONObject("extraDataArr")
                                     extraData?.let {
                                         val cardPageName = extraData.optString("cardPageName")
                                         if (cardPageName.endsWith("_AD")) dataArray.remove(i)
+                                        return@let
                                     }
-                                    if (dataJson.toString().contains("goods_buy_url")) dataArray.remove(i)
+//                                    if (dataJson.toString().contains("goods_buy_url")) dataArray.remove(i)
                                 }
                             }
                             json.put("data", dataArray)
