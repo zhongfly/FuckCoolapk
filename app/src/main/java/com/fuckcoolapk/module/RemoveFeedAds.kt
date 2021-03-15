@@ -1,10 +1,10 @@
 package com.fuckcoolapk.module
 
-import android.util.Log
 import com.fuckcoolapk.utils.CoolapkContext
 import com.fuckcoolapk.utils.OwnSP
 import com.fuckcoolapk.utils.ktx.hookBeforeMethod
 import de.robv.android.xposed.XposedHelpers
+import org.json.JSONArray
 import org.json.JSONObject
 
 class RemoveFeedAds {
@@ -38,37 +38,46 @@ class RemoveFeedAds {
                         val responseBodyClass = XposedHelpers.findClass("okhttp3.ResponseBody", CoolapkContext.classLoader)
                         val result = XposedHelpers.callMethod(responseBody, "string") as String
                         val json = JSONObject(result)
+//                        LogUtil.i("NA:$json")
                         val dataArray = json.optJSONArray("data")
+//                        LogUtil.i("NA:$dataArray")
 //                        val adList: MutableList<Int> = arrayListOf()
+                        val newDataArray = JSONArray()
                         dataArray?.let {
                             //屏蔽自营信息流广告
+                            var index = 0
                             for (i in 0 until dataArray.length()) {
                                 if (i == 0) {
                                     val adObject = dataArray.getJSONObject(0)
                                     //去除信息流广告
-                                    if (adObject.optString("entityId") == "8639") {
-                                        dataArray.remove(0)
-                                        continue
+                                    if (adObject.optString("entityId") != "8639") {
+//                                        dataArray.remove(0)
+                                        newDataArray.put(index, adObject)
+                                        index++
                                     }
                                 }
+
                                 val dataJson = dataArray.optJSONObject(i)
-                                dataJson?.let {
-                                    if (dataJson.optString("entityType") == "pear_goods") {
-                                        dataArray.remove(i)
-                                        return@let
-                                    }
-                                    if (dataJson.optString("title") == "猜你喜欢") {
-                                        dataArray.remove(i)
-                                        return@let
-                                    }
+                                dataJson?.let { jsonObject ->
                                     val extraData = dataJson.optJSONObject("extraDataArr")
-                                    extraData?.let {
-                                        val cardPageName = extraData.optString("cardPageName")
-                                        if (cardPageName.endsWith("_AD")) dataArray.remove(i)
-                                    }
+                                    if (dataJson.optString("entityType") != "pear_goods" && dataJson.optString("title") != "猜你喜欢")
+                                        if (extraData != null) {
+                                            extraData.apply {
+                                                val cardPageName = extraData.optString("cardPageName")
+                                                if (!cardPageName.endsWith("_AD", ignoreCase = true) && !cardPageName.endsWith("_GOODS", ignoreCase = true)) {
+                                                    newDataArray.put(index, jsonObject)
+                                                    index++
+                                                }
+                                            }
+                                        } else {
+                                            newDataArray.put(index, jsonObject)
+                                            index++
+                                        }
                                 }
+
                             }
-                            json.put("data", dataArray)
+//                            LogUtil.i("NA_new:$newDataArray")
+                            json.put("data", newDataArray)
                         }
                         val mediaType = XposedHelpers.callStaticMethod(mediaTypeClass, "parse", "application/json")
                         it.args[0] = XposedHelpers.callStaticMethod(responseBodyClass, "create", mediaType, json.toString())
