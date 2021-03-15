@@ -1,6 +1,7 @@
 package com.fuckcoolapk.module
 
 import com.fuckcoolapk.utils.CoolapkContext
+import com.fuckcoolapk.utils.LogUtil
 import com.fuckcoolapk.utils.OwnSP
 import com.fuckcoolapk.utils.ktx.hookBeforeMethod
 import de.robv.android.xposed.XposedHelpers
@@ -43,38 +44,28 @@ class RemoveFeedAds {
 //                        LogUtil.i("NA:$dataArray")
 //                        val adList: MutableList<Int> = arrayListOf()
                         val newDataArray = JSONArray()
+
                         dataArray?.let {
                             //屏蔽自营信息流广告
                             var index = 0
                             for (i in 0 until dataArray.length()) {
-                                if (i == 0) {
-                                    val adObject = dataArray.getJSONObject(0)
-                                    //去除信息流广告
-                                    if (adObject.optString("entityId") != "8639") {
-//                                        dataArray.remove(0)
-                                        newDataArray.put(index, adObject)
-                                        index++
+                                val dataJson = dataArray.optJSONObject(i)
+                                //去除信息流广告
+                                if (dataJson.optString("entityId") == "8639" || dataJson.optString("title") == "猜你喜欢") {
+                                    continue
+                                }
+                                val extraData = dataJson.optJSONObject("extraDataArr")
+                                if (extraData != null) {
+                                    val cardPageName = extraData.optString("cardPageName")
+                                    if (cardPageName.endsWith("_AD", ignoreCase = true)) {
+                                        continue
                                     }
                                 }
-
-                                val dataJson = dataArray.optJSONObject(i)
-                                dataJson?.let { jsonObject ->
-                                    val extraData = dataJson.optJSONObject("extraDataArr")
-                                    if (dataJson.optString("entityType") != "pear_goods" && dataJson.optString("title") != "猜你喜欢")
-                                        if (extraData != null) {
-                                            extraData.apply {
-                                                val cardPageName = extraData.optString("cardPageName")
-                                                if (!cardPageName.endsWith("_AD", ignoreCase = true) && !cardPageName.endsWith("_GOODS", ignoreCase = true)) {
-                                                    newDataArray.put(index, jsonObject)
-                                                    index++
-                                                }
-                                            }
-                                        } else {
-                                            newDataArray.put(index, jsonObject)
-                                            index++
-                                        }
+                                if (dataJson.toString().contains("_goods")) {
+                                    continue
                                 }
-
+                                newDataArray.put(index, dataJson)
+                                index++
                             }
 //                            LogUtil.i("NA_new:$newDataArray")
                             json.put("data", newDataArray)
