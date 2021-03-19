@@ -4,6 +4,7 @@
 
 # ~~Want~~ To Do
 
+- [ ] 在「酷安」应用页头图显示随机图片
 - [ ] 随机包名
 - [ ] 防检测 SharedPreferences
 
