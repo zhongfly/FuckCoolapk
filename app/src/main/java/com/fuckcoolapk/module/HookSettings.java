@@ -109,6 +109,7 @@ public class HookSettings {
         imageView.setOnClickListener(v -> CoolapkContext.activity.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/ejiaogl/FuckCoolapk/issues/13"))));
         linearLayout.addView(new TextViewForHook(CoolapkContext.activity, "功能", TextViewForHook.title2Size, AppUtilKt.getColorFixWithHashtag(AppUtilKt::getColorAccent)));
         linearLayout.addView(new SwitchForHook(CoolapkContext.activity, "去除启动广告", OwnSP.INSTANCE.getOwnSP(), "removeStartupAds", false));
+        linearLayout.addView(new SwitchForHook(CoolapkContext.activity, "去除启动广告（Alpha）", OwnSP.INSTANCE.getOwnSP(), "removeStartupAds2", false));
         linearLayout.addView(new SwitchForHook(CoolapkContext.activity, "去除信息流广告（Alpha）", OwnSP.INSTANCE.getOwnSP(), "removeFeedAds", false));
         linearLayout.addView(new SwitchForHook(CoolapkContext.activity, "去除帖子下方广告（Alpha）", OwnSP.INSTANCE.getOwnSP(), "removeBannerAds", false));
         linearLayout.addView(new SwitchForHook(CoolapkContext.activity, "去除底部按钮（Alpha）", OwnSP.INSTANCE.getOwnSP(), "hideBottomBtn", false));
