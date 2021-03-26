@@ -15,7 +15,7 @@ android {
         //noinspection ExpiredTargetSdkVersion
         targetSdkVersion 30
         versionCode = date.format("yyyyMMdd").toInteger()
-        versionName '0.4.2'
+        versionName '0.4.3'
     }
     signingConfigs {
         releaseSigningConfig {
