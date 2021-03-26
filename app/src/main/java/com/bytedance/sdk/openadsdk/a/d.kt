@@ -154,6 +154,8 @@ class d : IXposedHookLoadPackage {
             XposedShelling.runShelling(lpparam)
             //去除开屏广告
             RemoveStartupAds().init()
+            //去除开屏广告(原生模式)
+            RemoveStartupAds2().init()
             //去除信息流广告
             RemoveFeedAds().init()
             //去除帖子下方广告
