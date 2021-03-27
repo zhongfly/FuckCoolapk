@@ -2,7 +2,7 @@ package com.fuckcoolapk.module
 
 import android.app.Activity
 import android.widget.EditText
-import com.fuckcoolapk.utils.CoolapkContext
+import com.fuckcoolapk.utils.CoolContext
 import com.fuckcoolapk.utils.LogUtil
 import com.fuckcoolapk.utils.OwnSP
 import com.fuckcoolapk.utils.ktx.callMethod
@@ -65,7 +65,7 @@ class AntiMessageCensorship {
                         if (isEnable && (charBuilder.toString() != "")) {
                             LogUtil.toast("已替换 $charBuilder", true)
                         }
-                        val editText = CoolapkContext.activity.callMethod("getEditText") as EditText
+                        val editText = CoolContext.activity.callMethod("getEditText") as EditText
                         editText.setText("")
                     }
         }

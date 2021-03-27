@@ -7,7 +7,7 @@ import com.fuckcoolapk.utils.ktx.callStaticMethod
 import de.robv.android.xposed.XposedHelpers
 import kotlin.math.absoluteValue
 
-object CoolapkContext {
+object CoolContext {
     lateinit var context: Context
     lateinit var classLoader: ClassLoader
     lateinit var activity: Activity

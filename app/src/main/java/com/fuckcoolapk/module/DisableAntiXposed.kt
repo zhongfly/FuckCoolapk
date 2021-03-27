@@ -1,6 +1,5 @@
 package com.fuckcoolapk.module
 
-import com.fuckcoolapk.utils.CoolapkContext
 import com.fuckcoolapk.utils.ktx.replaceMethod
 import de.robv.android.xposed.XposedHelpers
 

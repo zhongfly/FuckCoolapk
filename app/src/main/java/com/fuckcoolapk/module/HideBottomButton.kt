@@ -1,7 +1,6 @@
 package com.fuckcoolapk.module
 
 import android.widget.LinearLayout
-import com.fuckcoolapk.utils.CoolapkContext
 import com.fuckcoolapk.utils.OwnSP
 import com.fuckcoolapk.utils.ktx.hookBeforeMethod
 import de.robv.android.xposed.XC_MethodHook
@@ -9,7 +8,7 @@ import de.robv.android.xposed.XposedHelpers
 
 class HideBottomButton {
     fun init() {
-        if (OwnSP.ownSP.getBoolean("hideBottomBtn", false)) {
+        if (OwnSP.ownSP.getBoolean("hideBottomButton", false)) {
             "com.aurelhubert.ahbottomnavigation.AHBottomNavigation"
                     .hookBeforeMethod("addItems", List::class.java) {
                         val bottomBtnList = it.args[0] as MutableList<Any>

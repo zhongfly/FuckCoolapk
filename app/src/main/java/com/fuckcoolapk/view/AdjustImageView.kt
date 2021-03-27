@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.BitmapFactory
 import android.util.AttributeSet
 import android.widget.ImageView
+import com.fuckcoolapk.utils.CoolContext
 import com.fuckcoolapk.utils.DownloadUtil
 import com.fuckcoolapk.utils.GetUtil
 import com.fuckcoolapk.utils.LogUtil
@@ -30,7 +31,7 @@ open class AdjustImageView @JvmOverloads constructor(context: Context, attrs: At
             setImageBitmap(BitmapFactory.decodeFile(imageDirectory + fileName))
             callback(this)
         } else {
-            Thread{
+            Thread {
                 DownloadUtil().download(url, imageDirectory, fileName, object : DownloadUtil.OnDownloadListener {
                     override fun onDownloadSuccess(file: File?) {
                         post {
@@ -46,6 +47,10 @@ open class AdjustImageView @JvmOverloads constructor(context: Context, attrs: At
                 })
             }.start()
         }
+    }
+
+    class Builder(private val mContext: Context = CoolContext.context, private val block: AdjustImageView.() -> Unit) {
+        fun build() = AdjustImageView(mContext).apply(block)
     }
 
     init {

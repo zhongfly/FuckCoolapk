@@ -31,9 +31,6 @@
  public static void throw*(...);
 }
 
--keep public class * implements com.bumptech.glide.module.GlideModule
--keep public class * extends com.bumptech.glide.module.AppGlideModule
--keep public enum com.bumptech.glide.load.ImageHeaderParser$** {
-  **[] $VALUES;
-  public *;
+-assumenosideeffects class com.fuckcoolapk.utils.LogUtil {
+ public static void _d*(...);
 }

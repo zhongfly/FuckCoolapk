@@ -1,7 +1,6 @@
 package com.fuckcoolapk.module
 
 import android.view.View
-import com.fuckcoolapk.utils.CoolapkContext
 import com.fuckcoolapk.utils.OwnSP
 import com.fuckcoolapk.utils.ktx.getObjectField
 import com.fuckcoolapk.utils.ktx.hookAfterMethod

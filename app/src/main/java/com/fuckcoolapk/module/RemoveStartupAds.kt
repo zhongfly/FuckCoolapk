@@ -1,7 +1,6 @@
 package com.fuckcoolapk.module
 
 import android.content.Context
-import com.fuckcoolapk.utils.CoolapkContext
 import com.fuckcoolapk.utils.LogUtil
 import com.fuckcoolapk.utils.OwnSP
 import com.fuckcoolapk.utils.ktx.setReturnConstant

@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 
 object CoolapkSP {
-    val coolapkSP: SharedPreferences by lazy { CoolapkContext.context.getSharedPreferences("coolapk_preferences_v7", Context.MODE_PRIVATE) }
+    val coolapkSP: SharedPreferences by lazy { CoolContext.context.getSharedPreferences("coolapk_preferences_v7", Context.MODE_PRIVATE) }
     private val coolapkEditor: SharedPreferences.Editor = coolapkSP.edit()
     fun set(key: String, any: Any) {
         when (any) {

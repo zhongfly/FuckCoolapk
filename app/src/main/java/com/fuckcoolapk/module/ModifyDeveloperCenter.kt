@@ -19,7 +19,7 @@ class ModifyDeveloperCenter {
     fun init() {
         "com.coolapk.market.manager.ActionManager"
                 .replaceMethod("startDeveloperAppListActivity", Context::class.java, String::class.java, String::class.java) {
-                    XposedHelpers.findClass("com.coolapk.market.manager.ActionManager", CoolapkContext.classLoader).callStaticMethod("startWebViewActivity", it.args[0] as Context, "https://developer.coolapk.com/do?c=apk&m=myList")
+                    XposedHelpers.findClass("com.coolapk.market.manager.ActionManager", CoolContext.classLoader).callStaticMethod("startWebViewActivity", it.args[0] as Context, "https://developer.coolapk.com/do?c=apk&m=myList")
                 }
         "com.coolapk.market.view.webview.WebViewActivity"
                 .hookAfterMethod("onCreate", Bundle::class.java) {

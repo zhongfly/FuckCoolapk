@@ -2,7 +2,6 @@ package com.fuckcoolapk.module
 
 import android.text.Html
 import android.widget.TextView
-import com.fuckcoolapk.utils.CoolapkContext
 import com.fuckcoolapk.utils.LogUtil
 import com.fuckcoolapk.utils.OwnSP
 import com.fuckcoolapk.utils.ktx.*

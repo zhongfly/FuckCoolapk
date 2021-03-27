@@ -2,9 +2,10 @@ package com.fuckcoolapk.utils
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.fuckcoolapk.SP_NAME
 
 object OwnSP {
-    val ownSP: SharedPreferences by lazy { CoolapkContext.context.getSharedPreferences("fuckcoolapk", Context.MODE_PRIVATE) }
+    val ownSP: SharedPreferences by lazy { CoolContext.context.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE) }
     private val ownEditor: SharedPreferences.Editor = ownSP.edit()
     fun set(key: String, any: Any) {
         when (any) {

@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 
 import com.fuckcoolapk.BuildConfig;
-import com.fuckcoolapk.utils.CoolapkContext;
+import com.fuckcoolapk.utils.CoolContext;
 import com.fuckcoolapk.utils.LogUtil;
 
 import java.util.ArrayList;
@@ -16,7 +16,7 @@ import de.robv.android.xposed.XposedHelpers;
 public class HideModule {
     public void init() {
         try {
-            XposedHelpers.findAndHookMethod("com.coolapk.market.util.LocalApkUtils", CoolapkContext.classLoader, "getAppList", PackageManager.class, boolean.class, new XC_MethodHook() {
+            XposedHelpers.findAndHookMethod("com.coolapk.market.util.LocalApkUtils", CoolContext.classLoader, "getAppList", PackageManager.class, boolean.class, new XC_MethodHook() {
                 @Override
                 protected void afterHookedMethod(MethodHookParam param) throws Throwable {
                     ArrayList<Object> appList = (ArrayList<Object>) param.getResult();
@@ -31,7 +31,7 @@ public class HideModule {
                     super.afterHookedMethod(param);
                 }
             });
-            XposedHelpers.findAndHookMethod("com.coolapk.market.receiver.PackageReceiverImpl", CoolapkContext.classLoader, "onPackageAdded", Context.class, Intent.class, String.class, new XC_MethodHook() {
+            XposedHelpers.findAndHookMethod("com.coolapk.market.receiver.PackageReceiverImpl", CoolContext.classLoader, "onPackageAdded", Context.class, Intent.class, String.class, new XC_MethodHook() {
                 @Override
                 protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
                     if (param.args[2].equals(BuildConfig.APPLICATION_ID)) {

@@ -1,6 +1,6 @@
 package com.fuckcoolapk.module
 
-import com.fuckcoolapk.utils.CoolapkContext
+import com.fuckcoolapk.utils.CoolContext
 import com.fuckcoolapk.utils.OwnSP
 import com.fuckcoolapk.utils.ktx.hookBeforeMethod
 import de.robv.android.xposed.XposedHelpers
@@ -35,8 +35,8 @@ class RemoveFeedAds {
             "com.coolapk.market.remote.EntityListResponseBodyConverter"
                     .hookBeforeMethod("convert", "okhttp3.ResponseBody") {
                         val responseBody = it.args[0]
-                        val mediaTypeClass = XposedHelpers.findClass("okhttp3.MediaType", CoolapkContext.classLoader)
-                        val responseBodyClass = XposedHelpers.findClass("okhttp3.ResponseBody", CoolapkContext.classLoader)
+                        val mediaTypeClass = XposedHelpers.findClass("okhttp3.MediaType", CoolContext.classLoader)
+                        val responseBodyClass = XposedHelpers.findClass("okhttp3.ResponseBody", CoolContext.classLoader)
                         val result = XposedHelpers.callMethod(responseBody, "string") as String
                         val json = JSONObject(result)
 //                        LogUtil.i("NA:$json")

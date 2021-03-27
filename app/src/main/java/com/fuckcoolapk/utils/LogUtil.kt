@@ -12,15 +12,15 @@ object LogUtil {
     private val handler by lazy { Handler(Looper.getMainLooper()) }
 
     @JvmOverloads
-    fun toast(msg: String, force: Boolean=true) {
+    fun toast(msg: String, force: Boolean = true) {
         if (!force && !OwnSP.ownSP.getBoolean("showLogToast", false)) return
         handler.post {
-            Toast.makeText(CoolapkContext.context, msg, Toast.LENGTH_SHORT).show()
+            Toast.makeText(CoolContext.context, msg, Toast.LENGTH_SHORT).show()
         }
     }
 
     @JvmStatic
-    private fun doLog(f: (String, String) -> Int, obj: Any?, toXposed: Boolean = false) {
+    private fun doLog(f: (String, String) -> Int, obj: Any?, toXposed: Boolean = false, toToast: Boolean = true) {
         val str = if (obj is Throwable) ALog.getStackTraceString(obj) else obj.toString()
         if (str.length > maxLength) {
             val chunkCount: Int = str.length / maxLength
@@ -34,10 +34,14 @@ object LogUtil {
             }
         } else {
             f(TAG, str)
-            toast(str,false)
-            if (toXposed)
-                XposedBridge.log("$TAG : $str")
+            if (toToast) toast(str, false)
+            if (toXposed) XposedBridge.log("$TAG : $str")
         }
+    }
+
+    @JvmStatic
+    fun _d(obj: Any?) {
+        doLog(ALog::d, obj, toXposed = false, toToast = false)
     }
 
     @JvmStatic
