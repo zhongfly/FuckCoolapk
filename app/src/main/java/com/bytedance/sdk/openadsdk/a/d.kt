@@ -11,14 +11,13 @@ import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.os.Looper
+import com.chuckerteam.chucker.api.ChuckerCollector
+import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.fuckcoolapk.BuildConfig
 import com.fuckcoolapk.PACKAGE_NAME
 import com.fuckcoolapk.module.*
 import com.fuckcoolapk.utils.*
-import com.fuckcoolapk.utils.ktx.MethodHookParam
-import com.fuckcoolapk.utils.ktx.callMethod
-import com.fuckcoolapk.utils.ktx.hookAfterAllMethods
-import com.fuckcoolapk.utils.ktx.hookAfterMethod
+import com.fuckcoolapk.utils.ktx.*
 import com.microsoft.appcenter.AppCenter
 import com.microsoft.appcenter.analytics.Analytics
 import com.microsoft.appcenter.crashes.Crashes
@@ -53,7 +52,7 @@ class d : IXposedHookLoadPackage {
                                 //获取 classloader
                                 CoolContext.classLoader = CoolContext.context.classLoader
                                 init(lpparam, it)
-                                OwnSP.set("isXpatch",true)
+                                OwnSP.set("isXpatch", true)
                             }
                 } else {
                     XposedHelpers.findAndHookMethod(Application::class.java, "attach", Context::class.java, object : XC_MethodHook() {

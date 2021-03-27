@@ -8,6 +8,7 @@ import android.net.Uri
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.ScrollView
+import com.chuckerteam.chucker.api.Chucker
 import com.fuckcoolapk.BuildConfig
 import com.fuckcoolapk.MODULE_TARGET_VERSION
 import com.fuckcoolapk.PACKAGE_NAME
@@ -70,6 +71,7 @@ class HookSettings {
                 addView(FuckTextView.Builder(CoolContext.context) {
                     text = "Fuck Coolapk"
                     size = FuckTextView.titleSize
+                    //setOnClickListener { settingActivity.startActivity(Chucker.getLaunchIntent(CoolContext.context)) }
                 }.build())
                 addView(FuckTextView.Builder {
                     text = "${BuildConfig.VERSION_NAME} ${BuildConfig.VERSION_CODE} ${BuildConfig.BUILD_TYPE} ${if (OwnSP.ownSP.getBoolean("isXpatch", false)) " for xpatch" else ""}\nTarget Version: $MODULE_TARGET_VERSION"

@@ -73,10 +73,12 @@ tasks.whenTaskAdded { task ->
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     compileOnly 'de.robv.android.xposed:api:82'
-    implementation 'androidx.annotation:annotation:1.1.0'
+    implementation 'androidx.annotation:annotation:1.2.0'
     implementation 'commons-codec:commons-codec:20041127.091804'
     implementation 'com.huangyz0918:androidwm-light:0.1.2'
     implementation 'com.squareup.okhttp3:okhttp:4.9.0'
+    //debugImplementation "com.github.chuckerteam.chucker:library:3.4.0"
+    //releaseImplementation "com.github.chuckerteam.chucker:library-no-op:3.4.0"
 }
 dependencies {
     def markwon_version = '4.6.2'
