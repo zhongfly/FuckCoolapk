@@ -8,7 +8,6 @@ import android.net.Uri
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.ScrollView
-import com.chuckerteam.chucker.api.Chucker
 import com.fuckcoolapk.BuildConfig
 import com.fuckcoolapk.MODULE_TARGET_VERSION
 import com.fuckcoolapk.PACKAGE_NAME
@@ -19,8 +18,10 @@ import com.fuckcoolapk.utils.ktx.callStaticMethod
 import com.fuckcoolapk.utils.ktx.hookBeforeMethod
 import com.fuckcoolapk.view.*
 import io.noties.markwon.Markwon
+import org.json.JSONObject
 import java.io.File
 import java.util.*
+import kotlin.random.Random
 import kotlin.system.exitProcess
 
 class HookSettings {
@@ -112,6 +113,10 @@ class HookSettings {
                 addView(FuckSwitch.Builder {
                     text = "允许在应用列表内卸载酷安"
                     key = "allowUninstallCoolapk"
+                }.build())
+                addView(FuckSwitch.Builder {
+                    text = "在应用详情页显示更多信息"
+                    key = "showAppDetail"
                 }.build())
                 addView(FuckSwitch.Builder {
                     text = "对动态开启 Markdown（Alpha）"
@@ -346,7 +351,7 @@ class HookSettings {
     }
 
     private fun refreshWaterMarkImageView(waterMarkImageView: AdjustImageView) = waterMarkImageView
-            .setUrl("https://cdn.jsdelivr.net/gh/lz233/src.lz233.github.io/image/background.jpg") {
+            .setUrl("https://cdn.jsdelivr.net/gh/t0HiiBwn/CoolapkPhoto@main/${(OwnSP.ownSP.getInt("configPhotoIndexStart",0)..OwnSP.ownSP.getInt("configPhotoIndexEnd",24)).random()}.jpg") {
                 try {
                     doWaterMark(it).setToImageView(it)
                 } catch (e: Throwable) {

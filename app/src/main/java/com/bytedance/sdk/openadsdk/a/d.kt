@@ -11,8 +11,6 @@ import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.os.Looper
-import com.chuckerteam.chucker.api.ChuckerCollector
-import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.fuckcoolapk.BuildConfig
 import com.fuckcoolapk.PACKAGE_NAME
 import com.fuckcoolapk.module.*
@@ -82,10 +80,10 @@ class d : IXposedHookLoadPackage {
                     CoolContext.activity = activityParam.result as Activity
                     LogUtil.d("Current activity: ${CoolContext.activity.javaClass}")
                 }
-        //首次使用&Appcenter&检查更新
         try {
             XposedHelpers.findClass("com.coolapk.market.view.main.MainActivity", CoolContext.classLoader)
                     .hookAfterMethod("onCreate", Bundle::class.java) {
+                        val okHttpClient = OkHttpClient.Builder().build()
                         //appcenter
                         AppCenter.start(CoolContext.activity.application, "44ab5622-fbcb-4fcd-9eff-04dab0061d30", Analytics::class.java, Crashes::class.java)
                         if (CoolContext.loginSession.callMethod("isLogin") as Boolean) {
@@ -105,7 +103,7 @@ class d : IXposedHookLoadPackage {
                         }
                         //检查更新
                         if (OwnSP.ownSP.getBoolean("checkUpdate", true)) {
-                            OkHttpClient.Builder().build().newCall(Request.Builder()
+                            okHttpClient.newCall(Request.Builder()
                                     .url("https://api.github.com/repos/ejiaogl/FuckCoolapk/releases/latest")
                                     .get()
                                     .build())
@@ -126,6 +124,29 @@ class d : IXposedHookLoadPackage {
                                                     normalDialog.show().getButton(Dialog.BUTTON_POSITIVE).setTextColor(Color.parseColor(getColorFixWithHashtag(::getColorAccent)))
                                                     Looper.loop()
                                                 }
+                                            } catch (e: Throwable) {
+                                                LogUtil.e(e)
+                                            }
+                                        }
+                                    })
+                        }
+                        //获取配置
+                        if ((System.currentTimeMillis() - OwnSP.ownSP.getLong("lastGetConfigTime", 0)) >= 86400000) {
+                            okHttpClient.newCall(Request.Builder()
+                                    .url("https://cdn.jsdelivr.net/gh/ejiaogl/FuckCoolapk@master/config.json")
+                                    .get()
+                                    .build())
+                                    .enqueue(object : Callback {
+                                        override fun onFailure(call: Call, e: IOException) {
+                                            LogUtil.e(e)
+                                        }
+
+                                        override fun onResponse(call: Call, response: Response) {
+                                            try {
+                                                val jsonObject = JSONObject(response.body!!.string())
+                                                OwnSP.set("configPhotoIndexStart", jsonObject.getJSONArray("photoIndex")[0])
+                                                OwnSP.set("configPhotoIndexEnd", jsonObject.getJSONArray("photoIndex")[1])
+                                                OwnSP.set("lastGetConfigTime", System.currentTimeMillis())
                                             } catch (e: Throwable) {
                                                 LogUtil.e(e)
                                             }
@@ -157,6 +178,8 @@ class d : IXposedHookLoadPackage {
             HideBottomButton().init()
             //允许在应用列表内卸载酷安
             AllowUninstallCoolapk().init()
+            //显示更详细的 App 信息
+            ShowAppDetail().init()
             //关闭友盟
             DisableUmeng().init()
             //关闭 Bugly
