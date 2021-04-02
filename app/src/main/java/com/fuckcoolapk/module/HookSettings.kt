@@ -70,7 +70,7 @@ class HookSettings {
                 orientation = LinearLayout.VERTICAL
                 setPadding(dp2px(CoolContext.context, 20f), dp2px(CoolContext.context, 10f), dp2px(CoolContext.context, 20f), dp2px(CoolContext.context, 5f))
                 addView(FuckTextView.Builder(CoolContext.context) {
-                    text = "Fuck Coolapk"
+                    text = "Fxxx Cxxxxxx"
                     size = FuckTextView.titleSize
                     //setOnClickListener { settingActivity.startActivity(Chucker.getLaunchIntent(CoolContext.context)) }
                 }.build())
