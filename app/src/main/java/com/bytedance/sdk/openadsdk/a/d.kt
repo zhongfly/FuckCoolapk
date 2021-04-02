@@ -101,37 +101,37 @@ class d : IXposedHookLoadPackage {
                             normalDialog.setOnDismissListener { OwnSP.set("isFirstUse", false) }
                             normalDialog.show()
                         }
-                        //检查更新
-                        if (OwnSP.ownSP.getBoolean("checkUpdate", true)) {
-                            okHttpClient.newCall(Request.Builder()
-                                    .url("https://api.github.com/repos/ejiaogl/FuckCoolapk/releases/latest")
-                                    .get()
-                                    .build())
-                                    .enqueue(object : Callback {
-                                        override fun onFailure(call: Call, e: IOException) {
-                                            LogUtil.e(e)
-                                        }
-
-                                        override fun onResponse(call: Call, response: Response) {
-                                            try {
-                                                val jsonObject = JSONObject(response.body!!.string())
-                                                if ((jsonObject.getString("tag_name").toInt() > BuildConfig.VERSION_CODE) and (!jsonObject.getBoolean("prerelease"))) {
-                                                    Looper.prepare()
-                                                    val normalDialog = AlertDialog.Builder(CoolContext.activity)
-                                                    normalDialog.setTitle("Fuck Coolapk 有新版本可用")
-                                                    normalDialog.setMessage("${jsonObject.getString("name")}\n${jsonObject.getString("body")}")
-                                                    normalDialog.setPositiveButton("查看") { dialogInterface: DialogInterface, i: Int -> CoolContext.activity.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/ejiaogl/FuckCoolapk/releases"))) }
-                                                    normalDialog.show().getButton(Dialog.BUTTON_POSITIVE).setTextColor(Color.parseColor(getColorFixWithHashtag(::getColorAccent)))
-                                                    Looper.loop()
-                                                }
-                                            } catch (e: Throwable) {
-                                                LogUtil.e(e)
-                                            }
-                                        }
-                                    })
-                        }
                         //获取配置
                         if ((System.currentTimeMillis() - OwnSP.ownSP.getLong("lastGetConfigTime", 0)) >= 86400000) {
+                            //检查更新
+                            if (OwnSP.ownSP.getBoolean("checkUpdate", true)) {
+                                okHttpClient.newCall(Request.Builder()
+                                        .url("https://api.github.com/repos/ejiaogl/FuckCoolapk/releases/latest")
+                                        .get()
+                                        .build())
+                                        .enqueue(object : Callback {
+                                            override fun onFailure(call: Call, e: IOException) {
+                                                LogUtil.e(e)
+                                            }
+
+                                            override fun onResponse(call: Call, response: Response) {
+                                                try {
+                                                    val jsonObject = JSONObject(response.body!!.string())
+                                                    if ((jsonObject.getString("tag_name").toInt() > BuildConfig.VERSION_CODE) and (!jsonObject.getBoolean("prerelease"))) {
+                                                        Looper.prepare()
+                                                        val normalDialog = AlertDialog.Builder(CoolContext.activity)
+                                                        normalDialog.setTitle("Fuck Coolapk 有新版本可用")
+                                                        normalDialog.setMessage("${jsonObject.getString("name")}\n${jsonObject.getString("body")}")
+                                                        normalDialog.setPositiveButton("查看") { dialogInterface: DialogInterface, i: Int -> CoolContext.activity.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/ejiaogl/FuckCoolapk/releases"))) }
+                                                        normalDialog.show().getButton(Dialog.BUTTON_POSITIVE).setTextColor(Color.parseColor(getColorFixWithHashtag(::getColorAccent)))
+                                                        Looper.loop()
+                                                    }
+                                                } catch (e: Throwable) {
+                                                    LogUtil.e(e)
+                                                }
+                                            }
+                                        })
+                            }
                             okHttpClient.newCall(Request.Builder()
                                     .url("https://cdn.jsdelivr.net/gh/ejiaogl/FuckCoolapk@master/config.json")
                                     .get()
@@ -178,6 +178,8 @@ class d : IXposedHookLoadPackage {
             HideBottomButton().init()
             //允许在应用列表内卸载酷安
             AllowUninstallCoolapk().init()
+            //插入头条 banner
+            InsertHeadlineCard().init()
             //显示更详细的 App 信息
             ShowAppDetail().init()
             //关闭友盟

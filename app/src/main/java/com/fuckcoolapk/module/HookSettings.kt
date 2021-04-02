@@ -91,7 +91,7 @@ class HookSettings {
                     key = "removeStartupAds"
                 }.build())
                 addView(FuckSwitch.Builder {
-                    text = "去除启动广告（原生模式）"
+                    text = "去除启动广告（Alpha）"
                     key = "removeStartupAds2"
                 }.build())
                 addView(FuckSwitch.Builder {
