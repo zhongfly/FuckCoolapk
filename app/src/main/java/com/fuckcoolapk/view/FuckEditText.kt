@@ -17,14 +17,17 @@ class FuckEditText(context: Context) : EditText(context) {
     var sharedPreferences = OwnSP.ownSP
     private val editor by lazy { sharedPreferences.edit() }
     var key = ""
-        set(value) = addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-            override fun afterTextChanged(s: Editable) {
-                if (s.toString() == "") editor.remove(value) else editor.putString(value, s.toString())
-                editor.apply()
-            }
-        })
+        set(value) {
+            if (sharedPreferences.getString(value, "") != "") setText(sharedPreferences.getString(value, ""))
+            addTextChangedListener(object : TextWatcher {
+                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+                override fun afterTextChanged(s: Editable) {
+                    if (s.toString() == "") editor.remove(value) else editor.putString(value, s.toString())
+                    editor.apply()
+                }
+            })
+        }
 
     init {
         setPadding(dp2px(getContext(), 10f), dp2px(getContext(), 10f), dp2px(getContext(), 10f), dp2px(getContext(), 10f))
