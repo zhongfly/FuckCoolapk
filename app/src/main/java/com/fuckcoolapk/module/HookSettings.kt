@@ -77,10 +77,6 @@ class HookSettings {
                 addView(FuckTextView.Builder {
                     text = "${BuildConfig.VERSION_NAME} ${BuildConfig.VERSION_CODE} ${BuildConfig.BUILD_TYPE} ${if (OwnSP.ownSP.getBoolean("isXpatch", false)) " for xpatch" else ""}\nTarget Version: $MODULE_TARGET_VERSION"
                 }.build())
-                addView(AdjustImageView.Builder {
-                    setUrl("https://cdn.jsdelivr.net/gh/ejiaogl/FuckCoolapk@316/art/316-cover.png") {}
-                    setOnClickListener { settingActivity.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/ejiaogl/FuckCoolapk/issues/13"))) }
-                }.build())
                 addView(FuckTextView.Builder {
                     text = "功能"
                     color = getColorFixWithHashtag(::getColorAccent)
@@ -137,10 +133,10 @@ class HookSettings {
                     toastText = "仅供娱乐，不会有实际效果。\n慎重开启，开启后很有可能导致你号没了！"
                     key = "adminMode"
                 }.build())
-                addView(FuckSwitch.Builder {
+                /*addView(FuckSwitch.Builder {
                     text = "关闭链接追踪"
                     key = "disableURLTracking"
-                }.build())
+                }.build())*/
                 addView(FuckSwitch.Builder {
                     text = "关闭 Umeng"
                     key = "disableUmeng"

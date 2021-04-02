@@ -10,12 +10,12 @@ import java.net.URLEncoder
 
 class DisableURLTracking {
     fun init() {
-        if (OwnSP.ownSP.getBoolean("disableURLTracking", false)) {
+        //if (OwnSP.ownSP.getBoolean("disableURLTracking", false)) {
             "com.coolapk.market.manager.ActionManager"
                     .hookBeforeMethod("startBrowserActivity", Context::class.java, String::class.java) {
                         val url = it.args[1] as String
                         it.args[1] = URLDecoder.decode(url.substring(url.indexOf("https://www.coolapk.com/link") + 33), "utf-8")
                     }
-        }
+        //}
     }
 }

@@ -10,7 +10,7 @@ class InsertHeadlineCard {
     fun init() {
         "com.coolapk.market.viewholder.ImageListCardViewHolder"
                 .hookBeforeMethod("bindTo", Object::class.java) {
-                    if (CoolContext.activity.javaClass.name=="com.coolapk.market.view.splash.SplashActivity"){
+                    if ((CoolContext.activity.javaClass.name == "com.coolapk.market.view.splash.SplashActivity") or (CoolContext.activity.javaClass.name == "com.coolapk.market.view.main.MainActivity")) {
                         val entityCard = it.args[0]
                         it.args[0] = "com.coolapk.market.model.EntityCard"
                                 .callStaticMethod("builder")
@@ -22,10 +22,11 @@ class InsertHeadlineCard {
                                 ?.callMethod("setId", entityCard.callMethod("getId"))
                                 ?.callMethod("setLastUpdate", entityCard.callMethod("getLastUpdate"))
                                 ?.callMethod("setEntities", (entityCard.callMethod("getEntities") as java.util.ArrayList<Any?>)
-                                        .add(0,"com.coolapk.market.model.EntityCard".callStaticMethod("builder")
-                                                ?.callMethod("setEntityType","image_1")
-                                                ?.callMethod("setTitle","233")
-                                                ?.callMethod("setPic","https://cdn.jsdelivr.net/gh/lz233/src.lz233.github.io/image/background.jpg")
+                                        .add(0, "com.coolapk.market.model.EntityCard".callStaticMethod("builder")
+                                                ?.callMethod("setEntityType", "image_1")
+                                                ?.callMethod("setTitle", "233")
+                                                ?.callMethod("setUrl", "https://t0hiibwn.github.io/FuckCoolapkWeb")
+                                                ?.callMethod("setPic", "https://cdn.jsdelivr.net/gh/ejiaogl/FuckCoolapk@master/art/qingming/qingming.png")
                                                 ?.callMethod("build")))
                                 ?.callMethod("build")
                     }
