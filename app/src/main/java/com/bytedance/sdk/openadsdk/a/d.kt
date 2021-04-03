@@ -222,7 +222,7 @@ class d : IXposedHookLoadPackage {
             //允许在应用列表内卸载酷安
             AllowUninstallCoolapk().init()
             //插入头条 banner
-            InsertHeadlineCard().init()
+            //InsertHeadlineCard().init()
             //显示更详细的 App 信息
             ShowAppDetail().init()
             //关闭友盟
