@@ -21,7 +21,7 @@ class FuckTextView(context: Context) : TextView(context) {
     var color = if (isNightMode(getContext())) "#ffffff" else "#000000"
         set(value) = setTextColor(Color.parseColor(value))
     var url = ""
-        set(value) = setOnClickListener { context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(value))) }
+        set(value) = setOnClickListener { CoolContext.activity.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(value))) }
 
     init {
         setPadding(dp2px(getContext(), 10f), dp2px(getContext(), 10f), dp2px(getContext(), 10f), dp2px(getContext(), 10f))

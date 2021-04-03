@@ -1,3 +1,21 @@
 {
-  "photoIndex":[0,24]
+  "photoIndex":[0,24],
+  "bannerCard": [
+    {
+      "countDown": true,
+      "position": 0,
+      "entityType": "image_1",
+      "title": "233",
+      "url": "https://t0hiibwn.github.io/FuckCoolapkWeb",
+      "pic": "https://cdn.jsdelivr.net/gh/ejiaogl/FuckCoolapk@master/art/qingming/qingming.png"
+    },
+    {
+      "countDown": true,
+      "position": 1,
+      "entityType": "image_1",
+      "title": "233",
+      "url": "https://t0hiibwn.github.io/FuckCoolapkWeb",
+      "pic": "https://cdn.jsdelivr.net/gh/lz233/src.lz233.github.io/image/background.jpg"
+    }
+  ]
 }

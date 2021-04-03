@@ -103,7 +103,8 @@ class d : IXposedHookLoadPackage {
                             normalDialog.show()
                         }
                         //获取配置
-                        if ((System.currentTimeMillis() - OwnSP.ownSP.getLong("lastGetConfigTime", 0)) >= 86400000) {
+                        if (true) {//debug
+                            //if ((System.currentTimeMillis() - OwnSP.ownSP.getLong("lastGetConfigTime", 0)) >= 86400000) {
                             //检查更新
                             if (OwnSP.ownSP.getBoolean("checkUpdate", true)) {
                                 okHttpClient.newCall(Request.Builder()
@@ -147,6 +148,7 @@ class d : IXposedHookLoadPackage {
                                                 val jsonObject = JSONObject(response.body!!.string())
                                                 OwnSP.set("configPhotoIndexStart", jsonObject.getJSONArray("photoIndex")[0])
                                                 OwnSP.set("configPhotoIndexEnd", jsonObject.getJSONArray("photoIndex")[1])
+                                                OwnSP.set("configBannerCard", jsonObject.getJSONArray("bannerCard").toString())
                                                 OwnSP.set("lastGetConfigTime", System.currentTimeMillis())
                                             } catch (e: Throwable) {
                                                 LogUtil.e(e)
