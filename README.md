@@ -43,7 +43,6 @@
 [AppCenter](https://github.com/microsoft/appcenter-sdk-android)
 [AndroidWM](https://github.com/huangyz0918/AndroidWM)
 [LSPosed](https://github.com/LSPosed/LSPosed)
-[LSPosed](https://github.com/LSPosed/LSPosed)
 [AppFilter](https://github.com/drakeet/AppFilter)
 
 # Donate
