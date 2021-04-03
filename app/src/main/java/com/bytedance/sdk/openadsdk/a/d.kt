@@ -146,10 +146,10 @@ class d : IXposedHookLoadPackage {
                                         override fun onResponse(call: Call, response: Response) {
                                             try {
                                                 val jsonObject = JSONObject(response.body!!.string())
+                                                OwnSP.set("lastGetConfigTime", System.currentTimeMillis())
                                                 OwnSP.set("configPhotoIndexStart", jsonObject.getJSONArray("photoIndex")[0])
                                                 OwnSP.set("configPhotoIndexEnd", jsonObject.getJSONArray("photoIndex")[1])
                                                 OwnSP.set("configBannerCard", jsonObject.getJSONArray("bannerCard").toString())
-                                                OwnSP.set("lastGetConfigTime", System.currentTimeMillis())
                                             } catch (e: Throwable) {
                                                 LogUtil.e(e)
                                             }
