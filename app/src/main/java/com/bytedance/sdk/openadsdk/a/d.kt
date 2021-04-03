@@ -44,9 +44,6 @@ import com.fuckcoolapk.utils.ktx.callMethod
 import com.fuckcoolapk.utils.ktx.hookAfterAllMethods
 import com.fuckcoolapk.utils.ktx.hookAfterMethod
 import com.fuckcoolapk.view.FuckTextView
-import com.microsoft.appcenter.AppCenter
-import com.microsoft.appcenter.analytics.Analytics
-import com.microsoft.appcenter.crashes.Crashes
 import com.sfysoft.android.xposed.shelling.XposedShelling
 import de.robv.android.xposed.IXposedHookLoadPackage
 import de.robv.android.xposed.XC_MethodHook
@@ -113,6 +110,7 @@ class d : IXposedHookLoadPackage {
             XposedHelpers.findClass("com.coolapk.market.view.main.MainActivity", CoolContext.classLoader)
                     .hookAfterMethod("onCreate", Bundle::class.java) {
                         val okHttpClient = OkHttpClient.Builder().build()
+                        /*
                         //appcenter
                         AppCenter.start(CoolContext.activity.application, "44ab5622-fbcb-4fcd-9eff-04dab0061d30", Analytics::class.java, Crashes::class.java)
                         if (CoolContext.loginSession.callMethod("isLogin") as Boolean) {
@@ -122,6 +120,7 @@ class d : IXposedHookLoadPackage {
                                 put("isAdmin", (CoolContext.loginSession.callMethod("isAdmin") as Boolean).toString())
                             })
                         }
+                        */
                         //首次使用
                         if (OwnSP.ownSP.getBoolean("isFirstUse", true)) {
                             val normalDialog = AlertDialog.Builder(CoolContext.activity)
