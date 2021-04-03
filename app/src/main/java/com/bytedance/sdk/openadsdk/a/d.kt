@@ -11,6 +11,7 @@ import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.os.Looper
+import com.drakeet.filter.AppFilter
 import com.fuckcoolapk.BuildConfig
 import com.fuckcoolapk.PACKAGE_NAME
 import com.fuckcoolapk.module.*
@@ -161,6 +162,8 @@ class d : IXposedHookLoadPackage {
         DisableAntiXposed().init()
         //隐藏模块
         HideModule().init()
+        //AppFilter by Darkeet
+        AppFilter().init(lpparam.classLoader)
         //hook 设置
         HookSettings().init()
         if (OwnSP.ownSP.getBoolean("agreeEULA", false)) {
