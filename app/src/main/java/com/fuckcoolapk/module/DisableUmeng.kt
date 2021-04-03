@@ -18,6 +18,8 @@ class DisableUmeng {
                     .replaceAfterAllMethods("preInit") {
                         null
                     }
+            "com.umeng.commonsdk.utils.UMUtils"
+                    .replaceMethod("getSystemProperty", String::class.java, String::class.java){}
         }
     }
 }

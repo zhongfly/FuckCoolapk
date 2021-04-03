@@ -87,10 +87,6 @@ class HookSettings {
                     key = "removeStartupAds"
                 }.build())
                 addView(FuckSwitch.Builder {
-                    text = "去除启动广告（Alpha）"
-                    key = "removeStartupAds2"
-                }.build())
-                addView(FuckSwitch.Builder {
                     text = "去除信息流广告（Alpha）"
                     key = "removeFeedAds"
                 }.build())
@@ -168,6 +164,10 @@ class HookSettings {
                     text = "对 酷安 进行脱壳"
                     toastText = "不适用于较新的 Android 版本。\n重启应用后开始脱壳，文件存放在 /data/data/com.coolapk.market/fuck_coolapk_shell。"
                     key = "shouldShelling"
+                }.build())
+                addView(FuckSwitch.Builder {
+                    text = "输出酷安 Debug Log"
+                    key = "showCoolapkDebugLog"
                 }.build())
                 addView(FuckSwitch.Builder {
                     text = "输出调试 Toast"

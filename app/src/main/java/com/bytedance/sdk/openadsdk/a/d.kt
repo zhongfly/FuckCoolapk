@@ -171,8 +171,6 @@ class d : IXposedHookLoadPackage {
             XposedShelling.runShelling(lpparam)
             //去除启动广告
             RemoveStartupAds().init()
-            //去除启动广告(原生模式)
-            RemoveStartupAds2().init()
             //去除信息流广告
             RemoveFeedAds().init()
             //去除帖子下方广告
@@ -205,6 +203,8 @@ class d : IXposedHookLoadPackage {
             EnableMarkdown().init()
             //点击开发者平台直接跳转网页
             ModifyDeveloperCenter().init()
+            //显示酷安 Debug Log
+            ShowCoolapkDebugLog().init()
         }
     }
 }

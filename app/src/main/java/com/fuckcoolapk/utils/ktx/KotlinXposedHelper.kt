@@ -365,9 +365,9 @@ fun Any.callMethod(methodName: String?, parameterTypes: Array<Class<*>>, vararg 
 
 fun Class<*>.callStaticMethod(methodName: String?, parameterTypes: Array<Class<*>>, vararg args: Any?): Any = callStaticMethod(this, methodName, parameterTypes, *args)
 
-fun String.findClass(classLoader: ClassLoader?): Class<*> = findClass(this, classLoader)
+fun String.findClass(classLoader: ClassLoader? = CoolContext.classLoader): Class<*> = findClass(this, classLoader)
 
-fun String.findClassOrNull(classLoader: ClassLoader?): Class<*>? = findClassIfExists(this, classLoader)
+fun String.findClassOrNull(classLoader: ClassLoader? = CoolContext.classLoader): Class<*>? = findClassIfExists(this, classLoader)
 
 fun Class<*>.new(vararg args: Any?): Any = newInstance(this, *args)
 
