@@ -37,4 +37,11 @@ class FuckEditText(context: Context) : EditText(context) {
     class Builder(private val mContext: Context = CoolContext.context, private val block: FuckEditText.() -> Unit) {
         fun build() = FuckEditText(mContext).apply(block)
     }
+
+    class FastBuilder(private val mContext: Context = CoolContext.context, private val mHint: String? = null, private val mKey: String) {
+        fun build() = FuckEditText(mContext).apply {
+            mHint?.let { hint = it }
+            key = mKey
+        }
+    }
 }

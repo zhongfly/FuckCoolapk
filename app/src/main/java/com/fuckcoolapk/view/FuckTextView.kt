@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
-import android.util.AttributeSet
+import android.view.View
 import android.widget.TextView
 import com.fuckcoolapk.utils.CoolContext
 import com.fuckcoolapk.utils.dp2px
@@ -30,6 +30,16 @@ class FuckTextView(context: Context) : TextView(context) {
 
     class Builder(private val mContext: Context = CoolContext.context, private val block: FuckTextView.() -> Unit) {
         fun build() = FuckTextView(mContext).apply(block)
+    }
+
+    class FastBuilder(private val mContext: Context = CoolContext.context, private val mText: String, private val mSize: Float? = null, private val mColor: String? = null, private val mUrl: String? = null, private val mOnClickListener: ((View) -> Unit)? = null) {
+        fun build() = FuckTextView(mContext).apply {
+            text = mText
+            mSize?.let { size = it }
+            mColor?.let { color = it }
+            mUrl?.let { url = it }
+            mOnClickListener?.let { setOnClickListener(it) }
+        }
     }
 
     companion object {

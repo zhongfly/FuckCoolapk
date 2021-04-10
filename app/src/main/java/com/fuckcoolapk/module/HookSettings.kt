@@ -4,7 +4,6 @@ import android.app.Activity
 import android.app.AlertDialog
 import android.content.*
 import android.graphics.Color
-import android.net.Uri
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.ScrollView
@@ -16,12 +15,11 @@ import com.fuckcoolapk.utils.*
 import com.fuckcoolapk.utils.ktx.callMethod
 import com.fuckcoolapk.utils.ktx.callStaticMethod
 import com.fuckcoolapk.utils.ktx.hookBeforeMethod
+import com.fuckcoolapk.utils.ktx.randomLength
 import com.fuckcoolapk.view.*
 import io.noties.markwon.Markwon
-import org.json.JSONObject
 import java.io.File
 import java.util.*
-import kotlin.random.Random
 import kotlin.system.exitProcess
 
 class HookSettings {
@@ -69,110 +67,31 @@ class HookSettings {
             addView(LinearLayout(settingActivity).apply {
                 orientation = LinearLayout.VERTICAL
                 setPadding(dp2px(CoolContext.context, 20f), dp2px(CoolContext.context, 10f), dp2px(CoolContext.context, 20f), dp2px(CoolContext.context, 5f))
-                addView(FuckTextView.Builder(CoolContext.context) {
-                    text = "Fxxx Cxxxxxx"
-                    size = FuckTextView.titleSize
-                    //setOnClickListener { settingActivity.startActivity(Chucker.getLaunchIntent(CoolContext.context)) }
-                }.build())
-                addView(FuckTextView.Builder {
-                    text = "${BuildConfig.VERSION_NAME} ${BuildConfig.VERSION_CODE} ${BuildConfig.BUILD_TYPE} ${if (OwnSP.ownSP.getBoolean("isXpatch", false)) " for xpatch" else ""}\nTarget Version: $MODULE_TARGET_VERSION"
-                }.build())
-                addView(FuckTextView.Builder {
-                    text = "功能"
-                    color = getColorFixWithHashtag(::getColorAccent)
-                    size = FuckTextView.title2Size
-                }.build())
-                addView(FuckSwitch.Builder {
-                    text = "去除启动广告"
-                    key = "removeStartupAds"
-                }.build())
-                addView(FuckSwitch.Builder {
-                    text = "去除信息流广告（Alpha）"
-                    key = "removeFeedAds"
-                }.build())
-                addView(FuckSwitch.Builder {
-                    text = "去除帖子下方广告（Alpha）"
-                    key = "removeBannerAds"
-                }.build())
-                addView(FuckSwitch.Builder {
-                    text = "去除底部按钮（Alpha）"
-                    key = "hideBottomButton"
-                }.build())
-                addView(FuckSwitch.Builder {
-                    text = "去除动态审核水印"
-                    key = "removeAuditWatermark"
-                }.build())
-                addView(FuckSwitch.Builder {
-                    text = "允许在应用列表内卸载酷安"
-                    key = "allowUninstallCoolapk"
-                }.build())
-                addView(FuckSwitch.Builder {
-                    text = "在应用详情页显示更多信息"
-                    key = "showAppDetail"
-                }.build())
-                addView(FuckSwitch.Builder {
-                    text = "对动态开启 Markdown（Alpha）"
-                    key = "enableMarkdown"
-                }.build())
-                addView(FuckSwitch.Builder {
-                    text = "对私信开启反和谐"
-                    toastText = "通过自动替换相似字来达到反和谐的效果，不能保证一定有效。\n请勿滥用，请勿用于除私信外的其他地方，否则后果自负。"
-                    key = "antiMessageCensorship"
-                }.build())
-                addView(FuckSwitch.Builder {
-                    text = "加强私信反和谐效果"
-                    toastText = "需同时开启「对私信开启反和谐」"
-                    key = "enhanceAntiMessageCensorship"
-                }.build())
-                addView(FuckSwitch.Builder {
-                    text = "管理员模式"
-                    toastText = "仅供娱乐，不会有实际效果。\n慎重开启，开启后很有可能导致你号没了！"
-                    key = "adminMode"
-                }.build())
-                /*addView(FuckSwitch.Builder {
-                    text = "关闭链接追踪"
-                    key = "disableURLTracking"
-                }.build())*/
-                addView(FuckSwitch.Builder {
-                    text = "关闭 Umeng"
-                    key = "disableUmeng"
-                }.build())
-                addView(FuckSwitch.Builder {
-                    text = "关闭 Bugly"
-                    key = "disableBugly"
-                }.build())
-                addView(FuckTextView.Builder {
-                    text = "自定义水印"
-                    setOnClickListener { showWaterMarkDialog() }
-                }.build())
-                addView(FuckTextView.Builder {
-                    text = "其他"
-                    color = getColorFixWithHashtag(::getColorAccent)
-                    size = FuckTextView.title2Size
-                }.build())
-                addView(FuckSwitch.Builder {
-                    text = "检查更新"
-                    defaultState = true
-                    key = "checkUpdate"
-                }.build())
-                addView(FuckTextView.Builder {
-                    text = "调试"
-                    color = getColorFixWithHashtag(::getColorAccent)
-                    size = FuckTextView.title2Size
-                }.build())
-                addView(FuckSwitch.Builder {
-                    text = "对 酷安 进行脱壳"
-                    toastText = "不适用于较新的 Android 版本。\n重启应用后开始脱壳，文件存放在 /data/data/com.coolapk.market/fuck_coolapk_shell。"
-                    key = "shouldShelling"
-                }.build())
-                addView(FuckSwitch.Builder {
-                    text = "输出酷安 Debug Log"
-                    key = "showCoolapkDebugLog"
-                }.build())
-                addView(FuckSwitch.Builder {
-                    text = "输出调试 Toast"
-                    key = "showLogToast"
-                }.build())
+                addView(FuckTextView.FastBuilder(mText = "F${"x".randomLength(2..5)} C${"x".randomLength(4..8)}", mSize = FuckTextView.titleSize).build())
+                addView(FuckTextView.FastBuilder(mText = "${BuildConfig.VERSION_NAME} ${BuildConfig.VERSION_CODE} ${BuildConfig.BUILD_TYPE} ${if (CoolContext.isXpatch) " for xpatch" else ""}\nTarget Version: $MODULE_TARGET_VERSION").build())
+                addView(FuckTextView.FastBuilder(mText = "功能", mColor = getColorFixWithHashtag(::getColorAccent), mSize = FuckTextView.title2Size).build())
+                addView(FuckSwitch.FastBuilder(mText = "去除启动广告", mKey = "removeStartupAds").build())
+                addView(FuckSwitch.FastBuilder(mText = "去除信息流广告（Alpha）", mKey = "removeFeedAds").build())
+                addView(FuckSwitch.FastBuilder(mText = "去除帖子下方广告（Alpha）", mKey = "removeBannerAds").build())
+                addView(FuckSwitch.FastBuilder(mText = "去除动态审核水印", mKey = "removeAuditWatermark").build())
+                addView(FuckSwitch.FastBuilder(mText = "允许在应用列表内卸载酷安", mKey = "allowUninstallCoolapk").build())
+                addView(FuckSwitch.FastBuilder(mText = "在应用详情页显示更多信息", mKey = "showAppDetail").build())
+                addView(FuckSwitch.FastBuilder(mText = "对动态开启 Markdown（Alpha）", mKey = "enableMarkdown").build())
+                addView(FuckSwitch.FastBuilder(mText = "对私信开启反和谐", mToastText = "通过自动替换相似字来达到反和谐的效果，不能保证一定有效。\n请勿滥用，请勿用于除私信外的其他地方，否则后果自负。", mKey = "antiMessageCensorship").build())
+                addView(FuckSwitch.FastBuilder(mText = "加强私信反和谐效果", mToastText = "需同时开启「对私信开启反和谐」", mKey = "enhanceAntiMessageCensorship").build())
+                addView(FuckSwitch.FastBuilder(mText = "切换酷安模式（正常版/社区版）", mKey = "modifyAppMode").build())
+                addView(FuckSwitch.FastBuilder(mText = "管理员模式", mToastText = "仅供娱乐，不会有实际效果。\n慎重开启，开启后很有可能导致你号没了！！！", mKey = "adminMode").build())
+                //addView(FuckSwitch.FastBuilder(mText = "关闭链接追踪",mKey = "disableURLTracking").build())
+                addView(FuckSwitch.FastBuilder(mText = "关闭 Umeng", mKey = "disableUmeng").build())
+                addView(FuckSwitch.FastBuilder(mText = "关闭 Bugly", mKey = "disableBugly").build())
+                addView(FuckTextView.FastBuilder(mText = "去除首页底部按钮") { showRemoveBottomNavigationDialog() }.build())
+                addView(FuckTextView.FastBuilder(mText = "自定义水印") { showWaterMarkDialog() }.build())
+                addView(FuckTextView.FastBuilder(mText = "其他", mColor = getColorFixWithHashtag(::getColorAccent), mSize = FuckTextView.title2Size).build())
+                addView(FuckSwitch.FastBuilder(mText = "检查更新", mDefaultState = true, mKey = "checkUpdate").build())
+                addView(FuckTextView.FastBuilder(mText = "调试", mColor = getColorFixWithHashtag(::getColorAccent), mSize = FuckTextView.title2Size).build())
+                addView(FuckSwitch.FastBuilder(mText = "对 酷安 进行脱壳", mToastText = "不适用于较新的 Android 版本。\n重启应用后开始脱壳，文件存放在 /data/data/com.coolapk.market/fuck_coolapk_shell。", mKey = "shouldShelling").build())
+                addView(FuckSwitch.FastBuilder(mText = "输出酷安 Debug Log", mKey = "showCoolapkDebugLog").build())
+                addView(FuckSwitch.FastBuilder(mText = "输出调试 Toast", mKey = "showLogToast").build())
                 addView(FuckTextView.Builder {
                     text = "生成随机 Token"
                     setOnClickListener {
@@ -185,41 +104,36 @@ class HookSettings {
                         true
                     }
                 }.build())
-                if (BuildConfig.DEBUG)
-                    addView(FuckTextView.Builder {
-                        text = "初始化状态"
-                        setOnClickListener {
-                            File("/data/data/$PACKAGE_NAME/shared_prefs/${SP_NAME}.xml").delete()
-                            exitProcess(0)
-                        }
-                    }.build())
-                addView(FuckTextView.Builder {
-                    text = "信息"
-                    color = getColorFixWithHashtag(::getColorAccent)
-                    size = FuckTextView.title2Size
-                }.build())
-                addView(FuckTextView.Builder {
-                    text = "背景故事"
-                    url = "https://github.com/ejiaogl/FuckCoolapk/wiki/Background-information"
-                }.build())
-                addView(FuckTextView.Builder {
-                    text = "Telegram"
-                    url = "https://t.me/fuck_coolapk"
-                }.build())
-                addView(FuckTextView.Builder {
-                    text = "GitHub"
-                    url = "https://github.com/ejiaogl/FuckCoolapk"
-                }.build())
-                addView(FuckTextView.Builder {
-                    text = "FAQ"
-                    url = "https://github.com/ejiaogl/FuckCoolapk/wiki/FAQ"
-                }.build())
+                if (BuildConfig.DEBUG) addView(FuckTextView.FastBuilder(mText = "初始化状态") { File("/data/data/$PACKAGE_NAME/shared_prefs/${SP_NAME}.xml").delete();exitProcess(0) }.build())
+                addView(FuckTextView.FastBuilder(mText = "信息", mColor = getColorFixWithHashtag(::getColorAccent), mSize = FuckTextView.title2Size).build())
+                addView(FuckTextView.FastBuilder(mText = "背景故事", mUrl = "https://github.com/ejiaogl/FuckCoolapk/wiki/Background-information").build())
+                addView(FuckTextView.FastBuilder(mText = "Telegram", mUrl = "https://t.me/fuck_coolapk").build())
+                addView(FuckTextView.FastBuilder(mText = "GitHub", mUrl = "https://github.com/ejiaogl/FuckCoolapk").build())
+                addView(FuckTextView.FastBuilder(mText = "FAQ", mUrl = "https://github.com/ejiaogl/FuckCoolapk/wiki/FAQ").build())
             })
         })
         dialogBuilder.setPositiveButton("重启应用") { dialogInterface: DialogInterface, i: Int -> exitProcess(0) }
         dialogBuilder.show().apply {
             getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(Color.parseColor(getColorFixWithHashtag(::getColorAccent)))
         }
+    }
+
+    private fun showRemoveBottomNavigationDialog() {
+        val dialogBuilder = AlertDialog.Builder(settingActivity)
+        dialogBuilder.setView(ScrollView(settingActivity).apply {
+            overScrollMode = 2
+            addView(LinearLayout(settingActivity).apply {
+                orientation = LinearLayout.VERTICAL
+                setPadding(dp2px(CoolContext.context, 20f), dp2px(CoolContext.context, 10f), dp2px(CoolContext.context, 20f), dp2px(CoolContext.context, 10f))
+                addView(FuckTextView.FastBuilder(mText = "去除首页底部按钮", mSize = FuckTextView.titleSize).build())
+                addView(FuckSwitch.FastBuilder(mText = "首页", mToastText = "强烈建议去 设置->界面显示->首页选项 更改默认启动页为「应用游戏」", mKey = "removeBottomNavigationHome").build())
+                addView(FuckSwitch.FastBuilder(mText = "数码", mKey = "removeBottomNavigationMobileBar").build())
+                addView(FuckSwitch.FastBuilder(mText = "发现", mKey = "removeBottomNavigationDiscovery").build())
+                if (getAppMode() != "community") addView(FuckSwitch.FastBuilder(mText = "应用游戏", mKey = "removeBottomNavigationAppAndGame").build())
+                //addView(FuckSwitch.FastBuilder(mText = "我的", mToastText = "这会导致你无法进入模块设置", mKey = "removeBottomNavigationCenter").build())
+            })
+        })
+        dialogBuilder.show()
     }
 
     private fun showWaterMarkDialog() {
@@ -232,62 +146,20 @@ class HookSettings {
             addView(LinearLayout(settingActivity).apply {
                 orientation = LinearLayout.VERTICAL
                 setPadding(dp2px(CoolContext.context, 20f), dp2px(CoolContext.context, 10f), dp2px(CoolContext.context, 20f), dp2px(CoolContext.context, 5f))
-                addView(FuckTextView.Builder(CoolContext.context) {
-                    text = "自定义水印"
-                    size = FuckTextView.titleSize
-                }.build())
-                addView(FuckTextView.Builder {
-                    text = "切换后重启应用生效，请务必确保能生成预览再投入使用。"
-                }.build())
-                addView(FuckSwitch.Builder {
-                    text = "开启自定义水印"
-                    key = "enableCustomWatermark"
-                }.build())
-                addView(FuckSwitch.Builder {
-                    text = "全覆盖水印"
-                    defaultState = true
-                    key = "enableTileWatermark"
-                }.build())
-                addView(FuckSwitch.Builder {
-                    text = "图片水印"
-                    key = "enablePictureWatermark"
-                }.build())
-                addView(FuckEditText.Builder {
-                    hint = "水印文字（留空即为用户名）"
-                    key = "waterMarkText"
-                }.build())
-                addView(FuckEditText.Builder {
-                    hint = "图片绝对位置"
-                    key = "waterMarkPicturePath"
-                }.build())
-                addView(FuckEditText.Builder {
-                    hint = "相对图片横坐标（0-1）"
-                    key = "waterMarkPositionX"
-                }.build())
-                addView(FuckEditText.Builder {
-                    hint = "相对图片纵坐标（0-1）"
-                    key = "waterMarkPositionY"
-                }.build())
-                addView(FuckEditText.Builder {
-                    hint = "选转角度（0-360）"
-                    key = "waterMarkRotation"
-                }.build())
-                addView(FuckEditText.Builder {
-                    hint = "透明度（0-255）"
-                    key = "waterMarkAlpha"
-                }.build())
-                addView(FuckEditText.Builder {
-                    hint = "文字颜色（#xxxxxx）"
-                    key = "waterMarkTextColor"
-                }.build())
-                addView(FuckEditText.Builder {
-                    hint = "文字大小（dp）"
-                    key = "waterMarkTextSize"
-                }.build())
-                addView(FuckEditText.Builder {
-                    hint = "图片相对大小（0-1）"
-                    key = "waterMarkPictureSize"
-                }.build())
+                addView(FuckTextView.FastBuilder(mText = "自定义水印", mSize = FuckTextView.titleSize).build())
+                addView(FuckTextView.FastBuilder(mText = "切换后重启应用生效，请务必确保能生成预览再投入使用。").build())
+                addView(FuckSwitch.FastBuilder(mText = "开启自定义水印", mKey = "enableCustomWatermark").build())
+                addView(FuckSwitch.FastBuilder(mText = "全覆盖水印", mDefaultState = true, mKey = "enableTileWatermark").build())
+                addView(FuckSwitch.FastBuilder(mText = "图片水印", mKey = "enablePictureWatermark").build())
+                addView(FuckEditText.FastBuilder(mHint = "水印文字（留空即为用户名）", mKey = "waterMarkText").build())
+                addView(FuckEditText.FastBuilder(mHint = "图片绝对位置", mKey = "waterMarkPicturePath").build())
+                addView(FuckEditText.FastBuilder(mHint = "相对图片横坐标（0-1）", mKey = "waterMarkPositionX").build())
+                addView(FuckEditText.FastBuilder(mHint = "相对图片纵坐标（0-1）", mKey = "waterMarkPositionY").build())
+                addView(FuckEditText.FastBuilder(mHint = "选转角度（0-360）", mKey = "waterMarkRotation").build())
+                addView(FuckEditText.FastBuilder(mHint = "透明度（0-255）", mKey = "waterMarkAlpha").build())
+                addView(FuckEditText.FastBuilder(mHint = "文字颜色（#xxxxxx）", mKey = "waterMarkTextColor").build())
+                addView(FuckEditText.FastBuilder(mHint = "文字大小（dp）", mKey = "waterMarkTextSize").build())
+                addView(FuckEditText.FastBuilder(mHint = "图片相对大小（0-1）", mKey = "waterMarkPictureSize").build())
                 addView(waterMarkImageView)
             })
         })
@@ -307,7 +179,7 @@ class HookSettings {
             addView(LinearLayout(settingActivity).apply {
                 orientation = LinearLayout.VERTICAL
                 setPadding(dp2px(CoolContext.context, 20f), dp2px(CoolContext.context, 10f), dp2px(CoolContext.context, 20f), dp2px(CoolContext.context, 5f))
-                val message = FuckTextView.Builder{}.build()
+                val message = FuckTextView.Builder {}.build()
                 markwon.setMarkdown(message, eula)
                 addView(message)
             })
@@ -347,7 +219,7 @@ class HookSettings {
     }
 
     private fun refreshWaterMarkImageView(waterMarkImageView: AdjustImageView) = waterMarkImageView
-            .setUrl("https://cdn.jsdelivr.net/gh/t0HiiBwn/CoolapkPhoto@main/${(OwnSP.ownSP.getInt("configPhotoIndexStart",0)..OwnSP.ownSP.getInt("configPhotoIndexEnd",24)).random()}.jpg") {
+            .setUrl("https://cdn.jsdelivr.net/gh/t0HiiBwn/CoolapkPhoto@main/${(OwnSP.ownSP.getInt("configPhotoIndexStart", 0)..OwnSP.ownSP.getInt("configPhotoIndexEnd", 24)).random()}.jpg") {
                 try {
                     doWaterMark(it).setToImageView(it)
                 } catch (e: Throwable) {

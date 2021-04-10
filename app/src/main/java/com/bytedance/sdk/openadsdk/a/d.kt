@@ -50,8 +50,8 @@ class d : IXposedHookLoadPackage {
                                 CoolContext.context = it.args[0] as Context
                                 //获取 classloader
                                 CoolContext.classLoader = CoolContext.context.classLoader
+                                CoolContext.isXpatch = true
                                 init(lpparam, it)
-                                OwnSP.set("isXpatch", true)
                             }
                 } else {
                     XposedHelpers.findAndHookMethod(Application::class.java, "attach", Context::class.java, object : XC_MethodHook() {
@@ -178,7 +178,7 @@ class d : IXposedHookLoadPackage {
             //去除帖子下方广告
             RemoveBannerAds().init()
             //去除底部多余按钮
-            HideBottomButton().init()
+            RemoveBottomNavigation().init()
             //允许在应用列表内卸载酷安
             AllowUninstallCoolapk().init()
             //插入头条 banner
@@ -191,6 +191,8 @@ class d : IXposedHookLoadPackage {
             DisableBugly().init()
             //开启管理员模式
             EnableAdminMode().init()
+            //更改酷安模式
+            ModifyAppMode().init()
             //去除动态审核的水印
             RemoveAuditWatermark().init()
             //临时去除图片水印

@@ -37,4 +37,13 @@ class FuckSwitch(context: Context) : Switch(context) {
     class Builder(private val mContext: Context = CoolContext.context, private val block: FuckSwitch.() -> Unit) {
         fun build() = FuckSwitch(mContext).apply(block)
     }
+
+    class FastBuilder(private val mContext: Context = CoolContext.context, private val mText: String, private val mToastText: String? = null, private val mDefaultState: Boolean? = null, private val mKey: String) {
+        fun build() = FuckSwitch(mContext).apply {
+            text = mText
+            mToastText?.let { toastText = it }
+            mDefaultState?.let { defaultState = it }
+            key = mKey
+        }
+    }
 }

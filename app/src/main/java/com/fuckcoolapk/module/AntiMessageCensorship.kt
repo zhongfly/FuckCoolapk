@@ -20,6 +20,7 @@ class AntiMessageCensorship {
     }
     private val charBuilder = StringBuilder()
     private var isEnable = true
+
     fun init() {
         if (OwnSP.ownSP.getBoolean("antiMessageCensorship", false)) {
             "com.coolapk.market.view.message.ChattingActivity"

@@ -8,9 +8,10 @@ import de.robv.android.xposed.XposedHelpers
 import kotlin.math.absoluteValue
 
 object CoolContext {
+    var isXpatch = false
     lateinit var context: Context
     lateinit var classLoader: ClassLoader
     lateinit var activity: Activity
-    val loginSession by lazy { XposedHelpers.findClass("com.coolapk.market.manager.DataManager", classLoader).callStaticMethod("getInstance")?.callMethod("getLoginSession")!! }
-    val appTheme by lazy { XposedHelpers.findClass("com.coolapk.market.AppHolder", classLoader).callStaticMethod("getAppTheme")!! }
+    val loginSession by lazy { "com.coolapk.market.manager.DataManager".callStaticMethod("getInstance")?.callMethod("getLoginSession")!! }
+    val appTheme by lazy { "com.coolapk.market.AppHolder".callStaticMethod("getAppTheme")!! }
 }
