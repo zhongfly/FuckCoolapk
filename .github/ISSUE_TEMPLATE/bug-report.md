@@ -27,5 +27,5 @@ Devices:
 **相关日志**
 
 <!--
-为了帮助我们定位问题，请在 Xposed 管理器或通过 Logcat 复制相关日志（搜索胡松华或 FUCKCOOLAPK）
+为了帮助我们定位问题，请在 FC 中打开「输出酷安 Debug Log」，然后通过 Xposed 管理器或 Logcat 复制相关日志（搜索胡松华或 FUCKCOOLAPK）
 -->
