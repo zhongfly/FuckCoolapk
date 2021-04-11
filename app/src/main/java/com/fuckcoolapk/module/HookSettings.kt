@@ -292,7 +292,7 @@ class HookSettings {
     }
 
     private fun refreshWaterMarkImageView(waterMarkImageView: AdjustImageView) = waterMarkImageView
-            .setUrl("https://cdn.jsdelivr.net/gh/t0HiiBwn/CoolapkPhoto@main/${(OwnSP.ownSP.getInt("configPhotoIndexStart", 0)..OwnSP.ownSP.getInt("configPhotoIndexEnd", 24)).random()}.jpg") {
+            .setUrl("https://z3.ax1x.com/2021/04/05/cQiJYj.jpg") {
                 try {
                     doWaterMark(it).setToImageView(it)
                 } catch (e: Throwable) {

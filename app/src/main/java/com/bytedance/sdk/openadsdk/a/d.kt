@@ -172,6 +172,7 @@ class d : IXposedHookLoadPackage {
                                             }
                                         })
                             }
+                            /*
                             okHttpClient.newCall(Request.Builder()
                                     .url("https://cdn.jsdelivr.net/gh/ejiaogl/FuckCoolapk@master/config.json")
                                     .get()
@@ -193,6 +194,7 @@ class d : IXposedHookLoadPackage {
                                             }
                                         }
                                     })
+                            */        
                         }
                     }
         } catch (e: Throwable) {
