@@ -31,8 +31,8 @@ import java.io.IOException
 
 
 class d : IXposedHookLoadPackage {
-    override fun handleLoadPackage(lpparam: XC_LoadPackage.LoadPackageParam?) {
-        if (lpparam?.packageName == PACKAGE_NAME) {
+    override fun handleLoadPackage(lpparam: XC_LoadPackage.LoadPackageParam) {
+        if (lpparam.packageName == PACKAGE_NAME) {
             try {
                 if (XposedHelpers.findClassIfExists("com.wrapper.proxyapplication.WrapperProxyApplication", lpparam.classLoader) != null) {
                     "com.wrapper.proxyapplication.WrapperProxyApplication"
