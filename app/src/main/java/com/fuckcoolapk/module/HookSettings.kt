@@ -74,6 +74,7 @@ class HookSettings {
                 addView(FuckSwitch.FastBuilder(mText = "去除信息流广告（Alpha）", mKey = "removeFeedAds").build())
                 addView(FuckSwitch.FastBuilder(mText = "去除帖子下方广告（Alpha）", mKey = "removeBannerAds").build())
                 addView(FuckSwitch.FastBuilder(mText = "去除动态审核水印", mKey = "removeAuditWatermark").build())
+                addView(FuckSwitch.FastBuilder(mText = "去除搜索栏热词", mKey = "removeHotWord").build())
                 addView(FuckSwitch.FastBuilder(mText = "允许在应用列表内卸载酷安", mKey = "allowUninstallCoolapk").build())
                 addView(FuckSwitch.FastBuilder(mText = "在应用详情页显示更多信息", mKey = "showAppDetail").build())
                 addView(FuckSwitch.FastBuilder(mText = "对动态开启 Markdown（Alpha）", mKey = "enableMarkdown").build())

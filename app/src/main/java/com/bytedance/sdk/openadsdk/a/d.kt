@@ -179,6 +179,8 @@ class d : IXposedHookLoadPackage {
             RemoveBannerAds().init()
             //去除底部多余按钮
             RemoveBottomNavigation().init()
+            //去除搜索栏热词
+            RemoveHotWord().init()
             //允许在应用列表内卸载酷安
             AllowUninstallCoolapk().init()
             //插入头条 banner
