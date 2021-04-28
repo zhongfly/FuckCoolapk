@@ -81,11 +81,13 @@ class HookSettings {
                 addView(FuckSwitch.FastBuilder(mText = "对私信开启反和谐", mToastText = "通过自动替换相似字来达到反和谐的效果，不能保证一定有效。\n请勿滥用，请勿用于除私信外的其他地方，否则后果自负。", mKey = "antiMessageCensorship").build())
                 addView(FuckSwitch.FastBuilder(mText = "加强私信反和谐效果", mToastText = "需同时开启「对私信开启反和谐」", mKey = "enhanceAntiMessageCensorship").build())
                 addView(FuckSwitch.FastBuilder(mText = "切换酷安模式（正常版/社区版）", mKey = "modifyAppMode").build())
+                addView(FuckSwitch.FastBuilder(mText = "更改'好物'按钮点击事件为打开发布列表", mKey = "modifyGoodsButton").build())
                 addView(FuckSwitch.FastBuilder(mText = "管理员模式", mToastText = "仅供娱乐，不会有实际效果。\n慎重开启，开启后很有可能导致你号没了！！！", mKey = "adminMode").build())
                 //addView(FuckSwitch.FastBuilder(mText = "关闭链接追踪",mKey = "disableURLTracking").build())
                 addView(FuckSwitch.FastBuilder(mText = "关闭 Umeng", mKey = "disableUmeng").build())
                 addView(FuckSwitch.FastBuilder(mText = "关闭 Bugly", mKey = "disableBugly").build())
                 addView(FuckTextView.FastBuilder(mText = "去除首页底部按钮") { showRemoveBottomNavigationDialog() }.build())
+                addView(FuckTextView.FastBuilder(mText = "去除发布列表元素"){ showRemoveEntranceItemDialog() }.build())
                 addView(FuckTextView.FastBuilder(mText = "自定义水印") { showWaterMarkDialog() }.build())
                 addView(FuckTextView.FastBuilder(mText = "其他", mColor = getColorFixWithHashtag(::getColorAccent), mSize = FuckTextView.title2Size).build())
                 addView(FuckSwitch.FastBuilder(mText = "检查更新", mDefaultState = true, mKey = "checkUpdate").build())
@@ -132,6 +134,28 @@ class HookSettings {
                 addView(FuckSwitch.FastBuilder(mText = "发现", mKey = "removeBottomNavigationDiscovery").build())
                 if (getAppMode() != "community") addView(FuckSwitch.FastBuilder(mText = "应用游戏", mKey = "removeBottomNavigationAppAndGame").build())
                 //addView(FuckSwitch.FastBuilder(mText = "我的", mToastText = "这会导致你无法进入模块设置", mKey = "removeBottomNavigationCenter").build())
+            })
+        })
+        dialogBuilder.show()
+    }
+
+    private fun showRemoveEntranceItemDialog(){
+        val dialogBuilder = AlertDialog.Builder(settingActivity)
+        dialogBuilder.setView(ScrollView(settingActivity).apply {
+            overScrollMode = 2
+            addView(LinearLayout(settingActivity).apply {
+                orientation = LinearLayout.VERTICAL
+                setPadding(dp2px(CoolContext.context, 20f), dp2px(CoolContext.context, 10f), dp2px(CoolContext.context, 20f), dp2px(CoolContext.context, 10f))
+                addView(FuckSwitch.FastBuilder(mText = "酷图", mKey = RemoveEntranceItem.itemMap["酷图"]!!).build())
+                addView(FuckSwitch.FastBuilder(mText = "提问", mKey = RemoveEntranceItem.itemMap["提问"]!!).build())
+                addView(FuckSwitch.FastBuilder(mText = "二手", mKey = RemoveEntranceItem.itemMap["二手"]!!).build())
+                addView(FuckSwitch.FastBuilder(mText = "扫一扫", mKey = RemoveEntranceItem.itemMap["扫一扫"]!!).build())
+                addView(FuckSwitch.FastBuilder(mText = "投票", mKey = RemoveEntranceItem.itemMap["投票"]!!, mToastText = "仅管理员模式有此部件").build())
+                addView(FuckSwitch.FastBuilder(mText = "话题", mKey = RemoveEntranceItem.itemMap["话题"]!!).build())
+                addView(FuckSwitch.FastBuilder(mText = "好物", mKey = RemoveEntranceItem.itemMap["好物"]!!).build())
+                addView(FuckSwitch.FastBuilder(mText = "好物单", mKey = RemoveEntranceItem.itemMap["好物单"]!!).build())
+                addView(FuckSwitch.FastBuilder(mText = "应用集", mKey = RemoveEntranceItem.itemMap["应用集"]!!).build())
+
             })
         })
         dialogBuilder.show()

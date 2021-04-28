@@ -195,8 +195,12 @@ class d : IXposedHookLoadPackage {
             EnableAdminMode().init()
             //更改酷安模式
             ModifyAppMode().init()
+            //更改'好物'按钮点击事件为打开发布列表
+            ModifyGoodsButton().init()
             //去除动态审核的水印
             RemoveAuditWatermark().init()
+            //发布列表自定义移除
+            RemoveEntranceItem().init()
             //临时去除图片水印
             ModifyPictureWatermark().init()
             //开启频道自由编辑
