@@ -19,15 +19,13 @@ class ModifyGoodsButton {
                 val bottomNavigation = mainFragmentBinding?.getObjectField("bottomNavigation")
                 val views = bottomNavigation?.getObjectFieldAs<ArrayList<View>>("views")
                 views?.get(2)?.setOnClickListener {
-                    val intent = Intent(
+                    CoolContext.context.startActivity(Intent(
                             CoolContext.context,
                             XposedHelpers.findClass(
                                     "com.coolapk.market.view.feedv8.FeedEntranceV8Activity",
                                     CoolContext.classLoader
                             )
-                    )
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                    CoolContext.context.startActivity(intent)
+                    ).apply { addFlags(Intent.FLAG_ACTIVITY_NEW_TASK) })
                 }
             }
         }
