@@ -68,7 +68,7 @@ class HookSettings {
                 orientation = LinearLayout.VERTICAL
                 setPadding(dp2px(CoolContext.context, 20f), dp2px(CoolContext.context, 10f), dp2px(CoolContext.context, 20f), dp2px(CoolContext.context, 5f))
                 addView(FuckTextView.FastBuilder(mText = "F${"x".randomLength(2..5)} C${"x".randomLength(4..8)}", mSize = FuckTextView.titleSize).build())
-                addView(FuckTextView.FastBuilder(mText = "${BuildConfig.VERSION_NAME} ${BuildConfig.VERSION_CODE} ${BuildConfig.BUILD_TYPE} ${if (CoolContext.isXpatch) " for xpatch" else ""}\nTarget Version: $MODULE_TARGET_VERSION").build())
+                addView(FuckTextView.FastBuilder(mText = "${BuildConfig.VERSION_NAME} ${BuildConfig.VERSION_CODE} ${BuildConfig.BUILD_TYPE} ${if (CoolContext.isXpatch) " for xpatch" else ""}\n目标版本: $MODULE_TARGET_VERSION").build())
                 addView(FuckTextView.FastBuilder(mText = "功能", mColor = getColorFixWithHashtag(::getColorAccent), mSize = FuckTextView.title2Size).build())
                 addView(FuckSwitch.FastBuilder(mText = "去除启动广告", mKey = "removeStartupAds").build())
                 addView(FuckSwitch.FastBuilder(mText = "去除信息流广告（Alpha）", mKey = "removeFeedAds").build())
