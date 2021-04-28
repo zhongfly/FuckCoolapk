@@ -4,9 +4,10 @@ import android.content.Intent
 import android.view.View
 import com.fuckcoolapk.utils.CoolContext
 import com.fuckcoolapk.utils.OwnSP
+import com.fuckcoolapk.utils.ktx.getObjectField
+import com.fuckcoolapk.utils.ktx.getObjectFieldAs
 import com.fuckcoolapk.utils.ktx.hookAfterMethod
 import de.robv.android.xposed.XposedHelpers
-import java.util.*
 
 class ModifyGoodsButton {
 
@@ -14,13 +15,10 @@ class ModifyGoodsButton {
         if (OwnSP.ownSP.getBoolean("modifyGoodsButton", false)) {
             "com.coolapk.market.view.main.MainFragment".hookAfterMethod("setDiscoveryLongClick") {
                 val mainFragment = it.thisObject
-                val mainFragmentBinding =
-                        XposedHelpers.getObjectField(mainFragment, "binding") as Any
-                val bottomNavigation =
-                        XposedHelpers.getObjectField(mainFragmentBinding, "bottomNavigation") as Any
-                val views =
-                        XposedHelpers.getObjectField(bottomNavigation, "views") as ArrayList<*>
-                (views[2] as View).setOnClickListener {
+                val mainFragmentBinding = mainFragment.getObjectField("binding")
+                val bottomNavigation = mainFragmentBinding?.getObjectField("bottomNavigation")
+                val views = bottomNavigation?.getObjectFieldAs<ArrayList<View>>("views")
+                views?.get(2)?.setOnClickListener {
                     val intent = Intent(
                             CoolContext.context,
                             XposedHelpers.findClass(
