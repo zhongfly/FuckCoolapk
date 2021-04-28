@@ -179,6 +179,8 @@ class d : IXposedHookLoadPackage {
             RemoveBannerAds().init()
             //去除底部多余按钮
             RemoveBottomNavigation().init()
+            //去除搜索栏热词
+            RemoveHotWord().init()
             //允许在应用列表内卸载酷安
             AllowUninstallCoolapk().init()
             //插入头条 banner
@@ -193,8 +195,12 @@ class d : IXposedHookLoadPackage {
             EnableAdminMode().init()
             //更改酷安模式
             ModifyAppMode().init()
+            //更改'好物'按钮点击事件为打开发布列表
+            ModifyGoodsButton().init()
             //去除动态审核的水印
             RemoveAuditWatermark().init()
+            //发布列表自定义移除
+            RemoveEntranceItem().init()
             //临时去除图片水印
             ModifyPictureWatermark().init()
             //开启频道自由编辑
