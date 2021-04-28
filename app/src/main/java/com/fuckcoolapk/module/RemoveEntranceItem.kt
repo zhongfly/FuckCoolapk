@@ -25,8 +25,8 @@ class RemoveEntranceItem {
 
     fun init(){
         "com.coolapk.market.view.feedv8.FeedEntranceV8Activity\$onCreate\$3".hookAfterMethod("invoke"){
-            val itemList = it.result as ArrayList<Object>
-            val newList = mutableListOf<Object>()
+            val itemList = it.result as ArrayList<*>
+            val newList = mutableListOf<Any>()
             for (item in itemList){
                 if (shouldHide(item.getObjectField("title") as String)){
                     continue

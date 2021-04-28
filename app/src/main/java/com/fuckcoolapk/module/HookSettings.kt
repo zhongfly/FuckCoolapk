@@ -81,7 +81,7 @@ class HookSettings {
                 addView(FuckSwitch.FastBuilder(mText = "对私信开启反和谐", mToastText = "通过自动替换相似字来达到反和谐的效果，不能保证一定有效。\n请勿滥用，请勿用于除私信外的其他地方，否则后果自负。", mKey = "antiMessageCensorship").build())
                 addView(FuckSwitch.FastBuilder(mText = "加强私信反和谐效果", mToastText = "需同时开启「对私信开启反和谐」", mKey = "enhanceAntiMessageCensorship").build())
                 addView(FuckSwitch.FastBuilder(mText = "切换酷安模式（正常版/社区版）", mKey = "modifyAppMode").build())
-                addView(FuckSwitch.FastBuilder(mText = "更改'好物'按钮点击事件为打开发布列表", mKey = "modifyGoodsButton").build())
+                addView(FuckSwitch.FastBuilder(mText = "更改'发现'按钮点击事件为打开发布列表", mKey = "modifyGoodsButton").build())
                 addView(FuckSwitch.FastBuilder(mText = "管理员模式", mToastText = "仅供娱乐，不会有实际效果。\n慎重开启，开启后很有可能导致你号没了！！！", mKey = "adminMode").build())
                 //addView(FuckSwitch.FastBuilder(mText = "关闭链接追踪",mKey = "disableURLTracking").build())
                 addView(FuckSwitch.FastBuilder(mText = "关闭 Umeng", mKey = "disableUmeng").build())
