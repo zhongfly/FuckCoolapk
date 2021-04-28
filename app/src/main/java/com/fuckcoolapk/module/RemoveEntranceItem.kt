@@ -3,7 +3,6 @@ package com.fuckcoolapk.module
 import com.fuckcoolapk.utils.OwnSP
 import com.fuckcoolapk.utils.ktx.getObjectField
 import com.fuckcoolapk.utils.ktx.hookAfterMethod
-import de.robv.android.xposed.XposedBridge
 import java.util.*
 
 class RemoveEntranceItem {

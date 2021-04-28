@@ -146,6 +146,7 @@ class HookSettings {
             addView(LinearLayout(settingActivity).apply {
                 orientation = LinearLayout.VERTICAL
                 setPadding(dp2px(CoolContext.context, 20f), dp2px(CoolContext.context, 10f), dp2px(CoolContext.context, 20f), dp2px(CoolContext.context, 10f))
+                addView(FuckTextView.FastBuilder(mText = "去除发布列表元素", mSize = FuckTextView.titleSize).build())
                 addView(FuckSwitch.FastBuilder(mText = "酷图", mKey = RemoveEntranceItem.itemMap["酷图"]!!).build())
                 addView(FuckSwitch.FastBuilder(mText = "提问", mKey = RemoveEntranceItem.itemMap["提问"]!!).build())
                 addView(FuckSwitch.FastBuilder(mText = "二手", mKey = RemoveEntranceItem.itemMap["二手"]!!).build())
