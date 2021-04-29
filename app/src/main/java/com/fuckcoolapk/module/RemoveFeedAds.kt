@@ -84,16 +84,20 @@ class RemoveFeedAds {
             "com.coolapk.market.view.cardlist.EntityRemoveHelper".hookAfterMethod("modifyData", List::class.java, Boolean::class.java){
                 val newList = mutableListOf<Any>()
                 for (item in it.result as List<*>){
-                    if (item!!.callMethod("getEntityType") as String == "pear_goods"){
+                    val entityType = item!!.callMethod("getEntityType") as? String
+                    val title = item.callMethod("getTitle") as? String
+                    val extraData = item.callMethod("getExtraData")?.callMethod("toString") as? String ?: item.callMethod("getExtraData") as? String
+                    val url = item.callMethod("getUrl") as? String
+                    if (entityType == "pear_goods"){
                         continue
                     }
-                    if ((item.callMethod("getTitle") as String).contains(removeList)){
+                    if (title?.contains(removeList) == true){
                         continue
                     }
-                    if ((item.callMethod("getExtraData") as String).contains("_GOODS")){
+                    if (extraData?.contains("_GOODS") == true){
                         continue
                     }
-                    if ((item.callMethod("getUrl") as String).contains("pearGoods")){
+                    if (url?.contains("pearGoods") == true){
                         continue
                     }
                     newList.add(item)
