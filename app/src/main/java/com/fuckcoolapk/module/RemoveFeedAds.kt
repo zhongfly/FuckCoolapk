@@ -11,9 +11,10 @@ class RemoveFeedAds {
     private val onAdLoadListener = "com.coolapk.market.view.ad.OnAdLoadListener"
 
     private val removeList = listOf(
-        "猜你喜欢",
-        "酷友在搜的优惠券",
-        "什么值得买",
+        "猜你喜欢", // Title过滤
+        "酷友在搜的优惠券", // Title过滤
+        "什么值得买", // Title过滤
+        "优选配件", // Title过滤
     )
 
     fun init() {
@@ -80,7 +81,7 @@ class RemoveFeedAds {
                         val mediaType = XposedHelpers.callStaticMethod(mediaTypeClass, "parse", "application/json")
                         it.args[0] = XposedHelpers.callStaticMethod(responseBodyClass, "create", mediaType, json.toString())
                     }
-            "com.coolapk.market.view.main.DataListFragment".hookAfterMethod("modifyDataBeforeHandle", List::class.java, Boolean::class.java){
+            "com.coolapk.market.view.cardlist.EntityRemoveHelper".hookAfterMethod("modifyData", List::class.java, Boolean::class.java){
                 val newList = mutableListOf<Any>()
                 for (item in it.result as List<*>){
                     if (item!!.callMethod("getEntityType") as String == "pear_goods"){
@@ -89,7 +90,10 @@ class RemoveFeedAds {
                     if ((item.callMethod("getTitle") as String).contains(removeList)){
                         continue
                     }
-                    if ((item.callMethod("getTitle") as String).isEmpty()){
+                    if ((item.callMethod("getExtraData") as String).contains("_GOODS")){
+                        continue
+                    }
+                    if ((item.callMethod("getUrl") as String).contains("pearGoods")){
                         continue
                     }
                     newList.add(item)
