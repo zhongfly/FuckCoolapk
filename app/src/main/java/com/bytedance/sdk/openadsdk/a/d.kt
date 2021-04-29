@@ -191,6 +191,8 @@ class d : IXposedHookLoadPackage {
             DisableUmeng().init()
             //关闭 Bugly
             DisableBugly().init()
+            //关闭更新提醒
+            DisableUpdateRemind().init()
             //开启管理员模式
             EnableAdminMode().init()
             //更改酷安模式
