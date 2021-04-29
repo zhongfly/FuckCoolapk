@@ -18,6 +18,15 @@ class RemoveFeedAds {
         "什么值得买",
     )
 
+    private fun String.containsAll(items: List<String>): Boolean{
+        for (item in items){
+            if (item in this){
+                return true
+            }
+        }
+        return false
+    }
+
     fun init() {
         if (OwnSP.ownSP.getBoolean("removeFeedAds", false)) {
             "com.coolapk.market.view.ad.toutiao.TTFeedSelfDrawAd"
@@ -88,10 +97,8 @@ class RemoveFeedAds {
                     if (item!!.callMethod("getEntityType") as String == "pear_goods"){
                         continue
                     }
-                    for (i in removeList){
-                        if (i in item.callMethod("getTitle") as String){
-                            continue
-                        }
+                    if ((item.callMethod("getTitle") as String).containsAll(removeList)){
+                        continue
                     }
                     if ((item.callMethod("getTitle") as String).isEmpty()){
                         continue
