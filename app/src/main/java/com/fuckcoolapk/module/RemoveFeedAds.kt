@@ -48,20 +48,12 @@ class RemoveFeedAds {
                             ?: item.callMethod("getExtraData") as? String
                     val url = item.callMethod("getUrl") as? String
                     when {
-                        entityType?.contains("_goods", ignoreCase = true) == true -> {
-                            continue@loop
-                        }
+                        entityType?.contains("_goods", ignoreCase = true) ?: false -> continue@loop
                         removeList.any { items ->
-                            title.toString() in items
-                        } -> {
-                            continue@loop
-                        }
-                        extraData?.contains("_GOODS", ignoreCase = true) == true -> {
-                            continue@loop
-                        }
-                        url?.contains("pearGoods", ignoreCase = true) == true -> {
-                            continue@loop
-                        }
+                            title?.contains(items) ?: false
+                        } -> continue@loop
+                        extraData?.contains("_GOODS", ignoreCase = true) ?: false -> continue@loop
+                        url?.contains("pearGoods", ignoreCase = true) ?: false -> continue@loop
                         else -> newList.add(item)
                     }
                 }
