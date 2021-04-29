@@ -18,7 +18,7 @@ class RemoveFeedAds {
         "什么值得买",
     )
 
-    private fun String.containsAll(items: List<String>): Boolean{
+    private fun String.contains(items: List<String>): Boolean{
         for (item in items){
             if (item in this){
                 return true
@@ -97,7 +97,7 @@ class RemoveFeedAds {
                     if (item!!.callMethod("getEntityType") as String == "pear_goods"){
                         continue
                     }
-                    if ((item.callMethod("getTitle") as String).containsAll(removeList)){
+                    if ((item.callMethod("getTitle") as String).contains(removeList)){
                         continue
                     }
                     if ((item.callMethod("getTitle") as String).isEmpty()){
