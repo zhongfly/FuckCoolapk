@@ -51,7 +51,9 @@ class RemoveFeedAds {
                         entityType?.contains("_goods", ignoreCase = true) == true -> {
                             continue@loop
                         }
-                        title in removeList -> {
+                        removeList.any { items ->
+                            title.toString() in items
+                        } -> {
                             continue@loop
                         }
                         extraData?.contains("_GOODS", ignoreCase = true) == true -> {
