@@ -89,6 +89,7 @@ class HookSettings {
                 addView(FuckSwitch.FastBuilder(mText = "关闭更新提醒", mKey = "disableUpdateRemind").build())
                 addView(FuckTextView.FastBuilder(mText = "去除首页底部按钮") { showRemoveBottomNavigationDialog() }.build())
                 addView(FuckTextView.FastBuilder(mText = "去除发布列表元素"){ showRemoveEntranceItemDialog() }.build())
+                addView(FuckTextView.FastBuilder(mText = "搜索界面精简"){ showRemoveSearchActivityItemDialog() }.build())
                 addView(FuckTextView.FastBuilder(mText = "自定义水印") { showWaterMarkDialog() }.build())
                 addView(FuckTextView.FastBuilder(mText = "其他", mColor = getColorFixWithHashtag(::getColorAccent), mSize = FuckTextView.title2Size).build())
                 addView(FuckSwitch.FastBuilder(mText = "检查更新", mDefaultState = true, mKey = "checkUpdate").build())
@@ -158,6 +159,21 @@ class HookSettings {
                 addView(FuckSwitch.FastBuilder(mText = "好物单", mKey = RemoveEntranceItem.itemMap["好物单"]!!).build())
                 addView(FuckSwitch.FastBuilder(mText = "应用集", mKey = RemoveEntranceItem.itemMap["应用集"]!!).build())
 
+            })
+        })
+        dialogBuilder.show()
+    }
+
+    private fun showRemoveSearchActivityItemDialog(){
+        val dialogBuilder = AlertDialog.Builder(settingActivity)
+        dialogBuilder.setView(ScrollView(settingActivity).apply {
+            overScrollMode = 2
+            addView(LinearLayout(settingActivity).apply {
+                orientation = LinearLayout.VERTICAL
+                setPadding(dp2px(CoolContext.context, 20f), dp2px(CoolContext.context, 10f), dp2px(CoolContext.context, 20f), dp2px(CoolContext.context, 10f))
+                addView(FuckTextView.FastBuilder(mText = "搜索界面精简", mSize = FuckTextView.titleSize).build())
+                addView(FuckSwitch.FastBuilder(mText = "热门搜索", mKey = "hotSearch").build())
+                addView(FuckSwitch.FastBuilder(mText = "热榜", mKey = "searchHotListCard").build())
             })
         })
         dialogBuilder.show()
