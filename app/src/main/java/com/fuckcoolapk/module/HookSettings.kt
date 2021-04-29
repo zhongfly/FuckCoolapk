@@ -86,6 +86,7 @@ class HookSettings {
                 //addView(FuckSwitch.FastBuilder(mText = "关闭链接追踪",mKey = "disableURLTracking").build())
                 addView(FuckSwitch.FastBuilder(mText = "关闭 Umeng", mKey = "disableUmeng").build())
                 addView(FuckSwitch.FastBuilder(mText = "关闭 Bugly", mKey = "disableBugly").build())
+                addView(FuckSwitch.FastBuilder(mText = "关闭更新提醒", mKey = "disableUpdateRemind").build())
                 addView(FuckTextView.FastBuilder(mText = "去除首页底部按钮") { showRemoveBottomNavigationDialog() }.build())
                 addView(FuckTextView.FastBuilder(mText = "去除发布列表元素"){ showRemoveEntranceItemDialog() }.build())
                 addView(FuckTextView.FastBuilder(mText = "自定义水印") { showWaterMarkDialog() }.build())
