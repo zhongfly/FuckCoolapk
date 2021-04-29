@@ -2,12 +2,10 @@ package com.fuckcoolapk.module
 
 import com.fuckcoolapk.utils.CoolContext
 import com.fuckcoolapk.utils.OwnSP
-import com.fuckcoolapk.utils.ktx.callMethod
-import com.fuckcoolapk.utils.ktx.hookAfterMethod
-import com.fuckcoolapk.utils.ktx.hookBeforeMethod
 import de.robv.android.xposed.XposedHelpers
 import org.json.JSONArray
 import org.json.JSONObject
+import com.fuckcoolapk.utils.ktx.*
 
 class RemoveFeedAds {
     private val onAdLoadListener = "com.coolapk.market.view.ad.OnAdLoadListener"
@@ -17,15 +15,6 @@ class RemoveFeedAds {
         "酷友在搜的优惠券",
         "什么值得买",
     )
-
-    private fun String.contains(items: List<String>): Boolean{
-        for (item in items){
-            if (item in this){
-                return true
-            }
-        }
-        return false
-    }
 
     fun init() {
         if (OwnSP.ownSP.getBoolean("removeFeedAds", false)) {
