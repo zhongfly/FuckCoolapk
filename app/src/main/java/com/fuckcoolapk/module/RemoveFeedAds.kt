@@ -2,13 +2,21 @@ package com.fuckcoolapk.module
 
 import com.fuckcoolapk.utils.CoolContext
 import com.fuckcoolapk.utils.OwnSP
-import com.fuckcoolapk.utils.ktx.hookBeforeMethod
 import de.robv.android.xposed.XposedHelpers
 import org.json.JSONArray
 import org.json.JSONObject
+import com.fuckcoolapk.utils.ktx.*
 
 class RemoveFeedAds {
     private val onAdLoadListener = "com.coolapk.market.view.ad.OnAdLoadListener"
+
+    private val removeList = listOf(
+        "猜你喜欢", // Title过滤
+        "酷友在搜的优惠券", // Title过滤
+        "什么值得买", // Title过滤
+        "优选配件", // Title过滤
+    )
+
     fun init() {
         if (OwnSP.ownSP.getBoolean("removeFeedAds", false)) {
             "com.coolapk.market.view.ad.toutiao.TTFeedSelfDrawAd"
@@ -73,6 +81,29 @@ class RemoveFeedAds {
                         val mediaType = XposedHelpers.callStaticMethod(mediaTypeClass, "parse", "application/json")
                         it.args[0] = XposedHelpers.callStaticMethod(responseBodyClass, "create", mediaType, json.toString())
                     }
+            "com.coolapk.market.view.cardlist.EntityRemoveHelper".hookAfterMethod("modifyData", List::class.java, Boolean::class.java){
+                val newList = mutableListOf<Any>()
+                for (item in it.result as List<*>){
+                    val entityType = item!!.callMethod("getEntityType") as? String
+                    val title = item.callMethod("getTitle") as? String
+                    val extraData = item.callMethod("getExtraData")?.callMethod("toString") as? String ?: item.callMethod("getExtraData") as? String
+                    val url = item.callMethod("getUrl") as? String
+                    if (entityType == "pear_goods"){
+                        continue
+                    }
+                    if (title?.contains(removeList) == true){
+                        continue
+                    }
+                    if (extraData?.contains("_GOODS") == true){
+                        continue
+                    }
+                    if (url?.contains("pearGoods") == true){
+                        continue
+                    }
+                    newList.add(item)
+                }
+                it.result = newList
+            }
         }
     }
 }
