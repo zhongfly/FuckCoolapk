@@ -9,11 +9,16 @@ import de.robv.android.xposed.XposedHelpers
 class RemoveFeedAds {
     private val onAdLoadListener = "com.coolapk.market.view.ad.OnAdLoadListener"
 
-    private val removeList = listOf(
+    private val titleRemoveList = listOf(
             "猜你喜欢", // Title过滤
             "酷友在搜的优惠券", // Title过滤
             "什么值得买", // Title过滤
             "优选配件", // Title过滤
+    )
+    private val extraRemoveList = listOf(
+            "_AD",
+            "_GOODS",
+            "酷安小卖部",
     )
 
     fun init() {
@@ -49,10 +54,12 @@ class RemoveFeedAds {
                     val url = item.callMethod("getUrl") as? String
                     when {
                         entityType?.contains("_goods", ignoreCase = true) ?: false -> continue@loop
-                        removeList.any { items ->
+                        titleRemoveList.any { items ->
                             title?.contains(items) ?: false
                         } -> continue@loop
-                        extraData?.contains("_GOODS", ignoreCase = true) ?: false -> continue@loop
+                        extraRemoveList.any { items ->
+                            extraData?.contains(items, ignoreCase = true) ?: false
+                        } -> continue@loop
                         url?.contains("pearGoods", ignoreCase = true) ?: false -> continue@loop
                         else -> newList.add(item)
                     }
