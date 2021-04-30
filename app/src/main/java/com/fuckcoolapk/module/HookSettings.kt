@@ -64,7 +64,7 @@ class HookSettings {
             addView(LinearLayout(settingActivity).apply {
                 orientation = LinearLayout.VERTICAL
                 setPadding(dp2px(CoolContext.context, 20f), dp2px(CoolContext.context, 10f), dp2px(CoolContext.context, 20f), dp2px(CoolContext.context, 5f))
-                addView(FuckTextView.FastBuilder(mText = "F${"x".randomLength(2..5)} C${"x".randomLength(4..8)}", mSize = FuckTextView.titleSize).build())
+                addView(FuckTextView.FastBuilder(mText = "F${"■".randomLength(2..5)} C${"■".randomLength(4..8)}", mSize = FuckTextView.titleSize).build())
                 addView(FuckTextView.FastBuilder(mText = "${BuildConfig.VERSION_NAME} ${BuildConfig.VERSION_CODE} ${BuildConfig.BUILD_TYPE} ${if (CoolContext.isXpatch) " for xpatch" else ""}\n目标版本: $MODULE_TARGET_VERSION_NAME ($MODULE_TARGET_VERSION_CODE)").build())
                 //addView(FuckTextView.FastBuilder(mText = "功能", mColor = getColorFixWithHashtag(::getColorAccent), mSize = FuckTextView.title2Size).build())
                 addView(FuckTextView.FastBuilder(mText = "精简", mColor = getColorFixWithHashtag(::getColorAccent), mSize = FuckTextView.title2Size).build())
@@ -73,9 +73,12 @@ class HookSettings {
                 addView(FuckSwitch.FastBuilder(mText = "去除帖子下方广告（Alpha）", mKey = "removeBannerAds").build())
                 addView(FuckSwitch.FastBuilder(mText = "去除动态审核水印", mKey = "removeAuditWatermark").build())
                 addView(FuckSwitch.FastBuilder(mText = "去除首页搜索栏热词", mKey = "removeSearchBoxHotWord").build())
+                addView(FuckSwitch.FastBuilder(mText = "关闭 Umeng", mKey = "disableUmeng").build())
+                addView(FuckSwitch.FastBuilder(mText = "关闭 Bugly", mKey = "disableBugly").build())
+                if (!CoolContext.isXpatch) addView(FuckSwitch.FastBuilder(mText = "关闭更新提醒", mKey = "disableUpdateDialog").build())
                 addView(FuckTextView.FastBuilder(mText = "去除首页底部按钮") { showRemoveBottomNavigationDialog() }.build())
-                addView(FuckTextView.FastBuilder(mText = "去除发布列表元素"){ showRemoveEntranceItemDialog() }.build())
-                addView(FuckTextView.FastBuilder(mText = "去除搜索界面元素"){ showRemoveSearchActivityItemDialog() }.build())
+                addView(FuckTextView.FastBuilder(mText = "去除发布列表元素") { showRemoveEntranceItemDialog() }.build())
+                addView(FuckTextView.FastBuilder(mText = "去除搜索界面元素") { showRemoveSearchActivityItemDialog() }.build())
                 addView(FuckTextView.FastBuilder(mText = "加强", mColor = getColorFixWithHashtag(::getColorAccent), mSize = FuckTextView.title2Size).build())
                 addView(FuckSwitch.FastBuilder(mText = "允许在应用列表内卸载酷安", mKey = "allowUninstallCoolapk").build())
                 addView(FuckSwitch.FastBuilder(mText = "在应用详情页显示更多信息", mKey = "showAppDetail").build())
@@ -87,9 +90,6 @@ class HookSettings {
                 addView(FuckSwitch.FastBuilder(mText = "更改「发现」按钮点击事件为打开发布列表", mKey = "modifyGoodsButton").build())
                 addView(FuckSwitch.FastBuilder(mText = "管理员模式", mToastText = "仅供娱乐，不会有实际效果。\n慎重开启，开启后很有可能导致你号没了！！！", mKey = "adminMode").build())
                 //addView(FuckSwitch.FastBuilder(mText = "关闭链接追踪",mKey = "disableURLTracking").build())
-                addView(FuckSwitch.FastBuilder(mText = "关闭 Umeng", mKey = "disableUmeng").build())
-                addView(FuckSwitch.FastBuilder(mText = "关闭 Bugly", mKey = "disableBugly").build())
-                addView(FuckSwitch.FastBuilder(mText = "关闭更新提醒", mKey = "disableUpdateRemind").build())
                 addView(FuckTextView.FastBuilder(mText = "自定义水印") { showWaterMarkDialog() }.build())
                 addView(FuckTextView.FastBuilder(mText = "其他", mColor = getColorFixWithHashtag(::getColorAccent), mSize = FuckTextView.title2Size).build())
                 addView(FuckSwitch.FastBuilder(mText = "检查更新", mDefaultState = true, mKey = "checkUpdate").build())
@@ -141,7 +141,7 @@ class HookSettings {
         dialogBuilder.show()
     }
 
-    private fun showRemoveEntranceItemDialog(){
+    private fun showRemoveEntranceItemDialog() {
         val dialogBuilder = AlertDialog.Builder(settingActivity)
         dialogBuilder.setView(ScrollView(settingActivity).apply {
             overScrollMode = 2
@@ -164,7 +164,7 @@ class HookSettings {
         dialogBuilder.show()
     }
 
-    private fun showRemoveSearchActivityItemDialog(){
+    private fun showRemoveSearchActivityItemDialog() {
         val dialogBuilder = AlertDialog.Builder(settingActivity)
         dialogBuilder.setView(ScrollView(settingActivity).apply {
             overScrollMode = 2

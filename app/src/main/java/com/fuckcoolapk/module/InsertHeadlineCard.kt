@@ -43,18 +43,5 @@ class InsertHeadlineCard {
                                 ?.callMethod("build")
                     }
                 }
-        /*"com.coolapk.market.view.cardlist.MainV8ListFragment"
-                .hookBeforeMethod("onRequestResponse", Boolean::class.javaPrimitiveType, "java.util.List") {
-                    it.args[1] = (it.args[1] as java.util.ArrayList<Any?>).apply {
-                        add(0, "com.coolapk.market.model.HolderItem"
-                                .callStaticMethod("newBuilder")
-                                ?.callMethod("entityType", "card")
-                                ?.callMethod("entityTemplate","imageCard")
-                                ?.callMethod("title", "233")
-                                ?.callMethod("url","")
-                                ?.callMethod("pic","https://cdn.jsdelivr.net/gh/lz233/src.lz233.github.io/image/background.jpg")
-                                ?.callMethod("build"))
-                    }
-                }*/
     }
 }

@@ -194,7 +194,7 @@ class d : IXposedHookLoadPackage {
             //关闭 Bugly
             DisableBugly().init()
             //关闭更新提醒
-            DisableUpdateRemind().init()
+            DisableUpdateDialog().init()
             //开启管理员模式
             EnableAdminMode().init()
             //检测动态折叠

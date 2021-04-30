@@ -13,7 +13,7 @@ class AllowUninstallCoolapk {
     fun init() {
         if (OwnSP.ownSP.getBoolean("allowUninstallCoolapk", false)) {
             var textUtilsHook: XC_MethodHook.Unhook? = null
-            "com.coolapk.market.view.appmanager.MobileAppFragment\$DataAdapter\$onCreateViewHolder\$1"
+            "com.coolapk.market.view.appmanager.MobileAppFragment\$DataAdapter\$onCreateViewHolder$1"
                     .hookBeforeMethod("onItemClick", "androidx.recyclerview.widget.RecyclerView\$ViewHolder", View::class.java) {
                         textUtilsHook = "android.text.TextUtils".hookBeforeMethod("equals", CharSequence::class.java, CharSequence::class.java) {
                             if ((it.args[0] as String) == PACKAGE_NAME) {
@@ -22,7 +22,7 @@ class AllowUninstallCoolapk {
                             }
                         }
                     }
-            "com.coolapk.market.view.appmanager.MobileAppFragment\$DataAdapter\$onCreateViewHolder\$1"
+            "com.coolapk.market.view.appmanager.MobileAppFragment\$DataAdapter\$onCreateViewHolder$1"
                     .hookAfterMethod("onItemClick", "androidx.recyclerview.widget.RecyclerView\$ViewHolder", View::class.java) {
                         textUtilsHook?.unhook()
                     }
