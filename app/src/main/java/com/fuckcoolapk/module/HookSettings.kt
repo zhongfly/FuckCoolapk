@@ -72,7 +72,7 @@ class HookSettings {
                 addView(FuckSwitch.FastBuilder(mText = "去除信息流广告（Alpha）", mKey = "removeFeedAds").build())
                 addView(FuckSwitch.FastBuilder(mText = "去除帖子下方广告（Alpha）", mKey = "removeBannerAds").build())
                 addView(FuckSwitch.FastBuilder(mText = "去除动态审核水印", mKey = "removeAuditWatermark").build())
-                addView(FuckSwitch.FastBuilder(mText = "去除首页搜索栏热词", mKey = "RemoveSearchBoxHotWord").build())
+                addView(FuckSwitch.FastBuilder(mText = "去除首页搜索栏热词", mKey = "removeSearchBoxHotWord").build())
                 addView(FuckTextView.FastBuilder(mText = "去除首页底部按钮") { showRemoveBottomNavigationDialog() }.build())
                 addView(FuckTextView.FastBuilder(mText = "去除发布列表元素"){ showRemoveEntranceItemDialog() }.build())
                 addView(FuckTextView.FastBuilder(mText = "去除搜索界面元素"){ showRemoveSearchActivityItemDialog() }.build())
