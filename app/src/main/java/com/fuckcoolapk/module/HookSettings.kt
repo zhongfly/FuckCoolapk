@@ -7,10 +7,7 @@ import android.graphics.Color
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.ScrollView
-import com.fuckcoolapk.BuildConfig
-import com.fuckcoolapk.MODULE_TARGET_VERSION
-import com.fuckcoolapk.PACKAGE_NAME
-import com.fuckcoolapk.SP_NAME
+import com.fuckcoolapk.*
 import com.fuckcoolapk.utils.*
 import com.fuckcoolapk.utils.ktx.callMethod
 import com.fuckcoolapk.utils.ktx.callStaticMethod
@@ -68,29 +65,31 @@ class HookSettings {
                 orientation = LinearLayout.VERTICAL
                 setPadding(dp2px(CoolContext.context, 20f), dp2px(CoolContext.context, 10f), dp2px(CoolContext.context, 20f), dp2px(CoolContext.context, 5f))
                 addView(FuckTextView.FastBuilder(mText = "F${"x".randomLength(2..5)} C${"x".randomLength(4..8)}", mSize = FuckTextView.titleSize).build())
-                addView(FuckTextView.FastBuilder(mText = "${BuildConfig.VERSION_NAME} ${BuildConfig.VERSION_CODE} ${BuildConfig.BUILD_TYPE} ${if (CoolContext.isXpatch) " for xpatch" else ""}\n目标版本: $MODULE_TARGET_VERSION").build())
-                addView(FuckTextView.FastBuilder(mText = "功能", mColor = getColorFixWithHashtag(::getColorAccent), mSize = FuckTextView.title2Size).build())
+                addView(FuckTextView.FastBuilder(mText = "${BuildConfig.VERSION_NAME} ${BuildConfig.VERSION_CODE} ${BuildConfig.BUILD_TYPE} ${if (CoolContext.isXpatch) " for xpatch" else ""}\n目标版本: $MODULE_TARGET_VERSION_NAME ($MODULE_TARGET_VERSION_CODE)").build())
+                //addView(FuckTextView.FastBuilder(mText = "功能", mColor = getColorFixWithHashtag(::getColorAccent), mSize = FuckTextView.title2Size).build())
+                addView(FuckTextView.FastBuilder(mText = "精简", mColor = getColorFixWithHashtag(::getColorAccent), mSize = FuckTextView.title2Size).build())
                 addView(FuckSwitch.FastBuilder(mText = "去除启动广告", mKey = "removeStartupAds").build())
                 addView(FuckSwitch.FastBuilder(mText = "去除信息流广告（Alpha）", mKey = "removeFeedAds").build())
                 addView(FuckSwitch.FastBuilder(mText = "去除帖子下方广告（Alpha）", mKey = "removeBannerAds").build())
                 addView(FuckSwitch.FastBuilder(mText = "去除动态审核水印", mKey = "removeAuditWatermark").build())
-                addView(FuckSwitch.FastBuilder(mText = "去除首页搜索栏热词", mKey = "removeHotWord").build())
+                addView(FuckSwitch.FastBuilder(mText = "去除首页搜索栏热词", mKey = "RemoveSearchBoxHotWord").build())
+                addView(FuckTextView.FastBuilder(mText = "去除首页底部按钮") { showRemoveBottomNavigationDialog() }.build())
+                addView(FuckTextView.FastBuilder(mText = "去除发布列表元素"){ showRemoveEntranceItemDialog() }.build())
+                addView(FuckTextView.FastBuilder(mText = "去除搜索界面元素"){ showRemoveSearchActivityItemDialog() }.build())
+                addView(FuckTextView.FastBuilder(mText = "加强", mColor = getColorFixWithHashtag(::getColorAccent), mSize = FuckTextView.title2Size).build())
                 addView(FuckSwitch.FastBuilder(mText = "允许在应用列表内卸载酷安", mKey = "allowUninstallCoolapk").build())
                 addView(FuckSwitch.FastBuilder(mText = "在应用详情页显示更多信息", mKey = "showAppDetail").build())
+                addView(FuckSwitch.FastBuilder(mText = "检测动态状态", mKey = "checkFeedStatus").build())
                 addView(FuckSwitch.FastBuilder(mText = "对动态开启 Markdown（Alpha）", mKey = "enableMarkdown").build())
                 addView(FuckSwitch.FastBuilder(mText = "对私信开启反和谐", mToastText = "通过自动替换相似字来达到反和谐的效果，不能保证一定有效。\n请勿滥用，请勿用于除私信外的其他地方，否则后果自负。", mKey = "antiMessageCensorship").build())
                 addView(FuckSwitch.FastBuilder(mText = "加强私信反和谐效果", mToastText = "需同时开启「对私信开启反和谐」", mKey = "enhanceAntiMessageCensorship").build())
                 addView(FuckSwitch.FastBuilder(mText = "切换酷安模式（正常版/社区版）", mKey = "modifyAppMode").build())
                 addView(FuckSwitch.FastBuilder(mText = "更改「发现」按钮点击事件为打开发布列表", mKey = "modifyGoodsButton").build())
                 addView(FuckSwitch.FastBuilder(mText = "管理员模式", mToastText = "仅供娱乐，不会有实际效果。\n慎重开启，开启后很有可能导致你号没了！！！", mKey = "adminMode").build())
-                addView(FuckSwitch.FastBuilder(mText = "检测动态折叠", mKey = "checkFeedBlock").build())
                 //addView(FuckSwitch.FastBuilder(mText = "关闭链接追踪",mKey = "disableURLTracking").build())
                 addView(FuckSwitch.FastBuilder(mText = "关闭 Umeng", mKey = "disableUmeng").build())
                 addView(FuckSwitch.FastBuilder(mText = "关闭 Bugly", mKey = "disableBugly").build())
                 addView(FuckSwitch.FastBuilder(mText = "关闭更新提醒", mKey = "disableUpdateRemind").build())
-                addView(FuckTextView.FastBuilder(mText = "去除首页底部按钮") { showRemoveBottomNavigationDialog() }.build())
-                addView(FuckTextView.FastBuilder(mText = "去除发布列表元素"){ showRemoveEntranceItemDialog() }.build())
-                addView(FuckTextView.FastBuilder(mText = "搜索界面精简"){ showRemoveSearchActivityItemDialog() }.build())
                 addView(FuckTextView.FastBuilder(mText = "自定义水印") { showWaterMarkDialog() }.build())
                 addView(FuckTextView.FastBuilder(mText = "其他", mColor = getColorFixWithHashtag(::getColorAccent), mSize = FuckTextView.title2Size).build())
                 addView(FuckSwitch.FastBuilder(mText = "检查更新", mDefaultState = true, mKey = "checkUpdate").build())
@@ -154,7 +153,7 @@ class HookSettings {
                 addView(FuckSwitch.FastBuilder(mText = "提问", mKey = RemoveEntranceItem.itemMap["提问"]!!).build())
                 addView(FuckSwitch.FastBuilder(mText = "二手", mKey = RemoveEntranceItem.itemMap["二手"]!!).build())
                 addView(FuckSwitch.FastBuilder(mText = "扫一扫", mKey = RemoveEntranceItem.itemMap["扫一扫"]!!).build())
-                addView(FuckSwitch.FastBuilder(mText = "投票", mKey = RemoveEntranceItem.itemMap["投票"]!!, mToastText = "仅管理员模式有此部件").build())
+                addView(FuckSwitch.FastBuilder(mText = "投票", mKey = RemoveEntranceItem.itemMap["投票"]!!, mToastText = "仅管理员模式有此元素").build())
                 addView(FuckSwitch.FastBuilder(mText = "话题", mKey = RemoveEntranceItem.itemMap["话题"]!!).build())
                 addView(FuckSwitch.FastBuilder(mText = "好物", mKey = RemoveEntranceItem.itemMap["好物"]!!).build())
                 addView(FuckSwitch.FastBuilder(mText = "好物单", mKey = RemoveEntranceItem.itemMap["好物单"]!!).build())
@@ -173,8 +172,8 @@ class HookSettings {
                 orientation = LinearLayout.VERTICAL
                 setPadding(dp2px(CoolContext.context, 20f), dp2px(CoolContext.context, 10f), dp2px(CoolContext.context, 20f), dp2px(CoolContext.context, 10f))
                 addView(FuckTextView.FastBuilder(mText = "搜索界面精简", mSize = FuckTextView.titleSize).build())
-                addView(FuckSwitch.FastBuilder(mText = "热门搜索", mKey = "hotSearch").build())
-                addView(FuckSwitch.FastBuilder(mText = "热榜", mKey = "searchHotListCard").build())
+                addView(FuckSwitch.FastBuilder(mText = "热门搜索", mKey = "removeSearchActivityItemHotSearch").build())
+                addView(FuckSwitch.FastBuilder(mText = "热榜", mKey = "removeSearchActivityItemHotSearchListCard").build())
             })
         })
         dialogBuilder.show()

@@ -180,7 +180,7 @@ class d : IXposedHookLoadPackage {
             //去除底部多余按钮
             RemoveBottomNavigation().init()
             //去除搜索栏热词
-            RemoveHotWord().init()
+            RemoveSearchBoxHotWord().init()
             //搜索界面精简
             RemoveSearchActivityItem().init()
             //允许在应用列表内卸载酷安
@@ -198,10 +198,10 @@ class d : IXposedHookLoadPackage {
             //开启管理员模式
             EnableAdminMode().init()
             //检测动态折叠
-            CheckFeedBlock().init()
+            CheckFeedStatus().init()
             //更改酷安模式
             ModifyAppMode().init()
-            //更改'发现'按钮点击事件为打开发布列表
+            //更改「发现」按钮点击事件为打开发布列表
             ModifyGoodsButton().init()
             //去除动态审核的水印
             RemoveAuditWatermark().init()
