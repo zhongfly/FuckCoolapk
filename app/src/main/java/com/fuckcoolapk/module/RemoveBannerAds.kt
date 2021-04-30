@@ -1,9 +1,7 @@
 package com.fuckcoolapk.module
 
-import android.util.Log
 import com.fuckcoolapk.utils.OwnSP
-import com.fuckcoolapk.utils.ktx.*
-import de.robv.android.xposed.XposedHelpers
+import com.fuckcoolapk.utils.ktx.setReturnConstant
 
 class RemoveBannerAds {
     fun init() {

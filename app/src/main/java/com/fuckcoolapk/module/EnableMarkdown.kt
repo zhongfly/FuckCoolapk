@@ -2,15 +2,12 @@ package com.fuckcoolapk.module
 
 import android.text.Html
 import android.widget.TextView
-import com.fuckcoolapk.utils.LogUtil
 import com.fuckcoolapk.utils.OwnSP
-import com.fuckcoolapk.utils.ktx.*
-import de.robv.android.xposed.XposedHelpers
-import org.commonmark.Extension
+import com.fuckcoolapk.utils.ktx.hookAfterMethod
+import com.fuckcoolapk.utils.ktx.hookBeforeMethod
 import org.commonmark.ext.gfm.strikethrough.StrikethroughExtension
 import org.commonmark.parser.Parser
 import org.commonmark.renderer.html.HtmlRenderer
-import java.util.*
 
 class EnableMarkdown {
     fun init() {

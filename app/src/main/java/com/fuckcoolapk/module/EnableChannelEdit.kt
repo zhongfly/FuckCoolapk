@@ -1,10 +1,7 @@
 package com.fuckcoolapk.module
 
-import com.fuckcoolapk.utils.LogUtil
 import com.fuckcoolapk.utils.OwnSP
 import com.fuckcoolapk.utils.ktx.setReturnConstant
-import de.robv.android.xposed.XC_MethodReplacement
-import de.robv.android.xposed.XposedHelpers
 
 class EnableChannelEdit {
     fun init() {

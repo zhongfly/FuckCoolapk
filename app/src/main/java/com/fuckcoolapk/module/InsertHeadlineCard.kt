@@ -4,11 +4,9 @@ import com.fuckcoolapk.utils.CoolContext
 import com.fuckcoolapk.utils.OwnSP
 import com.fuckcoolapk.utils.ktx.callMethod
 import com.fuckcoolapk.utils.ktx.callStaticMethod
-import com.fuckcoolapk.utils.ktx.hookAfterMethod
 import com.fuckcoolapk.utils.ktx.hookBeforeMethod
 import org.json.JSONArray
-import org.json.JSONObject
-import java.util.ArrayList
+import java.util.*
 
 class InsertHeadlineCard {
     fun init() {
@@ -27,10 +25,10 @@ class InsertHeadlineCard {
                                 ?.callMethod("setLastUpdate", entityCard.callMethod("getLastUpdate"))
                                 ?.callMethod("setEntities", (entityCard.callMethod("getEntities") as ArrayList<Any?>)
                                         .apply {
-                                            val jsonArray = JSONArray(OwnSP.ownSP.getString("configBannerCard","[]"))
-                                            for (i in 0 until jsonArray.length()){
+                                            val jsonArray = JSONArray(OwnSP.ownSP.getString("configBannerCard", "[]"))
+                                            for (i in 0 until jsonArray.length()) {
                                                 val jsonObject = jsonArray.getJSONObject(i)
-                                                add(if (jsonObject.getBoolean("countDown")) size-jsonObject.getInt("position") else jsonObject.getInt("position"), "com.coolapk.market.model.EntityCard"
+                                                add(if (jsonObject.getBoolean("countDown")) size - jsonObject.getInt("position") else jsonObject.getInt("position"), "com.coolapk.market.model.EntityCard"
                                                         .callStaticMethod("builder")
                                                         ?.callMethod("setEntityType", jsonObject.getString("entityType"))
                                                         ?.callMethod("setTitle", jsonObject.getString("title"))
@@ -39,7 +37,7 @@ class InsertHeadlineCard {
                                                         ?.callMethod("build"))
                                             }
                                         }
-                                     )
+                                )
                                 ?.callMethod("build")
                     }
                 }

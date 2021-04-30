@@ -7,7 +7,6 @@ package com.sfysoft.android.xposed.shelling;
 
 import android.annotation.SuppressLint;
 import android.os.Build;
-import android.util.Log;
 
 import com.fuckcoolapk.AppConfigKt;
 import com.fuckcoolapk.utils.LogUtil;
@@ -24,7 +23,6 @@ import java.util.Queue;
 import java.util.Set;
 
 import de.robv.android.xposed.XC_MethodHook;
-import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.XposedHelpers;
 import de.robv.android.xposed.callbacks.XC_LoadPackage;
 

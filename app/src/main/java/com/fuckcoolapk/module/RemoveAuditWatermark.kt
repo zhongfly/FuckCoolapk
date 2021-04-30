@@ -4,7 +4,6 @@ import android.view.View
 import com.fuckcoolapk.utils.OwnSP
 import com.fuckcoolapk.utils.ktx.getObjectField
 import com.fuckcoolapk.utils.ktx.hookAfterMethod
-import de.robv.android.xposed.XposedHelpers
 
 class RemoveAuditWatermark {
     fun init() {

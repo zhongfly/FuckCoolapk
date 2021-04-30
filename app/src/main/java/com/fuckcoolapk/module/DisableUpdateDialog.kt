@@ -3,7 +3,6 @@ package com.fuckcoolapk.module
 import com.fuckcoolapk.utils.CoolContext
 import com.fuckcoolapk.utils.OwnSP
 import com.fuckcoolapk.utils.ktx.replaceMethod
-import com.fuckcoolapk.utils.ktx.setReturnConstant
 
 class DisableUpdateDialog {
     fun init() {

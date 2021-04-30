@@ -3,14 +3,12 @@
 package com.fuckcoolapk.utils.ktx
 
 import android.content.res.XResources
-import android.util.Log
 import com.fuckcoolapk.utils.CoolContext
 import com.fuckcoolapk.utils.LogUtil
 import de.robv.android.xposed.XC_MethodHook
 import de.robv.android.xposed.XC_MethodHook.MethodHookParam
 import de.robv.android.xposed.XC_MethodReplacement
 import de.robv.android.xposed.XposedBridge.*
-import de.robv.android.xposed.XposedHelpers
 import de.robv.android.xposed.XposedHelpers.*
 import de.robv.android.xposed.callbacks.XC_LayoutInflated
 import java.lang.reflect.Field

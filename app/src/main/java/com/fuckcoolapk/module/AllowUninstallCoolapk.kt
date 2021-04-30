@@ -1,6 +1,5 @@
 package com.fuckcoolapk.module
 
-import android.text.TextUtils
 import android.view.View
 import com.fuckcoolapk.PACKAGE_NAME
 import com.fuckcoolapk.utils.LogUtil

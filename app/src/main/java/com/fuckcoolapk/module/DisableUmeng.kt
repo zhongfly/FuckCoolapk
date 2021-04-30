@@ -1,11 +1,7 @@
 package com.fuckcoolapk.module
 
-import android.content.Context
 import com.fuckcoolapk.utils.OwnSP
-import com.fuckcoolapk.utils.ktx.hookBeforeAllMethods
 import com.fuckcoolapk.utils.ktx.replaceAfterAllMethods
-import com.fuckcoolapk.utils.ktx.replaceMethod
-import de.robv.android.xposed.XposedHelpers
 
 class DisableUmeng {
     fun init() {

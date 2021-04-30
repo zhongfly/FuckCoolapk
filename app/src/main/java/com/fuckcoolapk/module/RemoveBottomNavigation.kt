@@ -1,8 +1,6 @@
 package com.fuckcoolapk.module
 
 import android.content.Context
-import com.fuckcoolapk.PACKAGE_NAME
-import com.fuckcoolapk.utils.CoolContext
 import com.fuckcoolapk.utils.OwnSP
 import com.fuckcoolapk.utils.getAppMode
 import com.fuckcoolapk.utils.ktx.hookAfterMethod

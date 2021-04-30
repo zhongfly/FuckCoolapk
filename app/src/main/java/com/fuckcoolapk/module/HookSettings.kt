@@ -2,7 +2,10 @@ package com.fuckcoolapk.module
 
 import android.app.Activity
 import android.app.AlertDialog
-import android.content.*
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
+import android.content.DialogInterface
 import android.graphics.Color
 import android.view.View
 import android.widget.LinearLayout
@@ -13,10 +16,12 @@ import com.fuckcoolapk.utils.ktx.callMethod
 import com.fuckcoolapk.utils.ktx.callStaticMethod
 import com.fuckcoolapk.utils.ktx.hookBeforeMethod
 import com.fuckcoolapk.utils.ktx.randomLength
-import com.fuckcoolapk.view.*
+import com.fuckcoolapk.view.AdjustImageView
+import com.fuckcoolapk.view.FuckEditText
+import com.fuckcoolapk.view.FuckSwitch
+import com.fuckcoolapk.view.FuckTextView
 import io.noties.markwon.Markwon
 import java.io.File
-import java.util.*
 import kotlin.system.exitProcess
 
 class HookSettings {

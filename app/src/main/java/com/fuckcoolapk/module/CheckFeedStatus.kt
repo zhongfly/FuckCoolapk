@@ -1,10 +1,8 @@
 package com.fuckcoolapk.module
 
-import com.fuckcoolapk.utils.LogUtil
 import com.fuckcoolapk.utils.OwnSP
 import com.fuckcoolapk.utils.ktx.callMethod
 import com.fuckcoolapk.utils.ktx.hookAfterMethod
-import com.fuckcoolapk.utils.ktx.hookBeforeMethod
 
 class CheckFeedStatus {
     fun init() {

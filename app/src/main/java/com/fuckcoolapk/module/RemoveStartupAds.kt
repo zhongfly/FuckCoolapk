@@ -3,12 +3,11 @@ package com.fuckcoolapk.module
 import android.app.Activity
 import android.content.Context
 import android.os.Bundle
-import android.os.Handler
-import com.fuckcoolapk.utils.LogUtil
 import com.fuckcoolapk.utils.OwnSP
-import com.fuckcoolapk.utils.ktx.*
-import de.robv.android.xposed.XC_MethodReplacement
-import de.robv.android.xposed.XposedHelpers
+import com.fuckcoolapk.utils.ktx.callMethod
+import com.fuckcoolapk.utils.ktx.hookAfterMethod
+import com.fuckcoolapk.utils.ktx.replaceMethod
+import com.fuckcoolapk.utils.ktx.setReturnConstant
 
 class RemoveStartupAds {
     fun init() {

@@ -23,7 +23,7 @@ class ModifyGoodsButton {
                 views?.forEach { view ->
                     val textView = (view as ViewGroup).getChildAt(1) as TextView
                     if (textView.text == "发现") {
-                        textView.text="发布"
+                        textView.text = "发布"
                         view.setOnClickListener {
                             CoolContext.context.startActivity(Intent(
                                     CoolContext.context,

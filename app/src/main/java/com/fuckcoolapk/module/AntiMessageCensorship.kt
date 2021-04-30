@@ -1,6 +1,5 @@
 package com.fuckcoolapk.module
 
-import android.app.Activity
 import android.widget.EditText
 import com.fuckcoolapk.utils.CoolContext
 import com.fuckcoolapk.utils.LogUtil
@@ -8,7 +7,6 @@ import com.fuckcoolapk.utils.OwnSP
 import com.fuckcoolapk.utils.ktx.callMethod
 import com.fuckcoolapk.utils.ktx.hookAfterMethod
 import com.fuckcoolapk.utils.ktx.hookBeforeMethod
-import de.robv.android.xposed.XposedHelpers
 import org.json.JSONObject
 
 class AntiMessageCensorship {

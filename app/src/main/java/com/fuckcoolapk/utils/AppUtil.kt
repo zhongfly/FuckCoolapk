@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.res.Configuration
 import com.fuckcoolapk.utils.ktx.callMethod
 import com.fuckcoolapk.utils.ktx.callStaticMethod
-import de.robv.android.xposed.XposedHelpers
 import java.util.*
 import kotlin.math.absoluteValue
 

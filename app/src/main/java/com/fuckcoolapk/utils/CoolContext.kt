@@ -4,8 +4,6 @@ import android.app.Activity
 import android.content.Context
 import com.fuckcoolapk.utils.ktx.callMethod
 import com.fuckcoolapk.utils.ktx.callStaticMethod
-import de.robv.android.xposed.XposedHelpers
-import kotlin.math.absoluteValue
 
 object CoolContext {
     var isXpatch = false

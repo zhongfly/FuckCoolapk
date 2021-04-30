@@ -12,7 +12,6 @@ import com.fuckcoolapk.utils.ktx.callStaticMethod
 import com.fuckcoolapk.utils.ktx.hookAfterMethod
 import com.fuckcoolapk.utils.ktx.replaceMethod
 import de.robv.android.xposed.XposedHelpers
-import kotlin.math.absoluteValue
 
 
 class ModifyDeveloperCenter {

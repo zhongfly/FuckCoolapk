@@ -6,11 +6,8 @@ import android.util.AttributeSet
 import android.widget.ImageView
 import com.fuckcoolapk.utils.CoolContext
 import com.fuckcoolapk.utils.DownloadUtil
-import com.fuckcoolapk.utils.GetUtil
 import com.fuckcoolapk.utils.LogUtil
 import java.io.File
-import java.lang.Exception
-import java.net.URL
 import kotlin.math.ceil
 
 typealias callback = (AdjustImageView) -> Unit

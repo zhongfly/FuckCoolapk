@@ -1,24 +1,18 @@
 package com.fuckcoolapk.module
 
-import android.graphics.Color
-import android.util.Log
 import android.widget.LinearLayout
 import android.widget.TextView
-import com.fuckcoolapk.utils.LogUtil
 import com.fuckcoolapk.utils.OwnSP
 import com.fuckcoolapk.utils.ktx.callMethod
 import com.fuckcoolapk.utils.ktx.getObjectField
 import com.fuckcoolapk.utils.ktx.hookAfterMethod
 import com.fuckcoolapk.utils.ktx.hookBeforeMethod
 import de.robv.android.xposed.XC_MethodHook
-import de.robv.android.xposed.XposedHelpers
-import okhttp3.ResponseBody
 import org.json.JSONObject
-import java.util.*
 
 class ShowAppDetail {
     fun init() {
-        if (OwnSP.ownSP.getBoolean("showAppDetail",false)){
+        if (OwnSP.ownSP.getBoolean("showAppDetail", false)) {
             var responseBody = ""
             var okHttpHook: XC_MethodHook.Unhook? = null
             "com.coolapk.market.manager.DataManager$1"
