@@ -241,7 +241,7 @@ class HookSettings {
 
     private fun showEulaDialog(eula: String) {
         val markwon = Markwon.builder(settingActivity).build()
-        var time = 30
+        var time = if (BuildConfig.DEBUG) 0 else 30
         val dialogBuilder = AlertDialog.Builder(settingActivity)
         dialogBuilder.setView(ScrollView(settingActivity).apply {
             overScrollMode = 2
