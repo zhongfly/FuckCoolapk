@@ -197,6 +197,8 @@ class d : IXposedHookLoadPackage {
             DisableUpdateRemind().init()
             //开启管理员模式
             EnableAdminMode().init()
+            //检测动态折叠
+            CheckFeedBlock().init()
             //更改酷安模式
             ModifyAppMode().init()
             //更改'发现'按钮点击事件为打开发布列表

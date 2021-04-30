@@ -83,6 +83,7 @@ class HookSettings {
                 addView(FuckSwitch.FastBuilder(mText = "切换酷安模式（正常版/社区版）", mKey = "modifyAppMode").build())
                 addView(FuckSwitch.FastBuilder(mText = "更改「发现」按钮点击事件为打开发布列表", mKey = "modifyGoodsButton").build())
                 addView(FuckSwitch.FastBuilder(mText = "管理员模式", mToastText = "仅供娱乐，不会有实际效果。\n慎重开启，开启后很有可能导致你号没了！！！", mKey = "adminMode").build())
+                addView(FuckSwitch.FastBuilder(mText = "检测动态折叠", mKey = "checkFeedBlock").build())
                 //addView(FuckSwitch.FastBuilder(mText = "关闭链接追踪",mKey = "disableURLTracking").build())
                 addView(FuckSwitch.FastBuilder(mText = "关闭 Umeng", mKey = "disableUmeng").build())
                 addView(FuckSwitch.FastBuilder(mText = "关闭 Bugly", mKey = "disableBugly").build())
