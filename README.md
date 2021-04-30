@@ -2,12 +2,12 @@
 
 [**Best present for 316 and 423.**](https://github.com/ejiaogl/FuckCoolapk/wiki/Background-information)
 
-# ~~Want~~ To Do
+## ~~Want~~ To Do
 
 - [ ] 随机包名
 - [ ] 防检测 SharedPreferences
 
-# Features
+## Features
 
 - [x] 去除开屏广告
 - [x] 去除信息流广告
@@ -30,7 +30,7 @@
 - [x] 集成 Microsoft Appcenter，上传使用者 UID
 - [x] ~~临时显示统计 Toast~~
 
-# Credit
+## Credit
 
 [commons-codec](https://commons.apache.org/proper/commons-codec)
 [OKhttp](https://square.github.io/okhttp)
@@ -46,11 +46,15 @@
 [LSPosed](https://github.com/LSPosed/LSPosed)
 [AppFilter](https://github.com/drakeet/AppFilter)
 
-# Donate
+## Contribution
+
+参见[贡献指南](CONTRIBUTION.md)。
+
+## Donate
 
 宣传这个模块就是最好的「捐赠」。
 
-# EULA & License
+## EULA & License
 
 [EULA](EULA.md)
 

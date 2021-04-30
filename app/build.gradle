@@ -81,15 +81,15 @@ dependencies {
     //releaseImplementation "com.github.chuckerteam.chucker:library-no-op:3.4.0"
 }
 dependencies {
-    def markwon_version = '4.6.2'
-    implementation "io.noties.markwon:core:$markwon_version"
-    implementation"io.noties.markwon:ext-strikethrough:$markwon_version"
+    def markwonVersion = '4.6.2'
+    implementation "io.noties.markwon:core:$markwonVersion"
+    implementation"io.noties.markwon:ext-strikethrough:$markwonVersion"
     //implementation"io.noties.markwon:ext-tasklist:$markwon_version"
     //implementation"io.noties.markwon:ext-tables:$markwon_version"
     //implementation"org.commonmark:commonmark-ext-task-list-items:0.17.1"
 }
 dependencies {
-    def appCenterSdkVersion = '4.1.0'
+    def appCenterSdkVersion = '4.1.1'
     implementation "com.microsoft.appcenter:appcenter-analytics:${appCenterSdkVersion}"
     implementation "com.microsoft.appcenter:appcenter-crashes:${appCenterSdkVersion}"
 }
