@@ -21,12 +21,14 @@
 
 package com.fuckcoolapk.module
 
+import com.fuckcoolapk.utils.CoolContext
+import com.fuckcoolapk.utils.OwnSP
 import com.fuckcoolapk.utils.ktx.replaceMethod
-import com.fuckcoolapk.utils.ktx.setReturnConstant
 
-class DisableAntiXposed {
+class DisableUpdateDialog {
     fun init() {
-        "com.coolapk.market.util.XposedUtils".setReturnConstant("hasXposed", result = false)
-        "com.coolapk.market.util.XposedUtils".replaceMethod("disableXposed") { null }
+        if (OwnSP.ownSP.getBoolean("disableUpdateDialog", false) or CoolContext.isXpatch) {
+            "com.coolapk.market.CoolMarketApplication".replaceMethod("checkCoolapkUpgradeInfo") {}
+        }
     }
 }

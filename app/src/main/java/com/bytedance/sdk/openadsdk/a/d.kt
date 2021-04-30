@@ -1,3 +1,24 @@
+/*
+ * Fuck Coolapk - Best present for 316 and 423
+ * Copyright (C) 2020-2021
+ * https://github.com/ejiaogl/FuckCoolapk
+ *
+ * This software is non-free but opensource software: you can redistribute it
+ * and/or modify it under the terms of the GNUGeneral Public License as
+ * published by the Free Software Foundation; either version 3 of the License,
+ * or any later version and our eula as published by ejiaogl.
+ *
+ * This software is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License and
+ * eula along with this software.  If not, see
+ * <https://www.gnu.org/licenses/>
+ * <https://github.com/ejiaogl/FuckCoolapk/blob/master/LICENSE>.
+ */
+
 package com.bytedance.sdk.openadsdk.a
 
 import android.app.Activity
@@ -11,12 +32,18 @@ import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.os.Looper
+import android.widget.LinearLayout
+import android.widget.ScrollView
 import com.drakeet.filter.AppFilter
 import com.fuckcoolapk.BuildConfig
 import com.fuckcoolapk.PACKAGE_NAME
 import com.fuckcoolapk.module.*
 import com.fuckcoolapk.utils.*
-import com.fuckcoolapk.utils.ktx.*
+import com.fuckcoolapk.utils.ktx.MethodHookParam
+import com.fuckcoolapk.utils.ktx.callMethod
+import com.fuckcoolapk.utils.ktx.hookAfterAllMethods
+import com.fuckcoolapk.utils.ktx.hookAfterMethod
+import com.fuckcoolapk.view.FuckTextView
 import com.microsoft.appcenter.AppCenter
 import com.microsoft.appcenter.analytics.Analytics
 import com.microsoft.appcenter.crashes.Crashes
@@ -25,6 +52,7 @@ import de.robv.android.xposed.IXposedHookLoadPackage
 import de.robv.android.xposed.XC_MethodHook
 import de.robv.android.xposed.XposedHelpers
 import de.robv.android.xposed.callbacks.XC_LoadPackage
+import io.noties.markwon.Markwon
 import okhttp3.*
 import org.json.JSONObject
 import java.io.IOException
@@ -119,13 +147,24 @@ class d : IXposedHookLoadPackage {
                                             override fun onResponse(call: Call, response: Response) {
                                                 try {
                                                     val jsonObject = JSONObject(response.body!!.string())
+                                                    //if (true) {//debug
                                                     if ((jsonObject.getString("tag_name").toInt() > BuildConfig.VERSION_CODE) and (!jsonObject.getBoolean("prerelease"))) {
                                                         Looper.prepare()
-                                                        val normalDialog = AlertDialog.Builder(CoolContext.activity)
-                                                        normalDialog.setTitle("Fuck Coolapk 有新版本可用")
-                                                        normalDialog.setMessage("${jsonObject.getString("name")}\n${jsonObject.getString("body")}")
-                                                        normalDialog.setPositiveButton("查看") { dialogInterface: DialogInterface, i: Int -> CoolContext.activity.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/ejiaogl/FuckCoolapk/releases"))) }
-                                                        normalDialog.show().getButton(Dialog.BUTTON_POSITIVE).setTextColor(Color.parseColor(getColorFixWithHashtag(::getColorAccent)))
+                                                        val dialogBuilder = AlertDialog.Builder(CoolContext.activity)
+                                                        val markwon = Markwon.builder(CoolContext.context).build()
+                                                        dialogBuilder.setTitle("FC 有新版本可用")
+                                                        dialogBuilder.setView(ScrollView(CoolContext.context).apply {
+                                                            overScrollMode = 2
+                                                            addView(LinearLayout(CoolContext.context).apply {
+                                                                orientation = LinearLayout.VERTICAL
+                                                                setPadding(dp2px(CoolContext.context, 20f), dp2px(CoolContext.context, 10f), dp2px(CoolContext.context, 20f), dp2px(CoolContext.context, 5f))
+                                                                val message = FuckTextView.Builder {}.build()
+                                                                markwon.setMarkdown(message, "${BuildConfig.VERSION_NAME} -> ${jsonObject.getString("name")}\n\n${jsonObject.getString("body")}")
+                                                                addView(message)
+                                                            })
+                                                        })
+                                                        dialogBuilder.setPositiveButton("查看") { dialogInterface: DialogInterface, i: Int -> CoolContext.activity.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/ejiaogl/FuckCoolapk/releases"))) }
+                                                        dialogBuilder.show().getButton(Dialog.BUTTON_POSITIVE).setTextColor(Color.parseColor(getColorFixWithHashtag(::getColorAccent)))
                                                         Looper.loop()
                                                     }
                                                 } catch (e: Throwable) {
@@ -180,7 +219,7 @@ class d : IXposedHookLoadPackage {
             //去除底部多余按钮
             RemoveBottomNavigation().init()
             //去除搜索栏热词
-            RemoveHotWord().init()
+            RemoveSearchBoxHotWord().init()
             //搜索界面精简
             RemoveSearchActivityItem().init()
             //允许在应用列表内卸载酷安
@@ -194,14 +233,14 @@ class d : IXposedHookLoadPackage {
             //关闭 Bugly
             DisableBugly().init()
             //关闭更新提醒
-            DisableUpdateRemind().init()
+            DisableUpdateDialog().init()
             //开启管理员模式
             EnableAdminMode().init()
             //检测动态折叠
-            CheckFeedBlock().init()
+            CheckFeedStatus().init()
             //更改酷安模式
             ModifyAppMode().init()
-            //更改'发现'按钮点击事件为打开发布列表
+            //更改「发现」按钮点击事件为打开发布列表
             ModifyGoodsButton().init()
             //去除动态审核的水印
             RemoveAuditWatermark().init()

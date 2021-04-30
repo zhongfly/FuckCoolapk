@@ -21,12 +21,14 @@
 
 package com.fuckcoolapk.module
 
-import com.fuckcoolapk.utils.ktx.replaceMethod
+import com.fuckcoolapk.utils.OwnSP
 import com.fuckcoolapk.utils.ktx.setReturnConstant
 
-class DisableAntiXposed {
+class RemoveSearchBoxHotWord {
+
     fun init() {
-        "com.coolapk.market.util.XposedUtils".setReturnConstant("hasXposed", result = false)
-        "com.coolapk.market.util.XposedUtils".replaceMethod("disableXposed") { null }
+        if (OwnSP.ownSP.getBoolean("removeSearchBoxHotWord", false)) {
+            "com.coolapk.market.AppSetting".setReturnConstant("getSearchHint", result = listOf(""))
+        }
     }
 }

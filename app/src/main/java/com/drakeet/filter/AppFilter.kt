@@ -6,12 +6,6 @@ import androidx.annotation.RequiresApi
 import com.fuckcoolapk.BuildConfig
 import com.fuckcoolapk.utils.LogUtil
 import com.fuckcoolapk.utils.ktx.hookAfterMethod
-import de.robv.android.xposed.IXposedHookLoadPackage
-import de.robv.android.xposed.XC_MethodHook
-import de.robv.android.xposed.XposedBridge
-import de.robv.android.xposed.XposedHelpers.findAndHookMethod
-import de.robv.android.xposed.XposedHelpers.findClass
-import de.robv.android.xposed.callbacks.XC_LoadPackage.LoadPackageParam
 
 /**
  * @author Drakeet Xu

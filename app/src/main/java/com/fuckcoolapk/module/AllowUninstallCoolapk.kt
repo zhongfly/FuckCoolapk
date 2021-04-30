@@ -1,6 +1,26 @@
+/*
+ * Fuck Coolapk - Best present for 316 and 423
+ * Copyright (C) 2020-2021
+ * https://github.com/ejiaogl/FuckCoolapk
+ *
+ * This software is non-free but opensource software: you can redistribute it
+ * and/or modify it under the terms of the GNUGeneral Public License as
+ * published by the Free Software Foundation; either version 3 of the License,
+ * or any later version and our eula as published by ejiaogl.
+ *
+ * This software is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License and
+ * eula along with this software.  If not, see
+ * <https://www.gnu.org/licenses/>
+ * <https://github.com/ejiaogl/FuckCoolapk/blob/master/LICENSE>.
+ */
+
 package com.fuckcoolapk.module
 
-import android.text.TextUtils
 import android.view.View
 import com.fuckcoolapk.PACKAGE_NAME
 import com.fuckcoolapk.utils.LogUtil
@@ -13,7 +33,7 @@ class AllowUninstallCoolapk {
     fun init() {
         if (OwnSP.ownSP.getBoolean("allowUninstallCoolapk", false)) {
             var textUtilsHook: XC_MethodHook.Unhook? = null
-            "com.coolapk.market.view.appmanager.MobileAppFragment\$DataAdapter\$onCreateViewHolder\$1"
+            "com.coolapk.market.view.appmanager.MobileAppFragment\$DataAdapter\$onCreateViewHolder$1"
                     .hookBeforeMethod("onItemClick", "androidx.recyclerview.widget.RecyclerView\$ViewHolder", View::class.java) {
                         textUtilsHook = "android.text.TextUtils".hookBeforeMethod("equals", CharSequence::class.java, CharSequence::class.java) {
                             if ((it.args[0] as String) == PACKAGE_NAME) {
@@ -22,7 +42,7 @@ class AllowUninstallCoolapk {
                             }
                         }
                     }
-            "com.coolapk.market.view.appmanager.MobileAppFragment\$DataAdapter\$onCreateViewHolder\$1"
+            "com.coolapk.market.view.appmanager.MobileAppFragment\$DataAdapter\$onCreateViewHolder$1"
                     .hookAfterMethod("onItemClick", "androidx.recyclerview.widget.RecyclerView\$ViewHolder", View::class.java) {
                         textUtilsHook?.unhook()
                     }

@@ -21,12 +21,18 @@
 
 package com.fuckcoolapk.module
 
-import com.fuckcoolapk.utils.ktx.replaceMethod
-import com.fuckcoolapk.utils.ktx.setReturnConstant
+import com.fuckcoolapk.utils.OwnSP
+import com.fuckcoolapk.utils.ktx.callMethod
+import com.fuckcoolapk.utils.ktx.hookAfterMethod
 
-class DisableAntiXposed {
+class CheckFeedStatus {
     fun init() {
-        "com.coolapk.market.util.XposedUtils".setReturnConstant("hasXposed", result = false)
-        "com.coolapk.market.util.XposedUtils".replaceMethod("disableXposed") { null }
+        if (OwnSP.ownSP.getBoolean("checkFeedStatus", false)) {
+            "com.coolapk.market.model.Feed"
+                    .hookAfterMethod("getUserName") {
+                        if (it.thisObject.callMethod("getBlockStatus") as Int != 0)
+                            it.result = "${it.result as String} [已被折叠]"
+                    }
+        }
     }
 }
