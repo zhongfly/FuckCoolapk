@@ -279,7 +279,7 @@ class HookSettings {
             do {
                 positiveButton.post { positiveButton.text = "我已阅读并同意本协议 (${time}s)" }
                 Thread.sleep(1000)
-            } while (--time != 0)
+            } while (--time > 0)
             positiveButton.post {
                 positiveButton.text = "我已阅读并同意本协议"
                 positiveButton.isClickable = true
