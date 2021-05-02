@@ -2,7 +2,7 @@
 name: 问题反馈
 about: 通过此模板反馈 Fuck Coolapk 的问题。
 title: "[BUG] ______________"
-labels:
+labels: bug
 assignees: ''
 ---
 
