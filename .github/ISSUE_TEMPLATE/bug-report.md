@@ -12,9 +12,9 @@ assignees: ''
 
 **情况描述？**
 
-**对酷安生效的 Xposed 模块列表**
+**对酷安生效的 Xposed 模块列表：**
 
-**版本信息**
+**版本信息：**
 
 Android:
 
@@ -24,7 +24,7 @@ Coolapk:
 
 Devices:
 
-**相关日志**
+**相关日志：**
 
 <!--
 为了帮助我们定位问题，请在 FC 中打开「输出酷安 Debug Log」，然后通过 Xposed 管理器或 Logcat 复制相关日志（搜索胡松华或 FUCKCOOLAPK）
