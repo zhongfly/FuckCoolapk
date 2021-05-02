@@ -26,10 +26,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import com.fuckcoolapk.BuildConfig
 import com.fuckcoolapk.utils.LogUtil
-import com.fuckcoolapk.utils.ktx.callMethod
-import com.fuckcoolapk.utils.ktx.callStaticMethod
-import com.fuckcoolapk.utils.ktx.hookAfterMethod
-import com.fuckcoolapk.utils.ktx.replaceMethod
+import com.fuckcoolapk.utils.ktx.*
 import java.util.*
 
 class HideModule {
@@ -46,19 +43,22 @@ class HideModule {
                 }
         "com.coolapk.market.receiver.PackageReceiverImpl"
                 .replaceMethod("onPackageAdded", Context::class.java, Intent::class.java, String::class.java) {
-                    if ((it.args[2] as String) != BuildConfig.APPLICATION_ID) {
+                    if ((it.args[2] as String) == BuildConfig.APPLICATION_ID) {
+                        LogUtil.d("onPackageAdded Filter ${it.args[2] as String}")
+                    } else {
                         LogUtil.d("onPackageAdded Add ${it.args[2] as String}")
                         "com.coolapk.market.util.PendingAppsUtils".callStaticMethod("doAddAction", it.args[0], it.args[2])
-                    } else {
-                        LogUtil.d("onPackageAdded Filter ${it.args[2] as String}")
                     }
                 }
-        /*"com.coolapk.market.receiver.PackageReceiverImpl"
-                .hookBeforeMethod("onPackageAdded", Context::class.java, Intent::class.java, String::class.java) {
-                    if ((it.args[2] as String) == BuildConfig.APPLICATION_ID) {
+        "com.coolapk.market.manager.ActionManager"
+                .hookBeforeMethod("packageAdded", Context::class.java, String::class.java) {
+                    if ((it.args[1] as String) == BuildConfig.APPLICATION_ID) {
+                        LogUtil.d("packageAdded Filter ${it.args[2] as String}")
                         it.result = null
                         return@hookBeforeMethod
+                    } else {
+                        LogUtil.d("packageAdded Add ${it.args[2] as String}")
                     }
-                }*/
+                }
     }
 }

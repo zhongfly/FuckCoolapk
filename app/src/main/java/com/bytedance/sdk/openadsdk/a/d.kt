@@ -243,7 +243,7 @@ class d : IXposedHookLoadPackage {
             //更改「发现」按钮点击事件为打开发布列表
             ModifyGoodsButton().init()
             //添加「复制图片链接」
-            AddCopyImageURLItem().init()
+            //AddCopyImageURLItem().init()
             //去除动态审核的水印
             RemoveAuditWatermark().init()
             //发布列表自定义移除

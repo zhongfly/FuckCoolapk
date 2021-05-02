@@ -135,7 +135,10 @@ class HookSettings {
                         true
                     }
                 }.build())
-                if (BuildConfig.DEBUG) addView(FuckTextView.FastBuilder(mText = "初始化状态") { File("/data/data/$PACKAGE_NAME/shared_prefs/${SP_NAME}.xml").delete();exitProcess(0) }.build())
+                if (BuildConfig.DEBUG) {
+                    addView(FuckTextView.FastBuilder(mText = "Do Test Hook") { TestHook().init() }.build())
+                    addView(FuckTextView.FastBuilder(mText = "初始化状态") { File("/data/data/$PACKAGE_NAME/shared_prefs/${SP_NAME}.xml").delete();exitProcess(0) }.build())
+                }
                 addView(FuckTextView.FastBuilder(mText = "信息", mColor = getColorFixWithHashtag(::getColorAccent), mSize = FuckTextView.title2Size).build())
                 addView(FuckTextView.FastBuilder(mText = "背景故事", mUrl = "https://github.com/ejiaogl/FuckCoolapk/wiki/Background-information").build())
                 addView(FuckTextView.FastBuilder(mText = "Telegram", mUrl = "https://t.me/fuck_coolapk").build())
