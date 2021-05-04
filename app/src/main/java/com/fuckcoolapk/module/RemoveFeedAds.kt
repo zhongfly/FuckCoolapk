@@ -40,6 +40,7 @@ class RemoveFeedAds {
             "_AD",
             "_GOODS",
             "酷安小卖部",
+            "欢迎分享使用体验"
     )
 
     fun init() {
