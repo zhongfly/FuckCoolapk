@@ -35,6 +35,7 @@ class RemoveFeedAds {
             "酷友在搜的优惠券", // Title过滤
             "什么值得买", // Title过滤
             "优选配件", // Title过滤
+            "好物试用", "酷友分享", "的好物"
     )
     private val extraRemoveList = listOf(
             "_AD",
