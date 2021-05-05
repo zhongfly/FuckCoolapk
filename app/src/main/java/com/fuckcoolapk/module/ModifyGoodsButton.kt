@@ -22,14 +22,16 @@
 package com.fuckcoolapk.module
 
 import android.content.Intent
+import android.graphics.Color
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
+import android.widget.ImageView
 import android.widget.TextView
+import com.fuckcoolapk.PACKAGE_NAME
 import com.fuckcoolapk.utils.CoolContext
 import com.fuckcoolapk.utils.OwnSP
-import com.fuckcoolapk.utils.ktx.getObjectField
-import com.fuckcoolapk.utils.ktx.getObjectFieldAs
-import com.fuckcoolapk.utils.ktx.hookAfterMethod
+import com.fuckcoolapk.utils.ktx.*
 import de.robv.android.xposed.XposedHelpers
 
 class ModifyGoodsButton {
@@ -44,6 +46,10 @@ class ModifyGoodsButton {
                 views?.forEach { view ->
                     val textView = (view as ViewGroup).getChildAt(1) as TextView
                     if (textView.text == "发现") {
+                        (view.getChildAt(0) as ImageView).apply {
+                            setImageResource(CoolContext.context.resources.getIdentifier("ic_add_circle_outline_white_24dp", "drawable", PACKAGE_NAME))
+                            setColorFilter(Color.parseColor("#FF747474"))
+                        }
                         textView.text = "发布"
                         view.setOnClickListener {
                             CoolContext.context.startActivity(Intent(
@@ -57,6 +63,9 @@ class ModifyGoodsButton {
                         return@forEach
                     }
                 }
+            }
+            "com.coolapk.market.widget.SearchAppHeader\$initUI\$postButton\$1\$1".hookAfterConstructor(FrameLayout::class.java) {
+                (it.args[0] as FrameLayout).visibility = View.GONE
             }
         }
     }
