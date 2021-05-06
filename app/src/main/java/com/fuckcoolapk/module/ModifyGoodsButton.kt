@@ -60,6 +60,16 @@ class ModifyGoodsButton {
                                     )
                             ).apply { addFlags(Intent.FLAG_ACTIVITY_NEW_TASK) })
                         }
+                        view.setOnLongClickListener {
+                            CoolContext.context.startActivity(Intent(
+                                    CoolContext.context,
+                                    XposedHelpers.findClass(
+                                            "com.coolapk.market.view.notification.NotificationActivity",
+                                            CoolContext.classLoader
+                                    )
+                            ).apply { addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); putExtra("tab", 0) })
+                            return@setOnLongClickListener false
+                        }
                         return@forEach
                     }
                 }
