@@ -28,6 +28,7 @@ class RemoveBannerAds {
     fun init() {
         if (OwnSP.ownSP.getBoolean("removeBannerAds", false)) {
             "com.coolapk.market.model.\$\$AutoValue_Feed".setReturnConstant("getDetailSponsorCard", result = null)
+            "com.coolapk.market.model.\$\$AutoValue_Feed".setReturnConstant("getHotSponsorCard", result = null)
         }
     }
 }
