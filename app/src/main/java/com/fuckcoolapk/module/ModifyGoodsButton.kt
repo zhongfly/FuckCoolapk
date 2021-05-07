@@ -36,6 +36,13 @@ import de.robv.android.xposed.XposedHelpers
 
 class ModifyGoodsButton {
 
+    private val titleMap = mapOf(
+            "发现" to "发布",
+            "發現" to "發佈",
+            "発見" to "発表",
+            "Discovery" to "New Post"
+    )
+
     fun init() {
         if (OwnSP.ownSP.getBoolean("modifyGoodsButton", false)) {
             "com.coolapk.market.view.main.MainFragment".hookAfterMethod("setDiscoveryLongClick") {
@@ -45,31 +52,25 @@ class ModifyGoodsButton {
                 val views = bottomNavigation?.getObjectFieldAs<ArrayList<View>>("views")
                 views?.forEach { view ->
                     val textView = (view as ViewGroup).getChildAt(1) as TextView
-                    if (textView.text == "发现") {
+                    if (textView.text in titleMap.keys) {
                         (view.getChildAt(0) as ImageView).apply {
                             setImageResource(CoolContext.context.resources.getIdentifier("ic_add_circle_outline_white_24dp", "drawable", PACKAGE_NAME))
                             setColorFilter(Color.parseColor("#FF747474"))
                         }
-                        textView.text = "发布"
                         view.setOnClickListener {
                             CoolContext.context.startActivity(Intent(
                                     CoolContext.context,
-                                    XposedHelpers.findClass(
-                                            "com.coolapk.market.view.feedv8.FeedEntranceV8Activity",
-                                            CoolContext.classLoader
-                                    )
+                                    "com.coolapk.market.view.feedv8.FeedEntranceV8Activity".findClass()
                             ).apply { addFlags(Intent.FLAG_ACTIVITY_NEW_TASK) })
                         }
                         view.setOnLongClickListener {
                             CoolContext.context.startActivity(Intent(
                                     CoolContext.context,
-                                    XposedHelpers.findClass(
-                                            "com.coolapk.market.view.notification.NotificationActivity",
-                                            CoolContext.classLoader
-                                    )
+                                    "com.coolapk.market.view.notification.NotificationActivity".findClass()
                             ).apply { addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); putExtra("tab", 0) })
                             return@setOnLongClickListener false
                         }
+                        textView.text = titleMap[textView.text]
                         return@forEach
                     }
                 }
