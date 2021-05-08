@@ -28,6 +28,7 @@ class EnableChannelEdit {
     fun init() {
         if (OwnSP.ownSP.getBoolean("enableChannelEdit", false)) {
             "com.coolapk.market.view.main.channel.Channel".setReturnConstant("isFixed", result = false)
+            "com.coolapk.market.manager.MainInitHelper".setReturnConstant("updateMainInitInfo", result = null)
         }
     }
 }
