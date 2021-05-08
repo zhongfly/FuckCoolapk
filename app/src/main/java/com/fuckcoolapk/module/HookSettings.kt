@@ -109,6 +109,7 @@ class HookSettings {
                 addView(FuckSwitch.FastBuilder(mContext = settingActivity, mText = "允许在应用列表内卸载酷安", mKey = "allowUninstallCoolapk").build())
                 addView(FuckSwitch.FastBuilder(mContext = settingActivity, mText = "在应用详情页显示更多信息", mKey = "showAppDetail").build())
                 addView(FuckSwitch.FastBuilder(mContext = settingActivity, mText = "检测动态状态", mKey = "checkFeedStatus").build())
+                addView(FuckSwitch.FastBuilder(mContext = settingActivity, mText = "开启频道自由编辑", mKey = "enableChannelEdit").build())
                 addView(FuckSwitch.FastBuilder(mContext = settingActivity, mText = "对动态开启 Markdown（Alpha）", mKey = "enableMarkdown").build())
                 addView(FuckSwitch.FastBuilder(mContext = settingActivity, mText = "对私信开启反和谐", mToastText = "通过自动替换相似字来达到反和谐的效果，不能保证一定有效。\n请勿滥用，请勿用于除私信外的其他地方，否则后果自负。", mKey = "antiMessageCensorship").build())
                 addView(FuckSwitch.FastBuilder(mContext = settingActivity, mText = "加强私信反和谐效果", mToastText = "需同时开启「对私信开启反和谐」", mKey = "enhanceAntiMessageCensorship").build())
