@@ -47,11 +47,12 @@ class InsertHeadlineCard {
                                 ?.callMethod("setEntities", (entityCard.callMethod("getEntities") as ArrayList<Any?>)
                                         .apply {
                                             if (OwnSP.ownSP.getBoolean("removeFeedAds", false)) {
-                                                val listIterator = this.listIterator()
-                                                while (listIterator.hasNext()) {
-                                                    listIterator.next()?.let {
-                                                        if ((it.callMethod("getUrl") as String).contains("/apk/")) listIterator.remove()
-                                                        if ((it.callMethod("getTitle") as String).contains("好物")) listIterator.remove()
+                                                listIterator().run {
+                                                    while (hasNext()) {
+                                                        next()?.let {
+                                                            if ((it.callMethod("getUrl") as String).contains("/apk/")) remove()
+                                                            if ((it.callMethod("getTitle") as String).contains("好物")) remove()
+                                                        }
                                                     }
                                                 }
                                             }
