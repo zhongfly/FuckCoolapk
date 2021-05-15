@@ -46,7 +46,7 @@ class InsertHeadlineCard {
                                 ?.callMethod("setLastUpdate", entityCard.callMethod("getLastUpdate"))
                                 ?.callMethod("setEntities", (entityCard.callMethod("getEntities") as ArrayList<Any?>)
                                         .apply {
-                                            if (OwnSP.ownSP.getBoolean("removeFeedAds", false)) {
+                                            if (OwnSP.ownSP.getBoolean("removeFeedAds", false))
                                                 listIterator().run {
                                                     while (hasNext()) {
                                                         next()?.let {
@@ -55,7 +55,6 @@ class InsertHeadlineCard {
                                                         }
                                                     }
                                                 }
-                                            }
                                             val jsonArray = JSONArray(OwnSP.ownSP.getString("configBannerCard", "[]"))
                                             for (i in 0 until jsonArray.length()) {
                                                 val jsonObject = jsonArray.getJSONObject(i)
