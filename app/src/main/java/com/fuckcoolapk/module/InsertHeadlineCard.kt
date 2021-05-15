@@ -57,6 +57,15 @@ class InsertHeadlineCard {
                                                         ?.callMethod("setPic", jsonObject.getString("pic"))
                                                         ?.callMethod("build"))
                                             }
+                                            val removeList = mutableListOf<Any>()
+                                            for (item in this) {
+                                                if (item == null) continue
+                                                if ((item.callMethod("getUrl") as String).contains("/apk/")) removeList.add(item)
+                                                if ((item.callMethod("getTitle") as String).contains("好物")) removeList.add(item)
+                                            }
+                                            for (i in removeList) {
+                                                this.remove(i)
+                                            }
                                         }
                                 )
                                 ?.callMethod("build")
