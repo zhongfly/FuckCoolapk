@@ -203,8 +203,6 @@ class d : IXposedHookLoadPackage {
         DisableAntiXposed().init()
         //隐藏模块
         HideModule().init()
-        //AppFilter by Darkeet
-        AppFilter().init(lpparam.classLoader)
         //hook 设置
         HookSettings().init()
         if (OwnSP.ownSP.getBoolean("agreeEULA", false)) {
